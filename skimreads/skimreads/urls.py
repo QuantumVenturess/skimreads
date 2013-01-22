@@ -60,7 +60,7 @@ urlpatterns = patterns('',
     url(r'^(?P<slug>[-\w]+)/', include('users.urls')),
 )
 
-if not settings.DEBUG:
+if not settings.DEV:
     urlpatterns += patterns('',
         url(r'^static/(?P<path>.*)$', 'django.views.static.serve', { 
             'document_root': settings.STATIC_ROOT })

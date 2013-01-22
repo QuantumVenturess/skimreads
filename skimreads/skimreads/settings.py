@@ -5,9 +5,13 @@ import os, socket
 if os.environ.get('MYSITE_PRODUCTION', False):
     # production
     DEBUG = TEMPLATE_DEBUG = False
+    DEV = False
 else:
     # development
     DEBUG = TEMPLATE_DEBUG = True
+    DEV = True
+
+DEBUG = TEMPLATE_DEBUG = True
 
 # Project name
 project_name = 'skimreads'
@@ -29,13 +33,13 @@ AUTHENTICATION_BACKENDS = (
 # Amazon S3
 AWS_ACCESS_KEY_ID = 'AKIAIXM2DMH4M2PAT5TA'
 AWS_SECRET_ACCESS_KEY = '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'
-if DEBUG:
+if DEV:
     BUCKET_NAME = project_name + '_development'
 else:
     BUCKET_NAME = project_name
 
 # Database
-if DEBUG:
+if DEV:
     DATABASES = {
         'default': {
             'ENGINE':   'django.db.backends.postgresql_psycopg2',
@@ -63,7 +67,7 @@ DEFAULT_FROM_EMAIL =  '' # Default email address to use for various automated co
 SERVER_EMAIL =        '' # The email address that error messages come from
 
 # Facebook
-if DEBUG:
+if DEV:
     FACEBOOK_APP_ID = '347204595370545'
     FACEBOOK_APP_SECRET = 'a90e8d7ee81d99b4741918c3e911e5ad'
     FACEBOOK_REDIRECT_URI = 'http://localhost:8000/oauth/facebook/authenticate'
