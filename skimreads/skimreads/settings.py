@@ -3,11 +3,11 @@ import os, socket
 
 # Check environment
 if os.environ.get('MYSITE_PRODUCTION', False):
-    # development
-    DEBUG = TEMPLATE_DEBUG = True
-else:
     # production
     DEBUG = TEMPLATE_DEBUG = False
+else:
+    # development
+    DEBUG = TEMPLATE_DEBUG = True
 
 # Project name
 project_name = 'skimreads'
@@ -51,7 +51,7 @@ else:
     import dj_database_url
     DATABASES = {
         'default': {
-            dj_database_url.config(default=os.environ['DATABASE_URL'])
+            dj_database_url.config(default='postgres://localhost')
         }
     }
 
