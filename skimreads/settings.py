@@ -2,7 +2,7 @@
 import os, socket
 
 # Check environment
-if socket.gethostname() == 'Tech11-Gateway' or 'TommyDANGerous':
+if os.environ.get('MYSITE_PRODUCTION', False):
     # development
     DEBUG = TEMPLATE_DEBUG = True
 else:
@@ -35,16 +35,25 @@ else:
     BUCKET_NAME = project_name
 
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE':   'django.db.backends.postgresql_psycopg2',
-        'NAME':     'skimreads',
-        'USER':     'postgres',
-        'PASSWORD': 'postgres',
-        'HOST':     '',
-        'PORT':     '5432',
+if DEBUG:
+    DATABASES = {
+        'default': {
+            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'NAME':     'skimreads',
+            'USER':     'postgres',
+            'PASSWORD': 'postgres',
+            'HOST':     '',
+            'PORT':     '5432',
+        }
     }
-}
+else:
+    # Parse database configuration from $DATABASE_URL
+    import dj_database_url
+    DATABASES = {
+        'default': {
+            dj_database_url.config(env='DATABASE_URL')
+        }
+    }
 
 # Email
 EMAIL_HOST =          'smtp.gmail.com' # The host to use for sending email
