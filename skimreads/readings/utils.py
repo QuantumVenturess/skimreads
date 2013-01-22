@@ -34,7 +34,7 @@ def set_reading_image(reading, url):
         crop_image(file_path, name)
         # resize image to 100x100
         resize_image(file_path, 100.0, 100.0)
-    #    upload_images(file_path, name, reading)
+        upload_images(file_path, name, reading)
     #    remove_images()
     #    save_reading_image(name, reading)
     except IOError:
@@ -83,8 +83,7 @@ def upload_images(file_path, name, reading):
     bucket = s3.get_bucket(settings.BUCKET_NAME)
     key = bucket.new_key('%s%s/%s.jpg' % (
         settings.MEDIA_IMAGE_READ, reading.pk, name))
-    key.set_contents_from_filename('%s/%s%s.jpg' % (settings.MEDIA_ROOT, 
-        settings.IMAGE_READ_URL, name))
+    key.set_contents_from_filename(file_path)
     key.set_acl('public-read')
 
 def remove_images():
