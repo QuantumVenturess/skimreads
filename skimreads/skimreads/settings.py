@@ -138,7 +138,10 @@ SECRET_KEY = '_7x$^#(o6jwcp(x7$20d@#00cb8au6#70burr2olrt9npla+y4'
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Absolute path to the directory static files should be collected to.
-STATIC_ROOT = ''
+if DEV:
+    STATIC_ROOT = ''
+else:
+    STATIC_ROOT = os.path.dirname(__file__).replace('\\','/') + '/../static'
 
 # URL prefix for static files.
 STATIC_URL = '/static/'
