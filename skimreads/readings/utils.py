@@ -28,10 +28,12 @@ def set_reading_image(reading, url):
     absolute_path = '%s/%s%s.jpg' % (settings.MEDIA_ROOT, 
         settings.IMAGE_READ_URL, name)
     try:
+        # retrieve image from url
         urllib.urlretrieve(url, file_path)
+        # crop image
         crop_image(file_path, name)
-        resize_image(file_path, 100.0, 100.0)
-        upload_images(file_path, name, reading)
+    #    resize_image(file_path, 100.0, 100.0)
+    #    upload_images(file_path, name, reading)
     #    remove_images()
         save_reading_image(name, reading)
     except IOError:
