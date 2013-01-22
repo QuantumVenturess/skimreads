@@ -35,9 +35,9 @@ AUTHENTICATION_BACKENDS = (
 AWS_ACCESS_KEY_ID = 'AKIAIXM2DMH4M2PAT5TA'
 AWS_SECRET_ACCESS_KEY = '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'
 if DEV:
-    BUCKET_NAME = project_name + '_development'
+    AWS_STORAGE_BUCKET_NAME = BUCKET_NAME = project_name + '_development'
 else:
-    BUCKET_NAME = project_name
+    AWS_STORAGE_BUCKET_NAME = BUCKET_NAME = project_name
 
 # Database
 if DEV:
@@ -57,6 +57,9 @@ else:
     DATABASES = {
         'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
     }
+
+#DEFAULT_FILE_STORAGE = 'skimreads.s3utils.MediaRootS3BotoStorage'
+#STATICFILES_STORAGE  = 'skimreads.s3utils.StaticRootS3BotoStorage'
 
 # Email
 EMAIL_HOST =          'smtp.gmail.com' # The host to use for sending email
@@ -222,6 +225,7 @@ INSTALLED_APPS += (
     # Apps
     'compressor',
     'south',
+    'storages',
 )
 
 # Installed skimread apps
