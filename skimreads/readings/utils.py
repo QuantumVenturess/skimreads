@@ -80,7 +80,8 @@ def upload_images(file_path, name, reading):
     bucket = s3.get_bucket(settings.BUCKET_NAME)
     key = bucket.new_key('%s%s/%s.jpg' % (
         settings.MEDIA_IMAGE_READ, reading.pk, name))
-    key.set_contents_from_filename(file_path)
+    key.set_contents_from_filename('%s/%s%s.jpg' % (settings.MEDIA_ROOT, 
+        settings.IMAGE_READ_URL, name))
     key.set_acl('public-read')
 
 def remove_images():
