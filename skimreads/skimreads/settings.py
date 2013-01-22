@@ -75,8 +75,8 @@ if DEV:
 else:
     FACEBOOK_APP_ID = '402854619803377'
     FACEBOOK_APP_SECRET = '02bc61c10cf460908137021a98cfc749'
-    FACEBOOK_REDIRECT_URI = 'http://skimreads.herokuapp.com/oauth/facebook/authenticate'
-FACEBOOK_SCOPE = ','.join(['email', 'publish_actions', 'user_location'])
+    FACEBOOK_REDIRECT_URI = 'http://skimreads.com/oauth/facebook/authenticate'
+FACEBOOK_SCOPE = ','.join(['email', 'publish_actions'])
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
