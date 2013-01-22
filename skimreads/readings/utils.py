@@ -26,18 +26,18 @@ def set_reading_image(reading, url):
     name = '%s_orig' % reading.pk
     # ../media + / + img/reads/ + 1_orig + .jpg
     file_path = '%s%s.jpg' % (settings.MEDIA_IMAGE_READ_ROOT, name)
-    absolute_path = '%s/%s%s.jpg' % (settings.MEDIA_ROOT, 
-        settings.IMAGE_READ_URL, name)
+    absolute_path = file_path
+    try:
         # retrieve image from url
-    urllib.urlretrieve(url, file_path)
+        urllib.urlretrieve(url, file_path)
         # crop image
-    # crop_image(file_path, name)
+        crop_image(file_path, name)
     #    resize_image(file_path, 100.0, 100.0)
     #    upload_images(file_path, name, reading)
     #    remove_images()
     #    save_reading_image(name, reading)
-    #except IOError:
-    #    pass
+    except IOError:
+        pass
 
 def crop_image(file_path, name):
     # Crop
