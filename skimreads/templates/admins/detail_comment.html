@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+<script>
+$(document).ready(function() {
+    var obj = $('#adminComment_' + {{ comment.pk }});
+    if (obj.length > 0) {
+        var top = obj.offset().top;
+        $('html, body').animate({ scrollTop: top }, 0);
+    }
+})
+</script>
+{% endblock %}
+{% block content %}
+<div class="adminReading">
+    <div class="readingTitle adminReading">
+        <a href="{% url admins.views.reading comment.note.reading.slug %}">
+            {{ comment.note.reading.title }}
+        </a>
+    </div>
+    <ul class="adminNotes">
+        {% for note in comment.note.reading.notes %}
+            <li>{% include 'admins/note.html' %}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}

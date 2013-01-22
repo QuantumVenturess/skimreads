@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+    {% if user.is_anonymous %}
+        <script>
+            $(document).ready(function() {
+                moveDiscover();
+                moveSkim();
+                moveSave($('.saveWords span:first-child'), 0);
+            })
+        </script>
+    {% else %}
+        {% if discover %}
+            <script>
+                $(document).ready(function() {
+                    $('.discoverHeaderLink').addClass('onPage');
+                })
+            </script>
+        {% elif profile_user.pk == user.pk %}
+            {% if user.profile.notice_count or user.profile.unread_message_count %}
+                <script>
+                    $(document).ready(function() {
+                        $('.account').addClass('onPageRed');
+                    })
+                </script>
+            {% else %}
+                <script>
+                    $(document).ready(function() {
+                        $('.account').addClass('onPage');
+                    })
+                </script>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+{% endblock %}
+{% block content %}
+{% if user.is_anonymous %}
+    {% include 'shared/intro.html' %}
+{% endif %}
+<div class="readings">
+    {% for reading in objects %}
+        {% include 'readings/reading.html' %}
+    {% endfor %}
+    {% if user.is_anonymous %}
+        <div class="centerForm">
+            <form action="{% url users.views.new %}" method="POST">
+                <div class="facebookAuth large">
+                    <a href="{% url oauth.views.facebook %}">
+                        <img src="{{ static }}img/fb.png">
+                        <p>Sign up using Facebook</p>
+                        <div class="clear"></div>
+                    </a>
+                </div>
+                <h1 class="or">or</h1>
+                {% csrf_token %}
+                {% for field in form %}
+                    <div class="field">
+                        {{ field.errors }}
+                        {{ field }}
+                    </div>
+                {% endfor %}
+                <div class="action">
+                    <input type="submit" value="Sign up">
+                </div>
+            </form>
+        </div>
+    {% else %}
+        {% include 'pagination.html' %}
+    {% endif %}
+</div>
+{% if profile_user %}
+    {% include 'users/profile.html' %}
+{% endif %}
+{% if tag %}
+    {% include 'tags/tag_profile.html' %}
+{% endif %}
+<div class="clear"></div>
+<div class="topButton">
+    <a href="#" class="toTop" title="To the top">
+        <div></div>
+    </a>
+</div>
+{% endblock %}

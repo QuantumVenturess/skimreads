@@ -1,0 +1,27 @@
+<div id="signUpForm">
+    <form action="{% url users.views.new %}" method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <input autocomplete="off" maxlength="30" name="username" id="username" placeholder="Full name" tabindex="1" type="text">
+        </div>
+        <div class="field">
+            <input autocomplete="off" name="email" id="email" placeholder="Email" tabindex="2" type="text">
+        </div>
+        <div class="bottomSignUp">
+            <div class="action">
+                <input name="reading" type="hidden" value="{{ reading.pk }}">
+                <input tabindex="4" type="submit" value="Join">
+            </div>
+            <div class="field">
+                <input name="password" id="password" placeholder="Password" tabindex="3" type="password">
+            </div>
+        </div>
+        <div class="facebookAuth small">
+            <a href="{% url oauth.views.facebook %}">
+                <img src="{{ static }}img/fb.png">
+                <p>Join using Facebook</p>
+                <div class="clear"></div>
+            </a>
+        </div>
+    </form>
+</div>

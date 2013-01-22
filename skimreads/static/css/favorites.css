@@ -1,0 +1,23 @@
+/* Favorite form */
+.favoriteForm {
+    float: right;
+}
+
+.favoriteForm button {
+    background: transparent;
+    border: none;
+    height: 45px;
+    margin: 0;
+    padding: 10px;
+    width: 45px;
+}
+
+.favoriteForm button:hover {
+    background: rgb(80, 80, 80);
+    cursor: pointer;
+}
+
+.favoriteForm img {
+    max-height: 25px;
+    max-width: 25px;
+}

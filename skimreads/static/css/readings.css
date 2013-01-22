@@ -1,0 +1,223 @@
+/* Reading partials */
+.readings {
+    float: left;
+}
+
+.reading {
+    margin: 0 0 20px 0;
+    width: 720px;
+}
+
+.readingHeader {
+    background: rgb(60, 60, 60);
+    margin: 0 0 10px 0;
+}
+
+.readingTitle {
+    overflow: hidden;
+}
+
+.readingTitle a {
+    color: rgb(255, 255, 255);
+    font-size: 17px;
+    line-height: 25px;
+    display: block;
+    padding: 10px 10px 10px 20px;
+    width: 100%;
+    word-wrap: break-word;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-transition: all .1s linear;
+    -khtml-transition: all .1s linear;
+    -moz-transition: all .1s linear;
+    -ms-transition: all .1s linear;
+    -o-transition: all .1s linear;
+    transition: all .1s linear;
+}
+
+.readingTitle a:hover {
+    background: rgb(80, 80, 80);
+}
+
+.readingInfo {
+    color: rgb(160, 160, 160);
+    font-size: 12px;
+    margin: 0 0 10px 0;
+    padding: 0 20px;
+}
+
+.readingInfo a {
+    color: rgb(160, 160, 160);
+}
+
+.readingInfo a:hover {
+    color: rgb(120, 120, 120);
+    text-decoration: underline;
+}
+
+.readingUser {
+    float: left;
+}
+
+.discuss {
+    float: right;
+}
+
+.readingImage {
+    float: right;
+    height: 100px;
+    margin: 0 20px 0 0;
+    overflow: hidden;
+    text-align: center;
+    width: 100px;
+}
+
+.readingImage img {
+    max-width: 100px;
+}
+
+.readingBottom {
+    margin: 10px 0 0 0;
+    padding: 0 20px;
+}
+
+/* Reading new */
+.readingNew {
+    float: left;
+}
+
+.noteForms .field:nth-of-type(2), .noteForms .field:nth-of-type(3) {
+    display: none;
+}
+
+.addNote a {
+    background: rgb(63, 171, 218);
+    color: rgb(255, 255, 255);
+    display: block;
+    font-size: 28px;
+    line-height: 16px;
+    padding: 10px;
+    text-align: center;
+}
+
+.addNote a:hover {
+    background: rgb(73, 181, 228);
+    color: rgb(255, 255, 255);
+}
+
+.readingNew .action {
+    float: left;
+    margin: 0;
+}
+
+.readingNewImages {
+    float: right;
+    width: 506px;
+}
+
+.readingNewImages p {
+    font-size: 14px;
+    text-align: center;
+}
+
+.grid {
+    margin: 0 auto;
+    width: 100%;
+}
+
+.readingNewImage {
+    margin: 0 0 10px 0;
+    position: absolute;
+    text-align: center;
+    width: 160px;
+}
+
+.readingNewImage img {
+    border: 1px solid transparent;
+    max-width: 160px;
+    vertical-align: bottom;
+}
+
+.readingNewImage img.selected {
+    border: 1px solid rgb(255, 26, 0);
+}
+
+/* Reading detail */
+.readingDelete {
+    float: right;
+}
+
+.noteForms textarea {
+    height: 48px;
+}
+
+/* social media share */
+.readingShare {
+    float: right;
+}
+
+.readingShare a {
+    display: block;
+    float: left;
+    padding: 2px;
+}
+
+.readingShare div, .readingShare img {
+    height: 21px;
+    width: 21px;
+}
+
+.facebookShare {
+    background: rgb(61, 110, 163);
+}
+
+.twitterShare {
+    background: rgb(64, 153, 255);
+    margin: 0 0 0 5px;
+}
+
+/* Edit note */
+.editNotes {
+    width: 450px;
+}
+
+.editNotes:nth-child(1) {
+    float: left;
+}
+
+.editNotes:nth-child(2) {
+    float: right;
+}
+
+.editNotes h1 {
+    font-size: 15px;
+    font-weight: 300;
+    margin: 0 0 10px 0;
+}
+
+.userNote {
+    border-top: 1px solid rgb(60, 60, 60);
+    font-size: 13px;
+    margin: 0 0 10px 0;
+    padding: 5px;
+}
+
+.userNote, .userNote h2 {
+    font-size: 13px;
+}
+
+.userNote h2 {
+    float: left;
+    font-weight: 300;
+    margin: 0 0 5px 0;
+}
+
+.userNoteDate {
+    color: rgb(160, 160, 160);
+    float: right;
+}
+
+.userNoteAction {
+    margin: 5px 0 0 0;
+}

@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<a class="newMessageButton" href="#">New Message</a>
+<div class="listMessages">
+    {% for message in usermessages %}
+        {% include 'usermessages/list_message.html' %}
+    {% endfor %}
+</div>
+{% include 'usermessages/new_message_form.html' %}
+{% endblock %}

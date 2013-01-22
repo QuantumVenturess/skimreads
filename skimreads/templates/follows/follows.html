@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="userFollows">
+    {% if users %}
+        {% for profile_user in users %}
+            {% include 'users/user.html' %}
+        {% endfor %}
+    {% elif topics %}
+        {% for tag in topics %}
+            {% include 'tags/topic.html' %}
+        {% endfor %}
+    {% endif %}
+</div>
+{% include 'users/profile.html' %}
+{% endblock %}

@@ -1,0 +1,11 @@
+<a href="{% url readings.views.list_user notification.tie.user.profile.slug %}">
+    {{ notification.tie.user.username }}
+</a>
+added the
+<a href="{% url tags.views.detail notification.tie.tag.slug %}">
+    {{ notification.tie.tag.name }}
+</a>
+tag to
+<a href="{% url notifications.views.forward notification.pk %}">
+    {{ notification.tie.reading.title }}
+</a>

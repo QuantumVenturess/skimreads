@@ -1,0 +1,15 @@
+<a href="{% url readings.views.list_user notification.comment.user.profile.slug %}">
+    {{ notification.comment.user.username }}
+</a>
+{% if notification.comment.note.reading.user.pk == user.pk %}
+    made a comment on
+    <a href="{% url notifications.views.forward notification.pk %}">
+        {{ notification.comment.note.reading.title }}
+    </a>
+{% else %}
+    commented on your
+    <a href="{% url notifications.views.forward notification.pk %}">
+        note
+    </a>
+{% endif %}
+: "{{ notification.comment.content }}"

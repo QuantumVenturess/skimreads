@@ -1,0 +1,19 @@
+<div id="newMessageForm">
+    <form action="{% url usermessages.views.new %}" method="POST">
+        {% csrf_token %}
+        <input action="{% url usermessages.views.user_list %}" id="searchUserList" method="GET" type="hidden">
+        {% for field in form %}
+            <div class="field">
+                {{ field }}
+                {% if forloop.first %}
+                    <ul class="messageUserInsert"></ul>
+                    <div class="messageUserList"></div>
+                {% endif %}
+            </div>
+        {% endfor %}
+        <div class="action">
+            <a href="#">Close</a>
+            <input tabindex="3" type="submit" value="Send">
+        </div>
+    </form>
+</div>

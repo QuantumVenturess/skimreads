@@ -1,0 +1,20 @@
+<form action="{% url notes.views.new reading.slug %}" method="POST">
+    {% csrf_token %}
+    <div class="noteUserImage">
+        {% if user.is_anonymous %}
+            <img src="{{ static }}img/users/default_small.jpg">
+        {% else %}
+            <img src="{{ user.profile.small }}">
+        {% endif %}
+    </div>
+    {% for field in note_form %}
+        <div class="field{% if user.is_anonymous %} signUpPop{% endif %}">
+            {{ field.errors }}
+            {{ field }}
+        </div>
+    {% endfor %}
+    <div class="action">
+        <input {% if user.is_anonymous %}class="signUpPop"{% endif %} type="submit" value="Add Note">
+    </div>
+</form>
+<div class="clear"></div>

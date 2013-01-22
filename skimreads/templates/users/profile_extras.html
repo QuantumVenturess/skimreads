@@ -1,0 +1,35 @@
+<li>
+    <a href="{% url users.views.category profile_user.profile.slug 'comments' %}">
+        <div class="profileLabel">Comments</div>
+        <div class="count">{{ profile_user.profile.comment_reply_count }}</div>
+        <div class="clear"></div>
+    </a>
+</li>
+<li>
+    <a href="{% url users.views.category profile_user.profile.slug 'notes' %}">
+        <div class="profileLabel">Notes</div>
+        <div class="count">{{ profile_user.profile.note_count }}</div>
+        <div class="clear"></div>
+    </a>
+</li>
+<li>
+    <a href="{% url users.views.category profile_user.profile.slug 'tags' %}">
+        <div class="profileLabel">Tags</div>
+        <div class="count">{{ profile_user.profile.tie_count }}</div>
+        <div class="clear"></div>
+    </a>
+</li>
+<li>
+    <a href="{% url users.views.category profile_user.profile.slug 'votes' %}">
+        <div class="profileLabel">Votes</div>
+        <div class="count">{{ profile_user.profile.vote_count }}</div>
+        <div class="clear"></div>
+    </a>
+</li>
+<li>
+    <a href="{% url readings.views.list_user profile_user.profile.slug %}">
+        <div class="profileLabel">Reads</div>
+        <div class="count">{{ profile_user.profile.read_count }}</div>
+        <div class="clear"></div>
+    </a>
+</li>

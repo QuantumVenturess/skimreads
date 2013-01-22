@@ -1,0 +1,21 @@
+<a href="{% url readings.views.list_user notification.vote.user.profile.slug %}">
+    {{ notification.vote.user.username }}
+</a>
+{% if notification.vote.value == 1 %}
+    up voted
+{% else %}
+    down voted
+{% endif %}
+{% if notification.vote.note.user == user %}
+    your
+    <a href="{% url notifications.views.forward notification.pk %}">
+        note
+    </a>
+{% else %}
+    a note on
+    <a href="{% url notifications.views.forward notification.pk %}">
+        {{ notification.vote.note.reading.title }}
+    </a>
+{% endif %}
+</a>
+: "{{ notification.vote.note.content }}"

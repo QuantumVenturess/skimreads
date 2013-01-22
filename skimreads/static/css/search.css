@@ -1,0 +1,72 @@
+.searchForm {
+    max-width: 500px;
+    overflow: hidden;
+    padding: 7px 10px 0 20px;
+}
+
+.searchForm .field {
+    margin: 0 0 7px 0;
+}
+
+.searchForm .field input {
+    background-color: rgb(255, 255, 255);
+    background-image: url('/static/img/search.png');
+    background-repeat: no-repeat;
+    background-position: right;
+    border: none;
+    font-size: 12px;
+    height: 26px;
+    padding: 5px 27px 5px 5px;
+    vertical-align: bottom;
+    width: 100%;
+}
+
+.searchForm .field input, .searchResults {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.searchResults {
+    display: none;
+    position: absolute;
+    width: 500px;
+    z-index: 400;
+}
+
+.searchResults ul {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(200, 200, 200);
+    border-top: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.searchResults li.selected {
+    background: rgb(220, 220, 220);
+}
+
+.searchResults a {
+    display: block;
+    font-size: 12px;
+    overflow: hidden;
+    padding: 10px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.searchResults a:hover {
+    color: rgb(48, 157, 207);
+}
+
+.searchResults a span:first-child {
+    float: right;
+    padding: 0 0 0 10px;
+    text-align: right;
+    width: 50px;
+}
+
+.searchResults a span:last-child {
+    width: 100%;
+}

@@ -1,0 +1,33 @@
+<div class="reading" id="reading_{{ reading.pk }}">
+    <div class="readingHeader">
+        <div class="favoriteForm" id="favoriteForm_{{ reading.pk }}">
+            {% include 'favorites/favorite_form.html' %}
+        </div>
+        <div class="readingTitle">
+            <a href="{% url readings.views.detail reading.slug %}">
+                {{ reading.title }}
+            </a>
+        </div>
+    </div>
+    <div class="readingInfo">
+        <div class="readingUser">
+            <a href="{% url readings.views.list_user reading.user.profile.slug %}">{{ reading.user }}</a> | {{ reading.date }}
+        </div>
+        <div class="discuss">
+            {% if user.is_staff %}
+                <span title="Activity">{{ reading.activity_count }}</span> | 
+            {% endif %}
+            <a href="{% url readings.views.link reading.slug %}" target="_blank">
+                Full Read
+            </a>
+        </div>
+        <div class="clear"></div>
+    </div>
+    {% include 'readings/reading_body.html' %}
+    <div class="readingBottom">
+        <div class="tags">
+            {% include 'tags/tags.html' %}
+        </div>
+        <div class="clear"></div>
+    </div>
+</div>

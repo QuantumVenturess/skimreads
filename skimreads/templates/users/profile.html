@@ -1,0 +1,47 @@
+<div class="profile">
+    <img src="{{ profile_user.profile.med }}"%>
+    <h1>
+        <a href="{% url readings.views.list_user profile_user.profile.slug %}">
+            {{ profile_user.username }}
+        </a>
+    </h1>
+    <ul>
+        <li class="noLink">
+            <div class="profileLabel">Reputation</div>
+            <div class="count">{{ profile_user.profile.reputation }}</div>
+            <div class="clear"></div>
+        </li>
+        <li>
+            <a href="{% url users.views.category profile_user.profile.slug 'favorites' %}">
+                <div class="profileLabel">Favorites</div>
+                <div class="count favoriteCount">{{ profile_user.profile.favorite_count }}</div>
+                <div class="clear"></div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url follows.views.show_follows profile_user.profile.slug 'topics' %}">
+                <div class="profileLabel">Topics</div>
+                <div class="count topicCount">{{ profile_user.profile.topic_count }}</div>
+                <div class="clear"></div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url follows.views.show_follows profile_user.profile.slug 'followers' %}">
+                <div class="profileLabel">Followers</div>
+                <div class="count followersCount">{{ profile_user.profile.followers_count }}</div>
+                <div class="clear"></div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url follows.views.show_follows profile_user.profile.slug 'following' %}">
+                <div class="profileLabel">Following</div>
+                <div class="count followingCount">{{ profile_user.profile.following_count }}</div>
+                <div class="clear"></div>
+            </a>
+        </li>
+    </ul>
+    <div class="followForm" id="followForm_{{ profile_user.pk }}">
+        {% include 'follows/follow_form.html' %}
+    </div>
+</div>
+<div class="clear"></div>

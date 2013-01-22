@@ -1,0 +1,8 @@
+<div class="readingShare">
+    <a class="facebookShare" href="https://www.facebook.com/sharer/sharer.php?u={{ request.build_absolute_uri }}" title="Facebook">
+        <div><img src="{{ static }}img/fb.png"></div>
+    </a>
+    <a class="twitterShare" href="https://twitter.com/intent/tweet?original_referer=&text={{ reading.title|escape }}%20{{ request.build_absolute_uri }}" target="_blank" title="Twitter">
+        <div><img src="{{ static }}img/twitter.png"></div>
+    </a>
+</div>

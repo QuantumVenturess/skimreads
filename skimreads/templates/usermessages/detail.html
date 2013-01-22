@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+<script>
+$(document).ready(function() {
+    $('html, body').animate({ scrollTop: $(document).height() }, 0);
+    $('footer').css('position', 'fixed').css('bottom', '0');
+    $('header').css('position', 'fixed').css('top', '0').css('z-index', '500');
+})
+</script>
+{% endblock %}
+{% block content %}
+<div class="sentUser">
+    <div class="userMessageInfo">
+        <img src="{{ user.profile.small }}">
+        <a href="{% url readings.views.list_user user.profile.slug %}">
+            {{ user.username }}
+        </a>
+    </div>
+</div>
+<div class="receivedUser">
+    <div class="userMessageInfo">
+        <img src="{{ profile_user.profile.small }}">
+        <a href="{% url readings.views.list_user profile_user.profile.slug %}">
+            {{ profile_user.username }}
+        </a>
+    </div>
+</div>
+<div class="userMessages">
+    {% for day, messages in days %}
+        <h1>{{ day }}</h1>
+        {% for message in messages %}
+            {% include 'usermessages/message.html' %}
+        {% endfor %}
+    {% endfor %}
+</div>
+<div class="replyMessageForm">
+    {% include 'usermessages/reply_message_form.html' %}
+</div>
+{% endblock %}
