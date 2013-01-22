@@ -1,0 +1,13 @@
+<form action="{% url usermessages.views.new %}" method="POST">
+    {% csrf_token %}
+    {% for field in form %}
+        <div class="field">
+            {{ field }}
+        </div>
+    {% endfor %}
+    <div class="action">
+        <input name="reply" type="hidden" value="1">
+        <input name="to" type="hidden" value="{{ profile_user.username }}">
+        <input type="submit" value="Send">
+    </div>
+</form>

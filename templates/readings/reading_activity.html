@@ -1,0 +1,7 @@
+<div id="noteForm">
+    {% include 'notes/note_form.html' %}
+</div>
+{% include 'notes/notes.html' %}
+{% if user.is_anonymous %}
+    {% include 'users/signup_form.html' %}
+{% endif %}

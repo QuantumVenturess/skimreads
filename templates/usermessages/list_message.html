@@ -1,0 +1,18 @@
+<div class="listMessage{% if message.viewed %} viewed{% endif %}" href="{% url usermessages.views.detail message.sender.profile.slug %}">
+    <div class="listMessageUserImage">
+        <img src="{{ message.sender.profile.small }}">
+    </div>
+    <div class="listMessageBody">
+        <div class="listMessageDateTime">
+            {{ message.date_time }}
+        </div>
+        <div class="listMessageUser">
+            <a href="{% url readings.views.list_user message.sender.profile.slug %}">
+                {{ message.sender.username }}
+            </a>
+        </div>
+        <div class="listMessageContent">
+            {{ message.content }}
+        </div>
+    </div>
+</div>

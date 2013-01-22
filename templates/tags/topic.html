@@ -1,0 +1,11 @@
+<div class="user">
+    <h1>
+        <a href="{% url tags.views.detail tag.slug %}">
+            {{ tag.name.capitalize }}
+        </a>
+    </h1>
+    <div class="followForm" id="followForm_{{ tag.pk }}">
+        {% include 'follows/tagfollow_form.html' %}
+    </div>
+    <div class="clear"></div>
+</div>

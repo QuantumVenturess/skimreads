@@ -1,0 +1,9 @@
+{% if not reading.max_tags %}
+<form action="{% url tags.views.new reading.slug %}" method="POST">
+    {% csrf_token %}
+    <div class="field">
+        <input autocomplete="off" {% if user.is_anonymous %}class="signUpPop"{% endif %} name="tag_name" maxlength="15" type="text" placeholder="add tag" id="id_tag_name" data-autocomplete-source="{% url tags.views.tag_list %}">
+    </div>
+</form>
+<div class="clear"></div>
+{% endif %}

@@ -1,0 +1,9 @@
+{% if not user.is_anonymous %}
+<form action="{% url favorites.views.fave reading.slug %}" method="POST">
+    {% csrf_token %}
+    {% load common_tags %}
+    <button title="{% faved_title reading user %}" type="submit">
+        <img src="{{ static }}img/{% faved reading user %}.png">
+    </button>
+</form>
+{% endif %}

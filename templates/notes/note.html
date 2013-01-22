@@ -1,0 +1,48 @@
+<div class="note{% if note_focus == note.pk %} focus{% endif %}" id="note_{{ note.pk }}">
+    {% load common_tags %}
+    <div class="noteVote">
+        {% include 'votes/vote_form.html' %}
+    </div>
+    <div class="noteUserImage">
+        <img src="{{ note.user.profile.small }}">
+    </div>
+    <div class="noteBody">
+        <div class="noteUser">
+            <a href="{% url readings.views.list_user note.user.profile.slug %}">
+                {{ note.user.username }}
+            </a>
+        </div>
+        <div class="noteContent">{{ note.content|urlize|target_blank }}</div>
+        <div class="noteExtra">
+            <div class="noteDateTime">
+                <a href="#" id="commentToggle_{{ note.pk }}">
+                    <span id="commentCount_{{ note.pk }}">{{ note.comment_count }}</span> Comment
+                </a> -
+                {{ note.date_time }}
+                {% if note.user.pk == user.pk or user.is_staff %}
+                    -
+                {% endif %}
+            </div>
+            {% if note.user.pk == user.pk or user.is_staff %}
+                <div class="noteDelete">
+                    <form action="{% url notes.views.delete note.pk %}" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="delete" value="{{ note.pk }}">
+                        <input type="submit" value="Delete">
+                    </form>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="commentsContainer{% if comment_show == note.pk %} show{% endif %}" id="comments_{{ note.pk }}">
+        <div class="comments">
+            {% for comment in note.comment_set.all %}
+                {% include 'comments/comment.html' %}
+            {% endfor %}
+        </div>
+        <div class="commentForm" id="commentFormContainer_{{ note.pk }}">
+            {% include 'comments/comment_form.html' %}
+        </div>
+    </div>
+    <div class="clear"></div>
+</div>

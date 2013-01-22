@@ -1,0 +1,14 @@
+{% if profile_user != user %}
+    <form action="{% url follows.views.follow profile_user.profile.slug %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" name="current_pk" value="{{ current_pk }}">
+        {% if profile_user in user.profile.following %}
+            <input type="hidden" name="unfollow" value="1">
+            <input type="submit" value="Unfollow" class="unfollow followButton" id="unfollow_{{ profile_user.pk }}">
+            <input type="submit" value="Following" class="following followButton" id="following_{{ profile_user.pk }}">
+        {% else %}
+            <input type="hidden" name="follow" value="1">
+            <input type="submit" value="Follow" class="follow">
+        {% endif %}
+    </form>
+{% endif %}

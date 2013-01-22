@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block head %}
+<meta property="og:title" content="{{ reading.title }}">
+<meta property="og:image" content="{{ reading.pic }}">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+<meta property="og:site_name" content="Skimreads">
+<meta property="og:description" content="{{ reading.bullets }}">
+{% endblock %}
+{% block content %}
+<div class="reading">
+    <div class="readingHeader">
+        <div class="favoriteForm" id="favoriteForm_{{ reading.pk }}">
+            {% include 'favorites/favorite_form.html' %}
+        </div>
+        <div class="readingTitle">
+            <a href="{% url readings.views.link reading.slug %}" target="_blank">
+                {{ reading.title }}
+            </a>
+        </div>
+    </div>
+    <div class="readingInfo">
+        <div class="readingUser">
+            <a href="{% url readings.views.list_user reading.user.profile.slug %}">{{ reading.user }}</a> |
+            {{ reading.date }}
+        </div>
+        <div class="discuss">
+            {% if user.is_staff %}
+                <span title="Reads">{{ reading.views }}</span> |
+            {% endif %}
+            {% if reading.user == user or user.is_staff %}
+                <a href="{% url readings.views.edit reading.slug %}">
+                    Edit
+                </a>
+            {% endif %}
+            {% if user.is_staff %}
+                |
+            {% endif %}
+            {% if user.is_staff %}
+                <a href="{% url admins.views.reading reading.slug %}">
+                    Admin
+                </a>
+            {% endif %}
+        </div>
+        <div class="clear"></div>
+    </div>
+    {% include 'readings/reading_body.html' %}
+    <div class="readingBottom">
+        <div class="tags">
+            {% include 'tags/tags.html' %}
+        </div>
+        <div class="tagForm">
+            {% if not user_tag %}
+                {% include 'tags/tag_form.html' %}
+            {% endif %}
+        </div>
+        {% include 'readings/share.html' %}
+        <div class="clear"></div>
+    </div>
+</div>
+<div class="readingActivity">
+    {% include 'readings/reading_activity.html' %}
+</div>
+{% endblock %}

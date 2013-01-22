@@ -1,0 +1,25 @@
+<div class="profile">
+    <h1>{{ tag.name.capitalize }}</h1>
+    <ul>
+        <li>
+            <a href="{% url tags.views.detail tag.slug %}">
+                <div class="profileLabel">Reads</div>
+                <div class="count">{{ tag.read_count }}</div>
+                <div class="clear"></div>
+            </a>
+        </li>
+        <li>
+            <a href="{% url tags.views.followers tag.slug %}">
+                <div class="profileLabel">Followers</div>
+                <div class="count tagfollowersCount">{{ tag.followers_count }}</div>
+                <div class="clear"></div>
+            </a>
+        </li>
+    </ul>
+    {% if not user.is_anonymous %}
+        <div class="followForm" id="followForm_{{ tag.pk }}">
+            {% include 'follows/tagfollow_form.html' %}
+        </div>
+    {% endif %}
+    <div class="clear"></div>
+</div>

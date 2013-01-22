@@ -1,0 +1,89 @@
+.tags {
+    float: left;
+}
+
+.tags .tie:last-child {
+    margin: 0;
+}
+
+.tie {
+    float: left;
+    margin: 0 5px 0 0;
+}
+
+.tie a {
+    color: rgb(160, 160, 160);
+    display: block;
+    font-size: 12px;
+    float: left;
+    padding: 5px 5px 5px 0;
+}
+
+.tie a.focus {
+    color: rgb(255, 26, 0);
+}
+
+.tie a:hover {
+    color: rgb(120, 120, 120);
+    text-decoration: underline;
+}
+
+.tie a.focus:hover {
+    color: rgb(255, 26, 0);
+}
+
+.tie form {
+    float: right;
+}
+
+.tie input {
+    background: none;
+    border: none;
+    color: rgb(255, 26, 0);
+    font-size: 16px;
+    height: 24px;
+    margin: 0;
+    padding: 1px 0 7px 0;
+    vertical-align: top;
+}
+
+.tie input:hover {
+    color: rgb(160, 0, 0);
+    cursor: pointer;
+}
+
+/* Tag form */
+.tagForm {
+    float: left;
+}
+
+.tagForm .field, .tagForm .action {
+    float: left;
+    margin: 0;
+}
+
+.tagForm .field input {
+    background: transparent;
+    border: none;
+    color: rgb(160, 160, 160);
+    font-size: 12px;
+    padding: 5px 0 5px 5px;
+    width: 100px;
+}
+
+.tagForm .field input:focus {
+    -webkit-box-shadow: none;
+    -khtml-box-shadow: none;
+    -moz-box-shadow: none;
+    -ms-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+}
+
+.tagForm .action input {
+    background: transparent;
+    color: rgb(63, 171, 218);
+    font-size: 16px;
+    height: 24px;
+    padding: 4px 10px;
+}

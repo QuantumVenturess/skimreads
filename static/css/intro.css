@@ -1,0 +1,198 @@
+/* header */
+.introHeader h1, .introHeader h2 {
+    font-family: Quicksand, "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+.introHeader h1 {
+    font-size: 38px;
+    margin: 0 0 10px 0;
+}
+
+.introHeader h2 {
+    font-size: 24px;
+    margin: 0;
+}
+
+/* how it works */
+.intro {
+    margin: 80px 0 100px 0;
+}
+
+.intro ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.intro ul li {
+    display: inline-block;
+    float: left;
+}
+
+.intro .group {
+    width: 210px;
+}
+
+.intro ul li h1 {
+    font-size: 24px;
+    font-weight: 300;
+    margin: 0;
+    text-align: center;
+}
+
+.groupImage {
+    height: 160px;
+    margin: 20px 0;
+    text-align: center;
+    width: 100%;
+}
+
+.groupImage img {
+    max-height: 160px;
+}
+
+.groupImage p span {
+    color: rgb(40, 40, 40);
+    font-weight: bold;
+}
+
+.groupInfo {
+    font-size: 14px;
+    line-height: 21px;
+}
+
+
+/* discover, skim */
+.discover img, .skim img {
+    position: absolute;
+}
+
+.discover img, .skim img {
+    max-height: 160px;
+}
+
+.discover img {
+    margin-left: 60px;
+}
+
+.discoverWords, .skimWords {
+    color: rgb(160, 160, 160);
+    font-size: 13px;
+    overflow: hidden;
+}
+
+.discoverWords {
+    padding: 13px 0 0 0;
+}
+
+.discoverWords p, .skimWords p {
+    margin-left: -10px;
+    white-space: nowrap;
+}
+
+/* save */
+.saveWords {
+    margin-left: 50px;
+    margin-top: 90px;
+    position: absolute;
+}
+
+.saveWords span {
+    display: none;
+}
+
+/* group arrow */
+.groupArrowFirst, .groupArrowSecond {
+    padding: 0 30px;
+    position: relative;
+    top: 114px;
+}
+
+.groupArrow div div {
+    float: left;
+    position: relative;
+}
+
+/* group arrow first */
+.groupArrowFirst div:nth-child(1), .groupArrowFirst div:nth-child(2), .groupArrowSecond div:nth-child(1), .groupArrowSecond div:nth-child(2) {
+    height: 45px;
+    width: 45px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.groupArrowFirst div:first-child {
+    border-right: 3px solid rgb(60, 60, 60);
+    border-top: 3px solid rgb(60, 60, 60);
+}
+
+.groupArrowFirst div:nth-child(2) {
+    border-bottom: 3px solid rgb(60, 60, 60);
+}
+
+.groupArrowFirst div:last-child {
+    top: 29px;
+}
+
+.groupArrowFirst div:last-child, .groupArrowSecond div:last-child {
+    border-bottom: 15px solid transparent;
+    border-left: 15px solid rgb(60, 60, 60);
+    border-top: 15px solid transparent;
+    height: 0;
+    width: 0;
+}
+
+/* group arrow second */
+.groupArrowSecond div:first-child {
+    border-bottom: 3px solid rgb(60, 60, 60);
+    border-right: 3px solid rgb(60, 60, 60);
+}
+
+.groupArrowSecond div:nth-child(2) {
+    border-top: 3px solid rgb(60, 60, 60);
+}
+
+.groupArrowSecond div:last-child {
+    bottom: 13px;
+}
+
+/* start skimming */
+.startSkimming {
+    bottom: 70px;
+    float: right;
+    position: relative;
+    right: 100px;
+}
+
+.startSkimming p {
+    color: rgb(48, 157, 207);
+    float: right;
+    font-size: 24px;
+    left: 20px;
+    position: relative;
+    width: 0;
+    -webkit-transform: rotate(90deg);
+    -khtml-transform: rotate(90deg);
+    -moz-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    -o-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+
+.startSkimming .lines {
+    border-bottom: 3px solid rgb(60, 60, 60);
+    border-right: 3px solid rgb(60, 60, 60);
+    float: right;
+    height: 90px;
+    width: 70px;
+}
+
+.startSkimming .arrow {
+    border-bottom: 15px solid transparent;
+    border-right: 15px solid rgb(60, 60, 60);
+    border-top: 15px solid transparent;
+    float: right;
+    position: relative;
+    top: 76px;
+}

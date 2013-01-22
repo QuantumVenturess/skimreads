@@ -1,0 +1,16 @@
+<div class="user">
+    <div class="userImage">
+        <img src="{{ profile_user.profile.small }}">
+    </div>
+    <h1>
+        <a href="{% url readings.views.list_user profile_user.profile.slug %}">
+            {{ profile_user.username }}
+        </a>
+    </h1>
+    {% if not user.is_anonymous %}
+        <div class="followForm" id="followForm_{{ profile_user.pk }}">
+            {% include 'follows/follow_form.html' %}
+        </div>
+    {% endif %}
+    <div class="clear"></div>
+</div>

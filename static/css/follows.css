@@ -1,0 +1,39 @@
+.followForm input {
+    border: none;
+    color: rgb(255, 255, 255);
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 10px 20px;
+    width: 99px;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+.followForm input:hover {
+    cursor: pointer;
+}
+
+.follow {
+    background: rgb(73, 181, 228);
+}
+
+.follow:hover {
+    background: rgb(63, 171, 218);
+}
+
+.following {
+    background: rgb(60, 60, 60);
+}
+
+.unfollow {
+    background: rgb(255, 26, 0);
+    display: none;
+}
+
+/* User follows */
+.userFollows {
+    float: left;
+    width: 620px;
+}

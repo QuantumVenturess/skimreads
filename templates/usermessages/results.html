@@ -1,0 +1,13 @@
+{% if results %}
+<ul>
+    {% for user in results %}
+        <li class="messageUser">
+            <div class="messageUserListImage">
+                <img src="{{ user.profile.small }}">
+            </div>
+            <span>{{ user.username }}</span>
+            <a href="#">Cancel</a>
+        </li>
+    {% endfor %}
+</ul>
+{% endif %}
