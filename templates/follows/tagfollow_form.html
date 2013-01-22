@@ -1,9 +1,0 @@
-<form action="{% url follows.views.follow_tag tag.slug %}" method="POST">
-    {% csrf_token %}
-    {% if user in tag.followers %}
-        <input type="submit" value="Unfollow" class="unfollow followButton" id="unfollow_{{ tag.pk }}">
-            <input type="submit" value="Following" class="following followButton" id="following_{{ tag.pk }}">
-    {% else %}
-        <input type="submit" value="Follow" class="follow">
-    {% endif %}
-</form>

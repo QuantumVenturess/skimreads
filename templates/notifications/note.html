@@ -1,8 +1,0 @@
-<a href="{% url readings.views.list_user notification.note.user.profile.slug %}">
-    {{ notification.note.user.username }}
-</a> 
-added a note to
-<a href="{% url notifications.views.forward notification.pk %}">
-    {{ notification.note.reading.title }}
-</a>:
-"{{ notification.note.content }}"
