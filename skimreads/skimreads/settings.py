@@ -96,7 +96,7 @@ if DEV:
     MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 
         'media')).replace('\\', '/').replace('\%s' % project_name, '/%s' % project_name)
 else:
-    MEDIA_ROOT = os.path.dirname(__file__).replace('\\','/') + '/../media/'
+    MEDIA_ROOT = os.path.dirname(__file__).replace('\\','/') + '/../media'
 
 # URL that handles the media served from MEDIA_ROOT.
 MEDIA_URL = '/media/'

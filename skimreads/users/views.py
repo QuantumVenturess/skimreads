@@ -160,7 +160,7 @@ def edit(request, slug):
                     bucket = s3.get_bucket(settings.BUCKET_NAME)
                     key = bucket.new_key('/test/test.jpg')
                     key.set_contents_from_filename(
-                        settings.MEDIA_ROOT + settings.IMAGE_URL + name)
+                        settings.MEDIA_ROOT + '/' + settings.IMAGE_URL + name)
                     key.set_acl('public-read')
 
                     # Upload images to Amazon S3
