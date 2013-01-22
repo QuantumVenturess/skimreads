@@ -88,8 +88,11 @@ LOGIN_URL = '/login/'
 MANAGERS = ADMINS
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 
-    'media')).replace('\\', '/').replace('\%s' % project_name, '/%s' % project_name)
+if DEV:
+    MEDIA_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 
+        'media')).replace('\\', '/').replace('\%s' % project_name, '/%s' % project_name)
+else:
+    MEDIA_ROOT = '/app/skimreads/media/'
 
 # URL that handles the media served from MEDIA_ROOT.
 MEDIA_URL = '/media/'
