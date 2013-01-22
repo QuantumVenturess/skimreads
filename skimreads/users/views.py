@@ -20,6 +20,7 @@ from users.forms import EditUserForm, ProfileForm, SignUpForm
 from users.models import Profile
 from users.utils import *
 
+import boto
 import json
 import os
 
@@ -144,7 +145,6 @@ def edit(request, slug):
                 try:
                     f = open(file_path)
                     f.close()
-                    messages.success(request, 'file path exists')
                     name = str(user.pk) + '_orig.jpg'
                     # Get absolute path of image
                     absolute_path = absolute_image_path(profile)
@@ -154,8 +154,22 @@ def edit(request, slug):
                     resize_orig_image(user)
                     # Create medium and small images
                     create_extra_images(user)
+
+                    s3 = boto.connect_s3(settings.AWS_ACCESS_KEY_ID, 
+                        settings.AWS_SECRET_ACCESS_KEY)
+                    bucket = s3.get_bucket(settings.BUCKET_NAME)
+                    key = bucket.new_key('/test/test.jpg')
+                    key.set_contents_from_filename(
+                        settings.MEDIA_ROOT + settings.IMAGE_URL + name)
+                    key.set_acl('public-read')
+
                     # Upload images to Amazon S3
-                    s3_upload(user)
+                    #s3_upload(user)
+                    # Remove any old images
+                    #remove_images(user)
+                    # Save profile image name
+                    #profile.image = name
+                    #profile.save()
                     messages.success(request, '%s - %s' %(name, absolute_path))
                 except IOError as e:
                     messages.error(request, 'file path does not exist')
