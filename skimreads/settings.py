@@ -51,7 +51,7 @@ else:
     import dj_database_url
     DATABASES = {
         'default': {
-            dj_database_url.config(env='DATABASE_URL')
+            dj_database_url.config(default=os.environ['DATABASE_URL'])
         }
     }
 
