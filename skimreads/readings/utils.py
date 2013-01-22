@@ -32,7 +32,7 @@ def set_reading_image(reading, url):
         crop_image(file_path, name)
         resize_image(file_path, 100.0, 100.0)
         upload_images(file_path, name, reading)
-        remove_images()
+    #    remove_images()
         save_reading_image(name, reading)
     except IOError:
         pass
