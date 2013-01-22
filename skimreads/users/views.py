@@ -145,6 +145,10 @@ def edit(request, slug):
                     f = open(file_path)
                     f.close()
                     messages.success(request, 'file path exists')
+                    name = str(user.pk) + '_orig.jpg'
+                    # Get absolute path of image
+                    absolute_path = absolute_image_path(profile)
+                    messages.success(request, '%s - %s' %(name, absolute_path))
                 except IOError as e:
                     messages.error(request, 'file path does not exist')
             messages.success(request, 'User updated')
