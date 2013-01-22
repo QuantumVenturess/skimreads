@@ -32,7 +32,8 @@ def set_reading_image(reading, url):
         urllib.urlretrieve(url, file_path)
         # crop image
         crop_image(file_path, name)
-    #    resize_image(file_path, 100.0, 100.0)
+        # resize image to 100x100
+        resize_image(file_path, 100.0, 100.0)
     #    upload_images(file_path, name, reading)
     #    remove_images()
     #    save_reading_image(name, reading)
