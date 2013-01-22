@@ -288,7 +288,8 @@ def s3_upload(user):
         key = bucket.new_key('media/%s%s/%s_%s.jpg' % (settings.IMAGE_URL,
             user.pk, user.pk, size))
         key.set_contents_from_filename(
-            'media/%s%s_%s.jpg' % (settings.IMAGE_URL, user.pk, size))
+            '%s/%s%s_%s.jpg' % (settings.MEDIA_ROOT, 
+                settings.IMAGE_URL, user.pk, size))
         key.set_acl('public-read')
 
 def user_exists(slug):
