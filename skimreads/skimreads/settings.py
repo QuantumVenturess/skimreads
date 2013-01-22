@@ -70,7 +70,7 @@ if DEBUG:
 else:
     FACEBOOK_APP_ID = '402854619803377'
     FACEBOOK_APP_SECRET = '02bc61c10cf460908137021a98cfc749'
-    FACEBOOK_REDIRECT_URI = 'http://herokuapp.skimreads.com/oauth/facebook/authenticate'
+    FACEBOOK_REDIRECT_URI = 'http://skimreads.herokuapp.com/oauth/facebook/authenticate'
 FACEBOOK_SCOPE = ','.join(['email', 'publish_actions', 'user_location'])
 
 # Haystack
