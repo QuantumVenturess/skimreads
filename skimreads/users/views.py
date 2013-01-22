@@ -154,6 +154,8 @@ def edit(request, slug):
                     resize_orig_image(user)
                     # Create medium and small images
                     create_extra_images(user)
+                    # Upload images to Amazon S3
+                    s3_upload(user)
                     messages.success(request, '%s - %s' %(name, absolute_path))
                 except IOError as e:
                     messages.error(request, 'file path does not exist')
