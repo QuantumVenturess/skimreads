@@ -157,13 +157,12 @@ def edit(request, slug):
                     # Upload images to Amazon S3
                     s3_upload(user)
                     # Remove any old images
-                    #remove_images(user)
+                    remove_images(user)
                     # Save profile image name
-                    #profile.image = name
-                    #profile.save()
-                    messages.success(request, '%s - %s' %(name, absolute_path))
+                    profile.image = name
+                    profile.save()
                 except IOError as e:
-                    messages.error(request, 'file path does not exist')
+                    pass
             messages.success(request, 'User updated')
             return HttpResponseRedirect(reverse('readings.views.list_user', 
                 args=[user.profile.slug]))
