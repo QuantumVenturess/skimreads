@@ -139,7 +139,7 @@ def edit(request, slug):
                     profile.image = ''
                     s3_delete_file(user)
                 profile.save()
-            if request.FILES.get('image'):
+            if request.FILES.get('image') and request.POST.get('nothing'):
                 file_path = settings.MEDIA_ROOT + '/' + profile.image.name
                 try:
                     f = open(file_path)
