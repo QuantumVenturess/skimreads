@@ -39,7 +39,6 @@ $(document).ready(function() {
     // Submitting sign up form via ajax
     $('#signUpForm form').live('submit', function() {
         // Username
-        var nameRegex = /^[-A-Za-z]{2,} [-A-Za-z]{2,}$/
         var name = $('#username');
         var nameVal = name.val();
         if (nameVal.length == 0) {
@@ -51,20 +50,19 @@ $(document).ready(function() {
             name.focus();
             return false;
         }
-        else if (!nameVal.match(nameRegex)) {
+        else if (!nameVal.match(/^[-A-Za-z]{2,} [-A-Za-z]{2,}$/)) {
             alert('Please enter your full name')
             name.focus();
             return false;
         }
         // Email
-        var emailRegex = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i
         var email = $('#email');
         var emailVal = email.val();
         if (emailVal.length == 0) {
             email.focus();
             return false;
         }
-        else if (!emailVal.match(emailRegex)) {
+        else if (!emailVal.match(/^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$/i)) {
             alert('Please enter in a valid email');
             email.focus();
             return false;

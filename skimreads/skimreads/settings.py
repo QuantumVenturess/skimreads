@@ -73,14 +73,6 @@ else:
     FACEBOOK_REDIRECT_URI = 'http://skimreads.herokuapp.com/oauth/facebook/authenticate'
 FACEBOOK_SCOPE = ','.join(['email', 'publish_actions', 'user_location'])
 
-# Haystack
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
-    }
-}
-
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
 LANGUAGE_CODE = 'en-us'
@@ -132,6 +124,11 @@ MIDDLEWARE_CLASSES = (
 # Message
 MESSAGE_STORAGE = 'django.contrib.messages.storage.session.SessionStorage'
 
+ROOT_URLCONF = 'skimreads.urls'
+
+# Make this unique, and don't share it with anybody.
+SECRET_KEY = '_7x$^#(o6jwcp(x7$20d@#00cb8au6#70burr2olrt9npla+y4'
+
 # Session
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
@@ -152,6 +149,8 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # other finders
+    'compressor.finders.CompressorFinder',
 )
 
 SITE_ID = 1
@@ -164,6 +163,11 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.messages.context_processors.messages',
     # Pass MEDIA_URL through RequestContext
     'django.core.context_processors.media',
+)
+
+TEMPLATE_DIRS = (
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 
+        'templates')).replace('\\', '/').replace('\%s' % project_name, '/%s' % project_name),
 )
 
 # List of callables that know how to import templates from various sources.
@@ -190,18 +194,8 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = '_7x$^#(o6jwcp(x7$20d@#00cb8au6#70burr2olrt9npla+y4'
-
-ROOT_URLCONF = 'skimreads.urls'
-
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'skimreads.wsgi.application'
-
-TEMPLATE_DIRS = (
-    os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 
-        'templates')).replace('\\', '/').replace('\%s' % project_name, '/%s' % project_name),
-)
 
 # Installed apps
 INSTALLED_APPS = (
@@ -218,6 +212,7 @@ INSTALLED_APPS = (
 # Installed utility apps
 INSTALLED_APPS += (
     # Apps
+    'compressor',
     'south',
 )
 
@@ -239,6 +234,14 @@ INSTALLED_APPS += (
     'users',
     'votes',
 )
+
+# Haystack
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+    }
+}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to

@@ -1,11 +1,9 @@
 $(document).ready(function() {
     // Adding a tag
     $(document).on('submit', '.tagForm form', function() {
-        var bannedWords = /ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina/
         var form = $('.tagForm form');
-        var regex = /^[A-Za-z]+$/
         var value = $('#id_tag_name').val();
-        if (value.match(regex) && !value.match(bannedWords)) {
+        if (value.match(/^[A-Za-z]+$/) && !value.match(/ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina/)) {
             $.ajax({
                 data: form.serialize(),
                 type: form.attr('method'),
@@ -16,11 +14,11 @@ $(document).ready(function() {
                 }
             })
         }
-        else if (!value.match(regex)) {
+        else if (!value.match(/^[A-Za-z]+$/)) {
             $('#id_tag_name').focus();
             alert('Use only letters with no spaces')
         }
-        else if (value.match(bannedWords)) {
+        else if (value.match(/ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina/)) {
             $('#id_tag_name').val('');
             alert('Please use appropriate words');
         }
@@ -29,11 +27,9 @@ $(document).ready(function() {
     // pressing enter on an autocomplete option will submit the tie form
     $('.tagForm input').live('keyup', function(e) {
         if (e.keyCode == 13) {
-            var bannedWords = /ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina/
             var form = $('.tagForm form');
-            var regex = /^[A-Za-z]+$/
             var value = $('#id_tag_name').val();
-            if (value.match(regex) && !value.match(bannedWords)) {
+            if (value.match(/^[A-Za-z]+$/) && !value.match(/ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina/)) {
                 $.ajax({
                     data: form.serialize(),
                     type: form.attr('method'),
@@ -44,11 +40,11 @@ $(document).ready(function() {
                     }
                 })
             }
-            else if (!value.match(regex)) {
+            else if (!value.match(/^[A-Za-z]+$/)) {
                 $('#id_tag_name').focus();
                 alert('Use only letters with no spaces')
             }
-            else if (value.match(bannedWords)) {
+            else if (value.match(/ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina/)) {
                 $('#id_tag_name').val('');
                 alert('Please use appropriate words');
             }

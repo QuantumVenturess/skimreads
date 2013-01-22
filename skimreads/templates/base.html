@@ -13,7 +13,7 @@
     {% if is_paginated %}{% load paginator %}{% paginator 3 %}{% endif %}
     {% get_static_prefix as static %}
     <link rel="icon" type="image/ico" href="{{ static }}img/favicon.ico">
-    <link rel="stylesheet" type="text/css" href="{{ static }}css/application.css">
+    {% include 'stylesheet.html' %}
     {% include 'javascript.html' %}
     {% block head %}{% endblock %}
 </head>
