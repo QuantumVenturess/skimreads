@@ -154,8 +154,9 @@ class Profile(models.Model):
     def small(self):
         oauth = self.user.oauth_set.all()
         if self.image:
-            return '%s%s/%s_small.jpg' % (
-                settings.MEDIA_AWS, self.user.pk, self.user.pk)
+        #    return '%s%s/%s_small.jpg' % (
+        #        settings.MEDIA_AWS, self.user.pk, self.user.pk)
+            return self.image
         elif oauth:
             return 'http://graph.facebook.com/%s/picture' % (
                 oauth[0].facebook_id)

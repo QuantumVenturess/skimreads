@@ -139,6 +139,29 @@ def edit(request, slug):
                     profile.image = ''
                     s3_delete_file(user)
                 profile.save()
+            if request.FILES.get('image') and request.POST.get('nothing'):
+                file_path = settings.MEDIA_ROOT + '/' + profile.image.name
+                try:
+                    f = open(file_path)
+                    f.close()
+                    name = str(user.pk) + '_orig.jpg'
+                    # Get absolute path of image
+                    absolute_path = absolute_image_path(profile)
+                    # Rename image
+                    rename_image(name, absolute_path)
+                    # Resize original image if too large
+                    resize_orig_image(user)
+                    # Create medium and small images
+                    create_extra_images(user)
+                    # Upload images to Amazon S3
+                    s3_upload(user)
+                    # Remove any old images
+                    remove_images(user)
+                    # Save profile image name
+                    profile.image = name
+                    profile.save()
+                except IOError as e:
+                    pass
             messages.success(request, 'User updated')
             return HttpResponseRedirect(reverse('readings.views.list_user', 
                 args=[user.profile.slug]))
