@@ -8,4 +8,5 @@ def first_ten_users():
 
 def random_user():
     """Return a random user."""
-    return first_ten_users()[randint(0, 9)]
+    users = first_ten_users()
+    return users[randint(0, len(users) - 1)]
