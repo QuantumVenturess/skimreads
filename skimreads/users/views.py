@@ -150,6 +150,8 @@ def edit(request, slug):
                     absolute_path = absolute_image_path(profile)
                     # Rename image
                     rename_image(name, absolute_path)
+                    # Resize original image if too large
+                    resize_orig_image(user)
                     messages.success(request, '%s - %s' %(name, absolute_path))
                 except IOError as e:
                     messages.error(request, 'file path does not exist')
