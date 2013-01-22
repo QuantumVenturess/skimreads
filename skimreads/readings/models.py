@@ -83,8 +83,9 @@ class Reading(models.Model):
     def pic(self):
         """Return URL for reading's image."""
         if self.image:
-            return '%s%s/%s_orig.jpg' % (
-                settings.MEDIA_AWS_READ, self.pk, self.pk)
+            return self.image
+        #    return '%s%s/%s_orig.jpg' % (
+        #        settings.MEDIA_AWS_READ, self.pk, self.pk)
         else:
             return '%simg/readings/sr.png' % settings.STATIC_URL
 

@@ -34,9 +34,12 @@ def set_reading_image(reading, url):
         crop_image(file_path, name)
         # resize image to 100x100
         resize_image(file_path, 100.0, 100.0)
+        # upload to amazon s3
         upload_images(file_path, name, reading)
+        # remove files off the file system
         remove_images()
-    #    save_reading_image(name, reading)
+        # set reading.image
+        save_reading_image(name, reading)
     except IOError:
         pass
 
@@ -94,7 +97,7 @@ def remove_images():
 
 def save_reading_image(name, reading):
     # Save reading image attribute
-    reading.image = '%s%s/%s.jpg' % (settings.MEDIA_READ_AWS, 
+    reading.image = '%s%s/%s.jpg' % (settings.MEDIA_AWS_READ, 
         reading.pk, name)
     reading.save()
 

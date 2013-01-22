@@ -118,9 +118,6 @@ MEDIA_AWS = 'http://s3.amazonaws.com/%s%s' % (
 MEDIA_AWS_READ = 'http://s3.amazonaws.com/%s/%s' % (
     BUCKET_NAME, MEDIA_IMAGE_READ)
 
-MEDIA_READ_AWS = 'http://s3.amazonaws.com/%s/%s' % (
-    BUCKET_NAME, MEDIA_IMAGE_READ)
-
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
