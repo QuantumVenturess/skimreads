@@ -41,9 +41,7 @@ def set_reading_image(reading, url):
         save_reading_image(name, reading) # save reading.image
     except ValueError:
         pass
-    #except IOError:
-        # URL does not exist
-    #    pass
+    remove_images(reading)
 
 def crop_image(file_path, name):
     # Crop
@@ -96,7 +94,10 @@ def remove_images(reading):
     file_list = [f for f in os.listdir(
         settings.MEDIA_IMAGE_READ_ROOT) if f.startswith('%s_' % reading.pk)]
     for f in file_list:
-        os.remove(settings.MEDIA_IMAGE_READ_ROOT + f)
+        try:
+            os.remove(settings.MEDIA_IMAGE_READ_ROOT + f)
+        except IOError:
+            pass
 
 def save_reading_image(name, reading):
     # Save reading image attribute
