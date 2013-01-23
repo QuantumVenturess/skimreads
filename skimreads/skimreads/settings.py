@@ -165,23 +165,9 @@ STATICFILES_FINDERS = (
 )
 
 # static file server
-# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 SITE_ID = 1
-
-# S3 Storage Section
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = DEFAULT_FILE_STORAGE
-AWS_S3_SECURE_URLS = False
-AWS_PRELOAD_METADATA = True
-COMPRESS_ENABLED = True
-COMPRESS_OFFLINE = True
-COMPRESS_URL = STATIC_URL
-COMPRESS_ROOT = STATIC_ROOT
-COMPRESS_STORAGE = 'skimreads.storage.CachedS3BotoStorage'
-STATICFILES_STORAGE = 'skimreads.storage.CachedS3BotoStorage'
-AWS_LOCATION = 'static'
-AWS_QUERYSTRING_EXPIRE = 7200
 
 TEMPLATE_CONTEXT_PROCESSORS = (
     'django.contrib.auth.context_processors.auth',
