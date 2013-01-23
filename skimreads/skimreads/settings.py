@@ -55,9 +55,6 @@ else:
         'default': dj_database_url.config(default=os.environ['DATABASE_URL'])
     }
 
-#DEFAULT_FILE_STORAGE = 'skimreads.s3utils.MediaRootS3BotoStorage'
-#STATICFILES_STORAGE  = 'skimreads.s3utils.StaticRootS3BotoStorage'
-
 # Email
 EMAIL_HOST =          'smtp.gmail.com' # The host to use for sending email
 EMAIL_HOST_USER =     'quantumventuress@gmail.com' # Username to use for the SMTP server
@@ -139,12 +136,16 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Absolute path to the directory static files should be collected to.
 if DEV:
-    STATIC_ROOT = ''
+    STATIC_ROOT = COMPRESS_ROOT = ''
 else:
-    STATIC_ROOT = os.path.dirname(__file__).replace('\\','/') + '/../static'
+    STATIC_ROOT = COMPRESS_ROOT = os.path.dirname(
+        __file__).replace('\\','/') + '/../static'
 
 # URL prefix for static files.
-STATIC_URL = '/static/'
+if DEV:
+    STATIC_URL = '/static/'
+else:
+    STATIC_URL = COMPRESS_URL = AWS_STORAGE_BUCKET_NAME
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -160,6 +161,10 @@ STATICFILES_FINDERS = (
     # other finders
     'compressor.finders.CompressorFinder',
 )
+
+# static file server
+# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+STATICFILES_STORAGE = COMPRESS_STORAGE = 'skimreads.storage.CachedS3BotoStorage'
 
 SITE_ID = 1
 
