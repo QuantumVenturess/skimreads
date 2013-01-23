@@ -36,12 +36,15 @@ def set_reading_image(reading, url):
         resize_image(file_path, 100.0, 100.0)
         # upload to amazon s3
         upload_images(file_path, name, reading)
-        # remove files off the file system
-    #    remove_images()
         # set reading.image
         save_reading_image(name, reading)
     except IOError:
         # URL does not exist
+        pass
+    try:
+        # remove files off the file system
+        remove_images(reading)
+    except IOError:
         pass
 
 def crop_image(file_path, name):
@@ -90,9 +93,10 @@ def upload_images(file_path, name, reading):
     key.set_contents_from_filename(file_path)
     key.set_acl('public-read')
 
-def remove_images():
+def remove_images(reading):
     # Remove all images on the web server
-    file_list = [f for f in os.listdir(settings.MEDIA_IMAGE_READ_ROOT)]
+    file_list = [f for f in os.listdir(
+        settings.MEDIA_IMAGE_READ_ROOT) if f.startswith('%s_' % reading.pk)]
     for f in file_list:
         os.remove(settings.MEDIA_IMAGE_READ_ROOT + f)
 
