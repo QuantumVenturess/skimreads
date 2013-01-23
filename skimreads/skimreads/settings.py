@@ -31,10 +31,11 @@ AUTHENTICATION_BACKENDS = (
 # Amazon S3
 AWS_ACCESS_KEY_ID = 'AKIAIXM2DMH4M2PAT5TA'
 AWS_SECRET_ACCESS_KEY = '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'
+AWS_STORAGE_BUCKET_NAME = project_name
 if DEV:
-    AWS_STORAGE_BUCKET_NAME = BUCKET_NAME = project_name + '_development'
+    BUCKET_NAME = project_name + '_development'
 else:
-    AWS_STORAGE_BUCKET_NAME = BUCKET_NAME = project_name
+    BUCKET_NAME = project_name
 
 # Database
 if DEV:
