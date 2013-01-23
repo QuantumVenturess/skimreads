@@ -4,9 +4,8 @@ import os, socket
 # Check environment
 if os.environ.get('MYSITE_PRODUCTION', False):
     # production
-    DEBUG = TEMPLATE_DEBUG = True
+    DEBUG = TEMPLATE_DEBUG = False
     DEV = False
-    COMRESS_ENABLED = True
 else:
     # development
     DEBUG = TEMPLATE_DEBUG = True
