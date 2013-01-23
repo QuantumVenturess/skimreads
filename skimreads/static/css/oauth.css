@@ -3,6 +3,10 @@
     width: 250px;
 }
 
+.facebookAuth.userEdit {
+    float: left;
+}
+
 .facebookAuth a {
     background: rgb(71, 110, 163);
     color: rgb(255, 255, 255);

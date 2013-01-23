@@ -2,7 +2,7 @@
 {% block title %}{{ title }}{% endblock %}
 {% block content %}
 {% if not user.profile.facebook_auth %}
-    <div class="facebookAuth large">
+    <div class="facebookAuth large userEdit">
         <a href="{% url oauth.views.facebook %}">
             <img src="{{ static }}img/fb.png">
             <p>Connect with Facebook</p>
