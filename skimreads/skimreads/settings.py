@@ -6,6 +6,7 @@ if os.environ.get('MYSITE_PRODUCTION', False):
     # production
     DEBUG = TEMPLATE_DEBUG = False
     DEV = False
+    COMPRESS_ENABLED = False
 else:
     # development
     DEBUG = TEMPLATE_DEBUG = True
@@ -137,16 +138,16 @@ SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Absolute path to the directory static files should be collected to.
 if DEV:
-    STATIC_ROOT = COMPRESS_ROOT = ''
+    STATIC_ROOT = ''
 else:
-    STATIC_ROOT = COMPRESS_ROOT = os.path.dirname(
+    STATIC_ROOT = os.path.dirname(
         __file__).replace('\\','/') + '/../static'
 
 # URL prefix for static files.
 if DEV:
     STATIC_URL = '/static/'
 else:
-    STATIC_URL = COMPRESS_URL = 'https://s3.amazonaws.com/skimreads/'
+    STATIC_URL = 'https://s3.amazonaws.com/skimreads/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -164,10 +165,7 @@ STATICFILES_FINDERS = (
 )
 
 # static file server
-# STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
-STATICFILES_STORAGE = COMPRESS_STORAGE = 'skimreads.storage.CachedS3BotoStorage'
-
-COMPRESS_OFFLINE = True
+STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 SITE_ID = 1
 
