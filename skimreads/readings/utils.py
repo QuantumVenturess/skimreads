@@ -32,16 +32,13 @@ def set_reading_image(reading, url):
     #urllib.urlretrieve(url, file_path)
     try:
         u = urllib2.urlopen(url) # open url
-        try:
-            f = open(file_path, 'wb') # create file
-            f.write(u.read()) # write to file
-            f.close()
-            crop_image(file_path, name) # crop image
-            resize_image(file_path, 100.0, 100.0) # resize image to 100x100
-            upload_images(file_path, name, reading) # upload to amazon s3
-            save_reading_image(name, reading) # save reading.image
-        except IOError:
-            pass
+        f = open(file_path, 'wb') # create file
+        f.write(u.read()) # write to file
+    #    f.close()
+    #    crop_image(file_path, name) # crop image
+    #    resize_image(file_path, 100.0, 100.0) # resize image to 100x100
+    #    upload_images(file_path, name, reading) # upload to amazon s3
+    #    save_reading_image(name, reading) # save reading.image
     except ValueError:
         pass
 
