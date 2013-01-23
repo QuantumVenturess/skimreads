@@ -254,12 +254,20 @@ INSTALLED_APPS += (
 )
 
 # Haystack
+# Solr
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
-        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+        'URL': 'http://127.0.0.1:8080/solr',
     }
 }
+# Whoosh
+#HAYSTACK_CONNECTIONS = {
+#    'default': {
+#        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+#        'PATH': os.path.join(os.path.dirname(__file__), 'whoosh_index'),
+#    }
+#}
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
