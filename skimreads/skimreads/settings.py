@@ -211,7 +211,6 @@ USE_TZ = True
 WSGI_APPLICATION = 'skimreads.wsgi.application'
 
 # Django Compressor Amazon S3
-COMPRESS_ENABLED = True
 COMPRESS_URL = 'http://s3.amazonaws.com/skimreads/'
 COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
