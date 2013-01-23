@@ -260,7 +260,7 @@ if DEV:
     HAYSTACK_CONNECTIONS = {
         'default': {
             'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-            'URL': 'http://127.0.0.1:8080/solr',
+            'URL': 'http://127.0.0.1:8080/solr/',
         }
     }
 else:

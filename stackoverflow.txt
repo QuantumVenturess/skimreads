@@ -1,0 +1,65 @@
+Hello, I try not to ask for help and figure it out on my own but this is extremely tough and I cannot figure out how to fix it. I am using Python 2.7 and Django 1.4. I am using Tomcat 7.0 and Solr as my backend for Haystack v2 beta. I have Pysolr v 3 installed. The Apache Tomcat service is running just fine, I can go to 127.0.0.1:8000/solr/admin. I ran manage.py build_solr_schema and took that schema.xml file and placed it in my C:\solr\conf folder. 
+
+As the last step, I am suppose to run manage.py rebuild_index. When I type that into the command prompt and click enter, I get the usual message:
+
+    WARNING: This will irreparably remove EVERYTHING from your search index in connection 'default'.
+    Your choices after this are to restore from backups or rebuild via the `rebuild_index` command.
+    Are you sure you wish to continue? [y/N]
+
+Then when I enter 'y' and click enter again, I get the following:
+
+    Removing all documents from your index because you said so.
+    All documents removed.
+    Indexing 71 readings.
+    Traceback (most recent call last):
+    File "C:\Users\Tech11\Dropbox\skimreads\skimreads\manage.py", line 10, in <module>
+        execute_from_command_line(sys.argv)
+      File "C:\Python27\lib\site-packages\django\core\management\__init__.py", line 443, in     execute_from
+    _command_line
+        utility.execute()
+      File "C:\Python27\lib\site-packages\django\core\management\__init__.py", line 382, in execute
+    self.fetch_command(subcommand).run_from_argv(self.argv)
+      File "C:\Python27\lib\site-packages\django\core\management\base.py", line 196, in run_from_argv
+    self.execute(*args, **options.__dict__)
+      File "C:\Python27\lib\site-packages\django\core\management\base.py", line 232, in execute
+    output = self.handle(*args, **options)
+      File "c:\users\tech11\dropbox\django\skimreads\skimreads\src\django-  haystack\haystack\management\c
+    ommands\rebuild_index.py", line 15, in handle
+    call_command('update_index', **options)
+       File "C:\Python27\lib\site-packages\django\core\management\__init__.py", line 150,     in call_command
+
+    return klass.execute(*args, **defaults)
+      File "C:\Python27\lib\site-packages\django\core\management\base.py", line 232, in execute
+    output = self.handle(*args, **options)
+      File "c:\users\tech11\dropbox\django\skimreads\skimreads\src\django-haystack\haystack\management\c
+    ommands\update_index.py", line 181, in handle
+    return super(Command, self).handle(*items, **options)
+      File "C:\Python27\lib\site-packages\django\core\management\base.py", line 341, in handle
+    label_output = self.handle_label(label, **options)
+      File "c:\users\tech11\dropbox\django\skimreads\skimreads\src\django-haystack\haystack\management\c
+    ommands\update_index.py", line 240, in handle_label
+    do_update(self.backend, index, qs, start, end, total, self.verbosity)
+      File "c:\users\tech11\dropbox\django\skimreads\skimreads\src\django-haystack\haystack\management\c
+    ommands\update_index.py", line 79, in do_update
+    backend.update(index, current_qs)
+      File "c:\users\tech11\dropbox\django\skimreads\skimreads\src\django-haystack\haystack\backends\sol
+    r_backend.py", line 66, in update
+    self.conn.add(docs, commit=commit, boost=index.get_field_weights())
+    File "build\bdist.win-amd64\egg\pysolr.py", line 746, in add
+    File "C:\Python27\lib\xml\etree\ElementTree.py", line 1127, in tostring
+    ElementTree(element).write(file, encoding, method=method)
+    File "C:\Python27\lib\xml\etree\ElementTree.py", line 821, in write
+    serialize(write, self._root, encoding, qnames, namespaces)
+    File "C:\Python27\lib\xml\etree\ElementTree.py", line 940, in _serialize_xml
+    _serialize_xml(write, e, encoding, qnames, None)
+    File "C:\Python27\lib\xml\etree\ElementTree.py", line 940, in _serialize_xml
+    _serialize_xml(write, e, encoding, qnames, None)
+    File "C:\Python27\lib\xml\etree\ElementTree.py", line 933, in _serialize_xml
+    v = _escape_attrib(v, encoding)
+    File "C:\Python27\lib\xml\etree\ElementTree.py", line 1093, in _escape_attrib
+    _raise_serialization_error(text)
+    File "C:\Python27\lib\xml\etree\ElementTree.py", line 1053, in _raise_serialization_error
+    "cannot serialize %r (type %s)" % (text, type(text).__name__)
+    TypeError: cannot serialize 1.0 (type float)
+
+Please help as I have been slaving over this for some time. I have gotten this setup to work on my home computer, but my computer at work is just not playing nice. Thank you so very much in advance.
