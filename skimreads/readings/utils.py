@@ -33,7 +33,7 @@ def set_reading_image(reading, url):
         # crop image
     crop_image(file_path, name)
         # resize image to 100x100
-    #    resize_image(file_path, 100.0, 100.0)
+    resize_image(file_path, 100.0, 100.0)
         # upload to amazon s3
     #    upload_images(file_path, name, reading)
         # remove files off the file system
