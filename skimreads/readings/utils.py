@@ -27,6 +27,7 @@ def set_reading_image(reading, url):
     # ../media + / + img/reads/ + 1_orig + .jpg
     file_path = '%s%s.jpg' % (settings.MEDIA_IMAGE_READ_ROOT, name)
     absolute_path = file_path
+    urllib.urlretrieve(url, file_path)
     #try:
     # retrieve image from url
     #urllib.urlretrieve(url, file_path)
