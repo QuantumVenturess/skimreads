@@ -40,7 +40,7 @@ def set_reading_image(reading, url):
             resize_image(file_path, 100.0, 100.0) # resize image to 100x100
             upload_images(file_path, name, reading) # upload to amazon s3
             save_reading_image(name, reading) # save reading.image
-            remove_images(reading) # remove images
+        #    remove_images(reading) # remove images
         except IOError:
             pass
     except ValueError:
