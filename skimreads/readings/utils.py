@@ -29,7 +29,7 @@ def set_reading_image(reading, url):
     absolute_path = file_path
     #try:
     # retrieve image from url
-    urllib.urlretrieve(url, file_path)
+    #urllib.urlretrieve(url, file_path)
     # crop image
     #crop_image(file_path, name)
     # resize image to 100x100
