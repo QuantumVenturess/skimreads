@@ -26,14 +26,14 @@ def set_reading_image(reading, url):
     name = '%s_orig' % reading.pk
     # ../media + / + img/reads/ + 1_orig + .jpg
 #    file_path = '%s%s.jpg' % (settings.MEDIA_IMAGE_READ_ROOT, name)
-    file_path = '%s%s.jpg' % (settings.MEDIA_IMAGE_READ, name)
+    file_path = '%s.jpg' % name
     absolute_path = file_path
     #try:
     # retrieve image from url
     #urllib.urlretrieve(url, file_path)
     try:
         u = urllib2.urlopen(url) # open url
-        f = open(file_path, 'wb') # create file
+        f = open(file_path, 'wb') # open file and write binary
         f.write(u.read()) # write to file
         f.close()
         crop_image(file_path, name) # crop image
