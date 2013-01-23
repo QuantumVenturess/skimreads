@@ -27,9 +27,9 @@ def set_reading_image(reading, url):
     # ../media + / + img/reads/ + 1_orig + .jpg
     file_path = '%s%s.jpg' % (settings.MEDIA_IMAGE_READ_ROOT, name)
     absolute_path = file_path
-    try:
+    #try:
         # retrieve image from url
-        urllib.urlretrieve(url, file_path)
+    urllib.urlretrieve(url, file_path)
         # crop image
     #    crop_image(file_path, name)
         # resize image to 100x100
@@ -40,8 +40,8 @@ def set_reading_image(reading, url):
     #    remove_images()
         # set reading.image
     #    save_reading_image(name, reading)
-    except IOError:
-        pass
+    #except IOError:
+    #    pass
 
 def crop_image(file_path, name):
     # Crop
