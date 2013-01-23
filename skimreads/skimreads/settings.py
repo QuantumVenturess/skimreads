@@ -255,12 +255,21 @@ INSTALLED_APPS += (
 
 # Haystack
 # Solr
-HAYSTACK_CONNECTIONS = {
-    'default': {
-        'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
-        'URL': 'http://127.0.0.1:8080/solr',
+if DEV:
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+            'URL': 'http://127.0.0.1:8080/solr',
+        }
     }
-}
+else:
+    HAYSTACK_URL = os.environ.get('WEBSOLR_URL', '')
+    HAYSTACK_CONNECTIONS = {
+        'default': {
+            'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
+            'URL': HAYSTACK_URL,
+        }
+    }
 # Whoosh
 #HAYSTACK_CONNECTIONS = {
 #    'default': {
