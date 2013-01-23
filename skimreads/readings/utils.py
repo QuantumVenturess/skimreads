@@ -41,11 +41,6 @@ def set_reading_image(reading, url):
     except IOError:
         # URL does not exist
         pass
-    try:
-        # remove files off the file system
-        remove_images(reading)
-    except OSError:
-        pass
 
 def crop_image(file_path, name):
     # Crop
