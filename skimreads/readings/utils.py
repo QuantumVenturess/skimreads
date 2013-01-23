@@ -39,7 +39,7 @@ def set_reading_image(reading, url):
         # remove files off the file system
     remove_images()
         # set reading.image
-    save_reading_image(name, reading)
+    #save_reading_image(name, reading)
     #except IOError:
     #    pass
 
