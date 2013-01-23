@@ -36,15 +36,15 @@ def set_reading_image(reading, url):
             f = open(file_path, 'wb') # create file
             f.write(u.read()) # write to file
             f.close()
+        #    crop_image(file_path, name) # crop image
+        #    resize_image(file_path, 100.0, 100.0) # resize image to 100x100
+            remove_images(reading) # remove images
         except IOError:
             pass
-    #    crop_image(file_path, name) # crop image
-    #    resize_image(file_path, 100.0, 100.0) # resize image to 100x100
     #    upload_images(file_path, name, reading) # upload to amazon s3
     #    save_reading_image(name, reading) # save reading.image
     except ValueError:
         pass
-    # remove_images(reading)
 
 def crop_image(file_path, name):
     # Crop
