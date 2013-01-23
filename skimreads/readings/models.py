@@ -112,7 +112,7 @@ class Reading(models.Model):
     def weight(self):
         return int(self.views * self.activity_count())
 
-def save_reading_image(sender, instance, **kwargs):
+def post_save_reading_image(sender, instance, **kwargs):
     """
     Call function to retrieve image, crop, resize, and upload.
     """
@@ -122,7 +122,7 @@ def save_reading_image(sender, instance, **kwargs):
         if not re.search(pattern, url):
             set_reading_image(instance, url)
 
-post_save.connect(save_reading_image, sender=Reading)
+post_save.connect(post_save_reading_image, sender=Reading)
 
 class Note(models.Model):
     content = models.CharField(max_length=120)
