@@ -258,6 +258,9 @@ def resize_orig_image(user):
     max_height = 768.0
     max_width = 1024.0
     img = Image.open('%s%s_orig.jpg' % (settings.MEDIA_IMAGE_ROOT, user.pk))
+    # JPEG format does not support palette mode
+    if img.mode != 'RGB':
+        img = img.convert('RGB')
     width, height = img.size
     if width > max_width:
         new_height = height * (max_width/width)

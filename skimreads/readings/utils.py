@@ -65,6 +65,9 @@ def crop_image(file_path, name):
 def resize_image(file_path, max_height, max_width):
     # Resize
     img = Image.open(file_path)
+    # JPEG format does not support palette mode
+    if img.mode != 'RGB':
+        img = img.convert('RGB')
     width, height = img.size
     if width > max_width:
         img = img.resize((int(max_width), int(max_width)), 
