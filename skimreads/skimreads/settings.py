@@ -145,7 +145,7 @@ else:
 if DEV:
     STATIC_URL = '/static/'
 else:
-    STATIC_URL = COMPRESS_URL = AWS_STORAGE_BUCKET_NAME
+    STATIC_URL = COMPRESS_URL = 'https://s3.amazonaws.com/skimreads/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -165,6 +165,8 @@ STATICFILES_FINDERS = (
 # static file server
 # STATICFILES_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 STATICFILES_STORAGE = COMPRESS_STORAGE = 'skimreads.storage.CachedS3BotoStorage'
+
+COMPRESS_OFFLINE = True
 
 SITE_ID = 1
 
