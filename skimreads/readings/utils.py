@@ -91,18 +91,19 @@ def upload_images(file_path, name, reading):
     key.set_contents_from_filename(file_path)
     key.set_acl('public-read')
 
-def remove_all_images():
-    """Remove all reading images on the file server."""
-    file_list = [f for f in os.listdir(settings.MEDIA_IMAGE_READ_ROOT)]
-    for f in file_list:
-        try:
-            os.remove(settings.MEDIA_IMAGE_READ_ROOT + f)
-        except IOError:
-
 def remove_images(reading):
     """Remove all images for a specific reading."""
     file_list = [f for f in os.listdir(
         settings.MEDIA_IMAGE_READ_ROOT) if f.startswith('%s_' % reading.pk)]
+    for f in file_list:
+        try:
+            os.remove(settings.MEDIA_IMAGE_READ_ROOT + f)
+        except IOError:
+            pass
+
+def remove_all_images():
+    """Remove all reading images."""
+    file_list = [f for f in os.listdir(settings.MEDIA_IMAGE_READ_ROOT)]
     for f in file_list:
         try:
             os.remove(settings.MEDIA_IMAGE_READ_ROOT + f)
