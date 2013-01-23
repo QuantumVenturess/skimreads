@@ -3,7 +3,7 @@
     {% csrf_token %}
     {% load common_tags %}
     <button title="{% faved_title reading user %}" type="submit">
-        <img src="{{ static }}img/{% faved reading user %}.png">
+        <div class="{% faved reading user %}"></div>
     </button>
 </form>
 {% endif %}

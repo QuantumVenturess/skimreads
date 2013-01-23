@@ -13,11 +13,21 @@
 }
 
 .favoriteForm button:hover {
-    background: rgb(80, 80, 80);
+    background-color: rgb(80, 80, 80);
     cursor: pointer;
 }
 
-.favoriteForm img {
-    max-height: 25px;
-    max-width: 25px;
+.favoriteForm button div {
+    background-size: 52px 25px;
+    background-repeat: no-repeat;
+    height: 25px;
+    width: 25px;
+}
+
+.favoriteForm button .fave {
+    background-position: 0 0;
+}
+
+.favoriteForm button .faved {
+    background-position: -26px 0;
 }
