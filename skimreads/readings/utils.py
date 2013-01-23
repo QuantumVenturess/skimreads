@@ -44,7 +44,7 @@ def set_reading_image(reading, url):
     try:
         # remove files off the file system
         remove_images(reading)
-    except IOError:
+    except OSError:
         pass
 
 def crop_image(file_path, name):
