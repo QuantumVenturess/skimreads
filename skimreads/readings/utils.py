@@ -37,12 +37,10 @@ def set_reading_image(reading, url):
         f.close()
         crop_image(file_path, name) # crop image
         resize_image(file_path, 100.0, 100.0) # resize image to 100x100
+        upload_images(file_path, name, reading) # upload to amazon s3
+        save_reading_image(name, reading) # save reading.image
     except ValueError:
         pass
-    # upload to amazon s3
-    #upload_images(file_path, name, reading)
-    # set reading.image
-    save_reading_image(name, reading)
     #except IOError:
         # URL does not exist
     #    pass
