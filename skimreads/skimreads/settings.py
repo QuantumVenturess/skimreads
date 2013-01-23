@@ -6,7 +6,6 @@ if os.environ.get('MYSITE_PRODUCTION', False):
     # production
     DEBUG = TEMPLATE_DEBUG = False
     DEV = False
-    COMPRESS_ENABLED = False
 else:
     # development
     DEBUG = TEMPLATE_DEBUG = True
@@ -147,7 +146,7 @@ else:
 if DEV:
     STATIC_URL = '/static/'
 else:
-    STATIC_URL = 'https://s3.amazonaws.com/skimreads/'
+    STATIC_URL = 'http://s3.amazonaws.com/skimreads/'
 
 # Additional locations of static files
 STATICFILES_DIRS = (
@@ -210,6 +209,11 @@ USE_TZ = True
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'skimreads.wsgi.application'
+
+# Django Compressor Amazon S3
+COMPRESS_ENABLED = True
+COMPRESS_URL = 'http://s3.amazonaws.com/skimreads/'
+COMPRESS_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
 
 # Installed apps
 INSTALLED_APPS = (
