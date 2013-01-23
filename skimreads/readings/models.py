@@ -5,7 +5,7 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
 from django.template.defaultfilters import slugify
-from readings.utils import set_reading_image
+from readings.utils import set_reading_image, remove_images
 
 import re
 
@@ -121,6 +121,10 @@ def post_save_reading_image(sender, instance, **kwargs):
         pattern = re.compile(r'%s_orig\.jpg$' % instance.pk)
         if not re.search(pattern, url):
             set_reading_image(instance, url)
+    try:
+        remove_images(instance)
+    except OSError:
+        pass
 
 post_save.connect(post_save_reading_image, sender=Reading)
 

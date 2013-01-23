@@ -27,20 +27,20 @@ def set_reading_image(reading, url):
     # ../media + / + img/reads/ + 1_orig + .jpg
     file_path = '%s%s.jpg' % (settings.MEDIA_IMAGE_READ_ROOT, name)
     absolute_path = file_path
-    try:
-        # retrieve image from url
-        urllib.urlretrieve(url, file_path)
-        # crop image
-        crop_image(file_path, name)
-        # resize image to 100x100
-        resize_image(file_path, 100.0, 100.0)
-        # upload to amazon s3
-        upload_images(file_path, name, reading)
-        # set reading.image
-        save_reading_image(name, reading)
-    except IOError:
+    #try:
+    # retrieve image from url
+    urllib.urlretrieve(url, file_path)
+    # crop image
+    crop_image(file_path, name)
+    # resize image to 100x100
+    resize_image(file_path, 100.0, 100.0)
+    # upload to amazon s3
+    upload_images(file_path, name, reading)
+    # set reading.image
+    save_reading_image(name, reading)
+    #except IOError:
         # URL does not exist
-        pass
+    #    pass
 
 def crop_image(file_path, name):
     # Crop
