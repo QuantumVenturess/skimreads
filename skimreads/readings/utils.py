@@ -40,7 +40,6 @@ def set_reading_image(reading, url):
             resize_image(file_path, 100.0, 100.0) # resize image to 100x100
             upload_images(file_path, name, reading) # upload to amazon s3
             save_reading_image(name, reading) # save reading.image
-        #    remove_images(reading) # remove images
         except IOError:
             pass
     except ValueError:
@@ -92,8 +91,16 @@ def upload_images(file_path, name, reading):
     key.set_contents_from_filename(file_path)
     key.set_acl('public-read')
 
+def remove_all_images():
+    """Remove all reading images on the file server."""
+    file_list = [f for f in os.listdir(settings.MEDIA_IMAGE_READ_ROOT)]
+    for f in file_list:
+        try:
+            os.remove(settings.MEDIA_IMAGE_READ_ROOT + f)
+        except IOError:
+
 def remove_images(reading):
-    # Remove all images on the web server
+    """Remove all images for a specific reading."""
     file_list = [f for f in os.listdir(
         settings.MEDIA_IMAGE_READ_ROOT) if f.startswith('%s_' % reading.pk)]
     for f in file_list:
