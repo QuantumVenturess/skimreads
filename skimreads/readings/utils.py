@@ -41,7 +41,7 @@ def set_reading_image(reading, url):
         save_reading_image(name, reading) # save reading.image
     except ValueError:
         pass
-    remove_images(reading)
+    # remove_images(reading)
 
 def crop_image(file_path, name):
     # Crop
