@@ -1,5 +1,6 @@
 <nav id="loginMenu">
     <div class="loginMenu">
+        {% if user and user.is_staff %}
         <form action="{% url sessions.views.new %}" method="POST">
             {% csrf_token %}
             <div class="field">
@@ -14,13 +15,14 @@
                     <input type="password" name="password" placeholder="Password" tabindex="2" id="loginPassword">
                 </div>
             </div>
-            <div class="facebookAuth small">
-                <a href="{% url oauth.views.facebook %}">
-                    <img src="{{ static }}img/fb.png">
-                    <p>Login using Facebook</p>
-                    <div class="clear"></div>
-                </a>
-            </div>
         </form>
+        {% endif %}
+        <div class="facebookAuth small">
+            <a href="{% url oauth.views.facebook %}">
+                <img src="{{ static }}img/fb.png">
+                <p>Login using Facebook</p>
+                <div class="clear"></div>
+            </a>
+        </div>
     </div>
 </nav>

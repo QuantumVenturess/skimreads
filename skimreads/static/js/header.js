@@ -19,12 +19,16 @@ $(document).ready(function() {
         return false;
     })
     $(document).live('mouseover', function() {
+        /*
         var email = $('#loginEmail');
         var password = $('#loginPassword');
         if (email.val() == '' && password.val() == '') {
             login.removeClass('menuShow');
             loginMenu.hide();
         }
+        */
+        login.removeClass('menuShow');
+        loginMenu.hide();
     })
     $('#loginMenu form').live('submit', function() {
         var email = $('#loginEmail');

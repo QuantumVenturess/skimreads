@@ -1,4 +1,5 @@
 <div id="signUpForm">
+    {% if user and user.is_staff %}
     <form action="{% url users.views.new %}" method="POST">
         {% csrf_token %}
         <div class="field">
@@ -16,12 +17,13 @@
                 <input name="password" id="password" placeholder="Password" tabindex="3" type="password">
             </div>
         </div>
-        <div class="facebookAuth small">
-            <a href="{% url oauth.views.facebook %}">
-                <img src="{{ static }}img/fb.png">
-                <p>Join using Facebook</p>
-                <div class="clear"></div>
-            </a>
-        </div>
     </form>
+    {% endif %}
+    <div class="facebookAuth small">
+        <a href="{% url oauth.views.facebook %}">
+            <img src="{{ static }}img/fb.png">
+            <p>Join using Facebook</p>
+            <div class="clear"></div>
+        </a>
+    </div>
 </div>

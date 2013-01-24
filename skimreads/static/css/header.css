@@ -129,6 +129,7 @@ header nav .menuShow {
 .loginMenu {
     right: 0;
     top: 40px;
+    width: 200px;
 }
 
 #loginMenu .field {

@@ -18,6 +18,7 @@ class Profile(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     image = models.ImageField(blank=True, null=True, 
         upload_to=settings.IMAGE_URL)
+    post_facebook = models.BooleanField(default=True)
     reputation = models.IntegerField(default=0)
     user = models.ForeignKey(User, unique=True)
     slug = models.SlugField(blank=True, null=True, unique=True)

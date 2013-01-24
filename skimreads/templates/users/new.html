@@ -9,14 +9,15 @@ $(document).ready(function() {
 {% endblock %}
 {% block content %}
 <div class="centerForm">
+    <div class="facebookAuth large">
+        <a href="{% url oauth.views.facebook %}">
+            <img src="{{ static }}img/fb.png">
+            <p>Sign up using Facebook</p>
+            <div class="clear"></div>
+        </a>
+    </div>
+    {% if user and user.is_staff %}
     <form action="" method="POST" enctype="multipart/form-data">
-        <div class="facebookAuth large">
-            <a href="{% url oauth.views.facebook %}">
-                <img src="{{ static }}img/fb.png">
-                <p>Sign up using Facebook</p>
-                <div class="clear"></div>
-            </a>
-        </div>
         <h1 class="or">or</h1>
         {% csrf_token %}
         {% for field in form %}
@@ -29,5 +30,6 @@ $(document).ready(function() {
             <input type="submit" value="Sign up">
         </div>
     </form>
+    {% endif %}
 </div>
 {% endblock %}
