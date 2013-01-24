@@ -88,8 +88,11 @@ function readingLinkDoneTyping() {
             success: function(results) {
                 // Insert scarped images into page
                 images.html(results.imgs);
-                // Add title to text input
-                $('#id_title').val(results.html_title)
+                // Add title to text input if title is blank
+                var title = $('#id_title');
+                if (title.val() == '') {
+                    title.val(results.html_title);
+                }
                 // Masonry for images
                 $('.grid img').imagesLoaded(function() {
                     $('.grid').masonry({

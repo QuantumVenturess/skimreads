@@ -108,7 +108,7 @@ def list_user(request, slug):
 @login_required(login_url='/login/')
 def new(request):
     """Add new reading."""
-    NoteFormset = formset_factory(NoteForm, extra=3, formset=RequiredFormSet)
+    NoteFormset = formset_factory(NoteForm, extra=3)
     if request.method == 'POST':
         link = request.POST.get('link')
         form = ReadingForm(request.POST)

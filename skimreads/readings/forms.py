@@ -28,7 +28,8 @@ class EditReadingForm(ModelForm):
             'readonly': 'readonly' }))
     image = forms.CharField(label='Image URL', required=False,
         widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
-            'placeholder': 'e.g. http://skimreads.com/smiley_face.jpg' }))
+            'placeholder': 'Click on an image to attach it with this reading' }))
+    
     class Meta:
         model = Reading
         fields = ('link', 'title', 'image')
