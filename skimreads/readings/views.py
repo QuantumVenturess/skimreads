@@ -275,16 +275,14 @@ def edit(request, slug):
         return HttpResponseRedirect(reverse('readings.views.list_user', 
             args=[request.user.profile.slug]))
     if request.method == 'POST':
-        form = EditReadingForm(request.POST, instance=reading)
-        if form.is_valid():
-            reading = form.save()
-            messages.success(request, 'Reading updated')
-            return HttpResponseRedirect(reverse('readings.views.detail', 
-                args=[reading.slug]))
-    else:
-        form = EditReadingForm(instance=reading)
+        # only save the image
+        reading.image = request.POST.get('image')
+        reading.save()
+        messages.success(request, 'Reading updated')
+        return HttpResponseRedirect(reverse('readings.views.detail', 
+            args=[reading.slug]))
     d = {
-            'form': form,
+            'form': EditReadingForm(instance=reading),
             'reading': reading,
             'title': 'Edit Reading',
     }

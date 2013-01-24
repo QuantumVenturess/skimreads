@@ -36,8 +36,7 @@ class EditReadingForm(ModelForm):
 
 class NoteForm(ModelForm):
     content = forms.CharField(label='Content', 
-        widget=forms.Textarea(attrs={ 'maxlength': 120, 
-            'placeholder': 'Add your note here' }))
+        widget=forms.Textarea(attrs={ 'placeholder': 'Add your note here' }))
 
     class Meta:
         model = Note

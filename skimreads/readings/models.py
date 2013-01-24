@@ -125,7 +125,7 @@ def post_save_reading_image(sender, instance, **kwargs):
 post_save.connect(post_save_reading_image, sender=Reading)
 
 class Note(models.Model):
-    content = models.CharField(max_length=120)
+    content = models.TextField()
     created = models.DateTimeField(auto_now_add=True)
     reading = models.ForeignKey(Reading)
     user = models.ForeignKey(User)
