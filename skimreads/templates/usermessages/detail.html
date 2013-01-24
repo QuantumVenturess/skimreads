@@ -12,7 +12,7 @@ $(document).ready(function() {
 {% block content %}
 <div class="sentUser">
     <div class="userMessageInfo">
-        <img src="{{ user.profile.small }}">
+        <img src="{{ user.profile.med }}">
         <a href="{% url readings.views.list_user user.profile.slug %}">
             {{ user.username }}
         </a>
@@ -20,7 +20,7 @@ $(document).ready(function() {
 </div>
 <div class="receivedUser">
     <div class="userMessageInfo">
-        <img src="{{ profile_user.profile.small }}">
+        <img src="{{ profile_user.profile.med }}">
         <a href="{% url readings.views.list_user profile_user.profile.slug %}">
             {{ profile_user.username }}
         </a>
