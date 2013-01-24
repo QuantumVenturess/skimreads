@@ -15,3 +15,4 @@ pysolr==2.1.0-beta
 pytz==2012j
 south==0.7.6
 virtualenv==1.8.4
+newrelic

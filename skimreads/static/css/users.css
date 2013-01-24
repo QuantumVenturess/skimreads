@@ -47,10 +47,17 @@
     vertical-align: bottom;
 }
 
-.profile h1 {
+.profile h1, .profile h2 {
     font-size: 14px;
     font-weight: 300;
+}
+
+.profile h1 {
     margin: 0;
+}
+
+.profile h2 {
+    margin: 0 0 10px 0;
 }
 
 .profile h1 a {
