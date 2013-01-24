@@ -38,6 +38,10 @@ if DEV:
 else:
     BUCKET_NAME = project_name
 
+AWS_HEADERS = {
+    'Expires': 'Sun, 19 Jul 2020 18:06:32 GMT'
+}
+
 # Database
 if DEV:
     DATABASES = {
