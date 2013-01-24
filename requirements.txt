@@ -16,3 +16,5 @@ pytz==2012j
 south==0.7.6
 virtualenv==1.8.4
 newrelic
+pylibmc==1.2.2
+django-pylibmc-sasl==0.2.4
