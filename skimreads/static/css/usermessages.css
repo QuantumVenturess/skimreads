@@ -198,6 +198,11 @@
     width: 100px;
 }
 
+.userMessageInfo img {
+    max-height: 100px;
+    max-width: 100px;
+}
+
 .userMessageInfo a {
     color: rgb(40, 40, 40);
     font-size: 13px;
