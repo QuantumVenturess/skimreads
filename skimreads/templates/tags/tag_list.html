@@ -1,0 +1,11 @@
+{% if tags %}
+    <ul>
+        {% for tag in tags %}
+            <li>
+                <a href="#" id="tagList_{{ tag.pk }}">
+                    {{ tag.name }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}

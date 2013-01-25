@@ -1,3 +1,4 @@
+/*
 $(document).ready(function() {
     $('#id_tag_name').autocomplete({
         source: $('#id_tag_name').data('autocomplete-source')
@@ -8,3 +9,4 @@ $(document).ready(function() {
         })
     })
 })
+*/

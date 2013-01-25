@@ -107,7 +107,7 @@ $(document).ready(function() {
     })
     // Keyboard navigation for search results
     $(document).live('keydown', function(e) {
-        if ($('.messageUserList').is(':visible') && !$('.searchResults').is(':visible')) {
+        if ($('.messageUserList').is(':visible') && !$('.searchResults').is(':visible') && $('.tagListInsert').is(':visible')) {
             // If arrow down is pressed
             if (e.keyCode == 40) {
                 if (chosen === '') {

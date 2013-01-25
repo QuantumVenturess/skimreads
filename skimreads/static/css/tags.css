@@ -87,3 +87,31 @@
     height: 24px;
     padding: 4px 10px;
 }
+
+/* tag list */
+.tagListInsert {
+    position: absolute;
+    width: 110px;
+    -webkit-box-sizing: border-radius;
+    -moz-box-sizing: border-radius;
+    box-sizing: border-radius;
+}
+
+.tagListInsert ul {
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(200, 200, 200);
+    border-top: none;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tagListInsert li.selected {
+    background: rgb(220, 220, 220);
+}
+
+.tagListInsert a {
+    display: block;
+    font-size: 12px;
+    padding: 4px;
+}

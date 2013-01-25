@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
-from django.template import loader, RequestContext, Template
+from django.template import Context, loader, RequestContext, Template
 from django.template.defaultfilters import slugify
 from notifications.utils import notify
 from readings.models import Reading
@@ -20,9 +20,17 @@ import re
 def tag_list(request):
     """Return tags in a json list."""
     name = request.GET.get('term', '')
-    tags = Tag.objects.filter(name__icontains=name).values('name')
-    tags = sorted([t['name'] for t in tags])
-    return HttpResponse(json.dumps(tags), mimetype='application/json')
+    if name:
+#        tags = Tag.objects.filter(name__icontains=name).values('name')[0:5]
+#        tags = sorted([t['name'] for t in tags])
+        tags = Tag.objects.filter(name__icontains=name).order_by('name')[0:5]
+    else:
+        tags = []
+    t = loader.get_template('tags/tag_list.html')
+    context = RequestContext(request, { 'tags': tags })
+    data = { 'tag_list': t.render(context) }
+    return HttpResponse(json.dumps(data), mimetype='application/json')
+#    return HttpResponse(json.dumps(tags), mimetype='application/json')
 
 def detail(request, slug):
     """Show all readings for a single tag."""

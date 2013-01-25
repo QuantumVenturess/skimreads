@@ -41,6 +41,11 @@
 }
 
 /* message user list*/
+.messageUserInsert {
+    margin: 0;
+    padding: 0;
+}
+
 .messageUserList {
     display: none;
     position: absolute;
