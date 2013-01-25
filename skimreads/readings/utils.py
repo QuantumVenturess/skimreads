@@ -50,6 +50,9 @@ def set_reading_image(reading, url):
 def crop_image(file_path, name):
     # Crop
     img = Image.open(file_path)
+    # JPEG format does not support palette mode
+    if img.mode != 'RGB':
+        img = img.convert('RGB')
     width, height = img.size
     if width > height:
         left = int((width - height)/2.0)
