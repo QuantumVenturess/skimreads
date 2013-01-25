@@ -10,6 +10,8 @@ urlpatterns = patterns('readings.views',
     # Detail show comment, note, or reply
     url(r'^(?P<slug>[-\w]+)/(?P<show>[\w]+)/(?P<pk>\d+)/$', 
         'detail_show'),
+    # Permalink
+    url(r'^(?P<slug>[-\w]+)/permalink/$', 'permalink'),
     # Reading link redirect
     url(r'^(?P<slug>[-\w]+)/link/$', 'link'),
     # Reading edit

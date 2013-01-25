@@ -92,6 +92,7 @@ $(document).ready(function() {
                 $('.tags').html(results.ties)
             }
         })
+        return false;
     })
     // when hovering over an autocomplete option, add selected class
     $(document).on('mouseover', '.tagListInsert li', function() {

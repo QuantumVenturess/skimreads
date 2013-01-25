@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html lang="en">
+<head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# skimreads: http://ogp.me/ns/fb/skimreads#">
+    <meta property="fb:app_id"      content="402854619803377" />
+    <meta property="og:description" content="{{ reading.bullets }}" />
+    <meta property="og:image"       content="{{ reading.pic }}" /> 
+    <meta property="og:site_name"   content="Skimreads" />
+    <meta property="og:title"       content="{{ reading.title }}" />
+    <meta property="og:type"        content="skimreads:reading" />
+    <meta property="og:url"         content="{{ request.build_absolute_uri }}" /> 
+    <script>
+        window.location.href = '{% url readings.views.detail reading.slug %}'
+    </script>
+</head>
+<body></body>
+</html>

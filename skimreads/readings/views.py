@@ -263,6 +263,15 @@ def detail_show(request, slug, show, pk):
     return render_to_response('readings/detail.html', add_csrf(request, d), 
         context_instance=RequestContext(request))
 
+def permalink(request, slug):
+    """Permanent link."""
+    reading = get_object_or_404(Reading, slug=slug)
+    d = {
+        'reading': reading,
+    }
+    return render_to_response('readings/permalink.html', d, 
+        context_instance=RequestContext(request))
+
 def link(request, slug):
     """After clicking reading link, increment view and redirect to link."""
     reading = get_object_or_404(Reading, slug=slug)
