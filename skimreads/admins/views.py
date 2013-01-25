@@ -10,6 +10,7 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from notifications.utils import notify
+from oauth.facebook import facebook_graph_add_note, facebook_graph_add_reading
 from random import randint
 from readings.forms import (AdminNoteForm, AdminReadingForm, NoteForm, 
     RequiredFormSet)
@@ -35,6 +36,9 @@ def new_reading(request):
         if form.is_valid() and formset.is_valid():
             # save reading
             reading = form.save()
+            # facebook open graph add reading
+            if reading.user.pk == request.user.pk:
+                facebook_graph_add_reading(request.user, reading)
             # add rep
             add_rep(request, rd=reading)
             first = True
@@ -116,6 +120,9 @@ def reading(request, slug):
             note = form.save(commit=False)
             note.reading = reading
             note.save()
+            # facebook open graph add note
+            if note.user.pk == request.user.pk:
+                facebook_graph_add_note(request.user, reading)
             # add rep
             add_rep(request, n=note)
             # create notification
