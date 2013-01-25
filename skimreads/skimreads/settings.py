@@ -74,7 +74,7 @@ DEFAULT_FROM_EMAIL =  '' # Default email address to use for various automated co
 SERVER_EMAIL =        '' # The email address that error messages come from
 
 # Facebook
-if not DEV:
+if DEV:
     FACEBOOK_APP_ID = '347204595370545'
     FACEBOOK_APP_SECRET = 'a90e8d7ee81d99b4741918c3e911e5ad'
     FACEBOOK_REDIRECT_URI = 'http://localhost:8000/oauth/facebook/authenticate'
