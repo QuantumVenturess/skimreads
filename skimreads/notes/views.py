@@ -7,6 +7,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.template import loader, RequestContext
 from notifications.utils import notify
+from oauth.facebook import facebook_graph_add_note
 from readings.forms import NoteForm
 from readings.models import Note, Reading
 from skimreads.utils import add_csrf
@@ -25,6 +26,8 @@ def new(request, slug):
             note.reading = reading
             note.user = request.user
             note.save()
+            # facebook open graph add note
+            facebook_graph_add_note(request.user, reading)
             # add rep
             add_rep(request, n=note)
             request.user.vote_set.create(note=note, value=1)
