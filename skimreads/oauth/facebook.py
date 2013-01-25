@@ -28,14 +28,14 @@ def facebook_url():
     return ''.join(url)
 
 def facebook_graph_add_reading(user, reading):
-    if not settings.DEV:
+    if settings.DEV:
         try:
             oauth = user.oauth_set.get(provider='facebook')
             graph_data = (
                 'http://skimreads.com/readings/%s/permalink/' % reading.slug)
             graph = GraphAPI(oauth.access_token)
             graph.post(
-                path = 'me/skimreads:add',
+                path = 'me/skimreads_offline:add',
                 reading = graph_data
             )
         except ObjectDoesNotExist:

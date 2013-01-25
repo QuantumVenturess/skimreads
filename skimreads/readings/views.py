@@ -137,8 +137,6 @@ def new(request):
                 reading = form.save(commit=False)
                 reading.user = request.user
                 reading.save()
-                # post add action to facebook open graph
-                facebook_graph_add_reading(request.user, reading)
                 # add rep
                 add_rep(request, rd=reading)
                 # create notes for this reading
@@ -292,6 +290,8 @@ def edit(request, slug):
         # only save the image
         reading.image = request.POST.get('image')
         reading.save()
+        # post add action to facebook open graph
+        facebook_graph_add_reading(request.user, reading)
         messages.success(request, 'Reading updated')
         return HttpResponseRedirect(reverse('readings.views.detail', 
             args=[reading.slug]))
