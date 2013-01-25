@@ -172,7 +172,15 @@ def scrape(request):
     soup = BeautifulSoup(html)
     imgs = soup.find_all('img', src=re.compile('^http'))
     imgs = [i['src'] for i in imgs]
-    html_title = soup.find('title').string[:80]
+    title = soup.find('title').string[:80]
+    if len(title.split('|')) >= 2:
+        first, second = title.split('|')
+        if len(first) >= len(second):
+            html_title = first
+        else:
+            html_title = second
+    else:
+        html_title = title
     t = loader.get_template('readings/images.html')
     c = Context({ 'imgs': imgs })
     data = {
