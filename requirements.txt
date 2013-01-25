@@ -12,6 +12,7 @@ django-storages==1.1.5
 django-tagging==0.3.1
 facepy==0.8.4
 psycopg2==2.4.5
+pysolr
 python-memcached==1.48
 pytz==2012h
 reportlab==2.6
