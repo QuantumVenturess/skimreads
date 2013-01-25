@@ -42,6 +42,8 @@ AWS_HEADERS = {
     'Expires': 'Sun, 19 Jul 2020 18:06:32 GMT'
 }
 
+AWS_QUERYSTRING_AUTH = False
+
 # Database
 if DEV:
     DATABASES = {
