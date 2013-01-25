@@ -1,4 +1,6 @@
 from django.conf import settings
+from django.core.exceptions import ObjectDoesNotExist
+from facepy import GraphAPI
 import random
 
 def facebook_app_id():
@@ -24,3 +26,17 @@ def facebook_url():
         'state=%s' % state,
     ]
     return ''.join(url)
+
+def facebook_graph_add_reading(user, reading):
+    if not settings.DEV:
+        try:
+            oauth = user.oauth_set.get(provider='facebook')
+            graph_data = (
+                'http://skimreads.com/readings/%s/permalink/' % reading.slug)
+            graph = GraphAPI(oauth.access_token)
+            graph.post(
+                path = 'me/skimreads:add',
+                reading = graph_data
+            )
+        except ObjectDoesNotExist:
+            pass

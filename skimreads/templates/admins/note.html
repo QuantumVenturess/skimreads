@@ -1,7 +1,7 @@
 <div class="adminNote" id="adminNote_{{ note.pk }}">
     <a href="{% url admins.views.note note.pk %}">
         {{ note.user.username }}
-        <p{% if note.pk == note_pk %} class="red"{% endif %}>{{ note.content }}</p>
+        <p{% if note.pk == note_pk %} class="red"{% endif %}>{{ note.content|linebreaks }}</p>
     </a>
     <ul class="adminComments">
         {% for comment in note.comment_set.all %}

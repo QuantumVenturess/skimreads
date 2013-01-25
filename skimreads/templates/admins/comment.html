@@ -1,7 +1,7 @@
 <div class="adminComment" id="adminComment_{{ comment.pk }}">
     <a href="{% url admins.views.comment comment.pk %}">
         {{ comment.user.username }}
-        <p{% if comment.pk == comment_pk %} class="red"{% endif %}>{{ comment.content }}</p>
+        <p{% if comment.pk == comment_pk %} class="red"{% endif %}>{{ comment.content|linebreaks }}</p>
     </a>
     <ul class="adminReplies">
         {% for reply in comment.reply_set.all %}

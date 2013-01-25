@@ -15,6 +15,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import Context, loader, RequestContext, Template
 from follows.utils import follow_user, followed_ids
+from oauth.facebook import facebook_graph_add_reading
 from readings.forms import EditReadingForm, NoteForm, ReadingForm
 from readings.models import Note, Reading
 from readings.utils import crop_image, delete_reading_image
@@ -136,6 +137,8 @@ def new(request):
                 reading = form.save(commit=False)
                 reading.user = request.user
                 reading.save()
+                # post add action to facebook open graph
+                facebook_graph_add_reading(request.user, reading)
                 # add rep
                 add_rep(request, rd=reading)
                 # create notes for this reading

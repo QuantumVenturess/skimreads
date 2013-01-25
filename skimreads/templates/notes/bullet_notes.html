@@ -1,6 +1,6 @@
 {% for note in reading.bullet_notes %}
     {% load common_tags %}
     <li id="bulletNote_{{ note.pk }}">
-        {{ note.content|urlize|target_blank }}
+        {{ note.content|urlize|target_blank|linebreaks }}
     </li>
 {% endfor %}
