@@ -1,7 +1,7 @@
 $(document).ready(function() {
     var chosen = '';
     // click to show new message
-    $('.newMessageButton').live('click', function() {
+    $('.newMessageButton, .skimShare').live('click', function() {
         $('#newMessageForm').show();
         $('#newMessageForm #to').focus();
         return false;
@@ -44,7 +44,7 @@ $(document).ready(function() {
             to.focus();
             return false;
         }
-        else if (content.val().length == 0) {
+        else if (content.text().length == 0) {
             content.focus();
             return false;
         }

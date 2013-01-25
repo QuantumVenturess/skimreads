@@ -5,4 +5,9 @@
     <a class="twitterShare" href="https://twitter.com/intent/tweet?original_referer=&text={{ reading.title|urlencode }}%20{{ request.build_absolute_uri }}" id="tweet_{{ reading.pk }}" name="{{ reading.title|urlencode }}" target="_blank" title="Twitter" url="{{ request.build_absolute_uri }}">
         <div><img src="{{ static }}img/twitter.png"></div>
     </a>
+    {% if not user.is_anonymous %}
+        <a class="skimShare" href="#" title="Skimreads">
+            <div><img src="{{ static }}img/skim_share.png"></div>
+        </a>
+    {% endif %}
 </div>

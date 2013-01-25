@@ -9,7 +9,9 @@
                 {{ comment.user.username }}
             </a>
         </div>
-        <div class="commentContent">{{ comment.content|urlize|target_blank|linebreaks }}</div>
+        <div class="commentContent">
+            {{ comment.content|urlize|target_blank|linebreaks }}
+        </div>
         <div class="commentExtra">
             <div class="commentDateTime">
                 <a href="#" id="replyToggle_{{ comment.pk }}">

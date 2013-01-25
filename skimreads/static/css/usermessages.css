@@ -192,6 +192,40 @@
     float: right;
 }
 
+.sentArrow, .receivedArrow {
+    height: 28px;
+    margin-left: -14.1px;
+    width: 28px;
+    z-index: 1;
+    -webkit-transform: rotate(45deg);
+    -khtml-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    -o-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+.sentArrow {
+    background: rgb(245, 245, 245);
+    border: 1px solid rgb(200, 200, 200);
+    border-right: none;
+    border-top: none;
+    margin-top: 6px;
+    float: left;
+    position: absolute;
+}
+
+.receivedArrow {
+    background: rgb(245, 245, 255);
+    border: 1px solid rgb(200, 200, 210);
+    border-bottom: none;
+    border-left: none;
+    float: right;
+    margin-right: -14.1px;
+    margin-top: 7px;
+    position: relative;
+}
+
 .userMessageInfo {
     margin: 40px 0 0 0;
     position: fixed;
@@ -199,6 +233,7 @@
 }
 
 .userMessageInfo img {
+    margin: 0 0 5px 0;
     max-height: 100px;
     max-width: 100px;
 }
@@ -207,7 +242,7 @@
     color: rgb(40, 40, 40);
     font-size: 13px;
     display: block;
-    margin: 5px 0 0 0;
+    text-align: center;
 }
 
 .userMessageInfo a:hover {
@@ -218,13 +253,9 @@
     margin-left: -100px;
 }
 
-.receivedUser .userMessageInfo a {
-    text-align: right;
-}
-
 .userMessages, .replyMessageForm {
     margin: 0 auto;
-    width: 700px;
+    width: 680px;
 }
 
 .userMessages {
@@ -251,6 +282,8 @@
 
 .userMessageContent {
     line-height: 19px;
+    position: relative;
+    z-index: 10;
 }
 
 .userMessageTime {
@@ -264,6 +297,7 @@
 .sent .userMessageContainer {
     background: rgb(245, 245, 245);
     border: 1px solid rgb(200, 200, 200);
+    position: relative;
 }
 
 .sent .userMessageContainer, .sent .userMessageContent, .sent .userMessageTime {
@@ -273,6 +307,7 @@
 .received .userMessageContainer {
     background: rgb(245, 245, 255);
     border: 1px solid rgb(200, 200, 210);
+    position: relative;
 }
 
 .received .userMessageContainer, .received .userMessageContent, .received .userMessageTime {

@@ -160,6 +160,7 @@
 .readingShare a {
     display: block;
     float: left;
+    margin: 0 0 0 5px;
     padding: 2px;
 }
 
@@ -174,7 +175,10 @@
 
 .twitterShare {
     background: rgb(64, 153, 255);
-    margin: 0 0 0 5px;
+}
+
+.skimShare {
+    background: rgb(60, 60, 60);
 }
 
 /* Edit note */

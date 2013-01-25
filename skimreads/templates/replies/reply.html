@@ -4,10 +4,12 @@
         <img src="{{ reply.user.profile.small }}">
     </div>
     <div class="replyBody">
-        <div class="replyContent">
+        <div class="replyUser">
             <a href="{% url readings.views.list_user reply.user.profile.slug %}">
                 {{ reply.user.username }}
             </a>
+        </div>
+        <div class="replyContent">
             {{ reply.content|urlize|target_blank|linebreaks }}
         </div>
         <div class="replyExtra">

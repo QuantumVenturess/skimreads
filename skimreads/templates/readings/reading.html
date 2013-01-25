@@ -23,7 +23,13 @@
         </div>
         <div class="clear"></div>
     </div>
-    {% include 'readings/reading_body.html' %}
+    <ul class="bulletNotes">
+        {% include 'notes/bullet_notes.html' %}
+    </ul>
+    <div class="readingImage">
+        <img class="lazy" data-original="{{ reading.pic }}" src="{{ static }}img/readings/lazy_reading.jpg">
+    </div>
+    <div class="clear"></div>
     <div class="readingBottom">
         <div class="tags">
             {% include 'tags/tags.html' %}

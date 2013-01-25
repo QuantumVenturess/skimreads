@@ -6,6 +6,14 @@
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
 <meta property="og:site_name" content="Skimreads">
 <meta property="og:description" content="{{ reading.bullets }}">
+{% if not user.is_anonymous %}
+<script>
+$(document).ready(function() {
+    var url = '{{ request.build_absolute_uri }}'
+    $('#newMessageForm #id_content').text('Skim this: ' + url);
+})
+</script>
+{% endif %}
 {% endblock %}
 {% block content %}
 <div class="reading">
@@ -44,7 +52,13 @@
         </div>
         <div class="clear"></div>
     </div>
-    {% include 'readings/reading_body.html' %}
+    <ul class="bulletNotes">
+        {% include 'notes/bullet_notes.html' %}
+    </ul>
+    <div class="readingImage">
+        <img src="{{ reading.pic }}">
+    </div>
+    <div class="clear"></div>
     <div class="readingBottom">
         <div class="tags">
             {% include 'tags/tags.html' %}
@@ -61,4 +75,7 @@
 <div class="readingActivity">
     {% include 'readings/reading_activity.html' %}
 </div>
+{% if not user.is_anonymous %}
+    {% include 'usermessages/new_message_form.html' %}
+{% endif %}
 {% endblock %}

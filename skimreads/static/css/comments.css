@@ -37,7 +37,7 @@
     max-width: 30px;
 }
 
-.commentUser, .commentContent, .replyContent {
+.commentUser, .commentContent, .replyUser, .replyContent {
     margin: 0 0 3px 0;
 }
 

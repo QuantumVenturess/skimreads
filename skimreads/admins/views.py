@@ -1,5 +1,5 @@
 from admins.utils import first_ten_users, random_user
-from comments.forms import CommentForm
+from comments.forms import AdminCommentForm
 from comments.models import Comment
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -11,9 +11,10 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from notifications.utils import notify
 from random import randint
-from readings.forms import NoteForm, ReadingForm, RequiredFormSet
+from readings.forms import (AdminNoteForm, AdminReadingForm, NoteForm, 
+    RequiredFormSet)
 from readings.models import Note, Reading
-from replies.forms import ReplyForm
+from replies.forms import AdminReplyForm
 from sessions.decorators import staff_user
 from skimreads.utils import add_csrf
 from users.utils import add_rep
@@ -29,13 +30,11 @@ def new_reading(request):
     """Create a new reading."""
     NoteFormset = formset_factory(NoteForm, extra=3, formset=RequiredFormSet)
     if request.method == 'POST':
-        form = ReadingForm(request.POST)
+        form = AdminReadingForm(request.POST)
         formset = NoteFormset(request.POST)
         if form.is_valid() and formset.is_valid():
-            reading = form.save(commit=False)
-            reading.user = random_user()
             # save reading
-            reading.save()
+            reading = form.save()
             # add rep
             add_rep(request, rd=reading)
             first = True
@@ -75,7 +74,7 @@ def new_reading(request):
             return HttpResponseRedirect(reverse('admins.views.reading', 
                 args=[reading.slug]))
     else:
-        form = ReadingForm()
+        form = AdminReadingForm()
         formset = NoteFormset()
     d = {
         'form': form,
@@ -111,12 +110,11 @@ def reading(request, slug):
     """Detail reading."""
     reading = get_object_or_404(Reading, slug=slug)
     if request.method == 'POST':
-        form = NoteForm(request.POST)
+        form = AdminNoteForm(request.POST)
         if form.is_valid():
+            # save note
             note = form.save(commit=False)
             note.reading = reading
-            note.user = random_user()
-            # save note
             note.save()
             # add rep
             add_rep(request, n=note)
@@ -127,7 +125,7 @@ def reading(request, slug):
             return HttpResponseRedirect(reverse('admins.views.reading', 
                 args=[reading.slug]))
     else:
-        form = NoteForm()
+        form = AdminNoteForm()
     d = {
         'form': form,
         'reading': reading,
@@ -141,12 +139,11 @@ def note(request, pk):
     """Detail note."""
     note = get_object_or_404(Note, pk=pk)
     if request.method == 'POST':
-        form = CommentForm(request.POST)
+        form = AdminCommentForm(request.POST)
         if form.is_valid():
+            # save comment
             comment = form.save(commit=False)
             comment.note = note
-            comment.user = random_user()
-            # save comment
             comment.save()
             # add rep
             add_rep(request, c=comment)
@@ -156,7 +153,7 @@ def note(request, pk):
             return HttpResponseRedirect(reverse(
                 'admins.views.note', args=[note.pk]))
     else:
-        form = CommentForm()
+        form = AdminCommentForm()
     d = {
         'form': form,
         'note': note,
@@ -171,12 +168,11 @@ def comment(request, pk):
     """Detail comment."""
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == 'POST':
-        form = ReplyForm(request.POST)
+        form = AdminReplyForm(request.POST)
         if form.is_valid():
+            # save reply
             reply = form.save(commit=False)
             reply.comment = comment
-            reply.user = random_user()
-            # save reply
             reply.save()
             # add rep
             add_rep(request, rp=reply)
@@ -186,7 +182,7 @@ def comment(request, pk):
             return HttpResponseRedirect(reverse(
                 'admins.views.comment', args=[comment.pk]))
     else:
-        form = ReplyForm()
+        form = AdminReplyForm()
     d = {
         'comment': comment,
         'comment_pk': comment.pk,

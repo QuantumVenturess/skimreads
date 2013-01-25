@@ -1,3 +1,4 @@
+<div class="{% if user.pk == message.sender.pk %}sent{% else %}received{% endif %}Arrow"></div>
 <div class="userMessage {% if user.pk == message.sender.pk %}sent{% else %}received{% endif %}">
     {% load common_tags %}
     <div class="userMessageContainer">

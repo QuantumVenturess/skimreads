@@ -5,8 +5,12 @@ def first_ten_users():
     """Return the first ten users."""
     return User.objects.all().order_by('date_joined')[0:10]
 
-
 def random_user():
     """Return a random user."""
     users = first_ten_users()
     return users[randint(0, len(users) - 1)]
+
+def select_first_ten_users():
+    """Return list of tuples for first ten users."""
+    users = sorted(first_ten_users(), key=lambda u: u.first_name)
+    return [(u.pk, u.username) for u in users]

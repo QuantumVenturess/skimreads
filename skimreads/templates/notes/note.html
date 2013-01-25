@@ -12,7 +12,9 @@
                 {{ note.user.username }}
             </a>
         </div>
-        <div class="noteContent">{{ note.content|urlize|target_blank }}</div>
+        <div class="noteContent">
+            {{ note.content|urlize|target_blank|linebreaks }}
+        </div>
         <div class="noteExtra">
             <div class="noteDateTime">
                 <a href="#" id="commentToggle_{{ note.pk }}">

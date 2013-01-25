@@ -15,14 +15,14 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import Context, loader, RequestContext, Template
 from follows.utils import follow_user, followed_ids
-from readings.forms import (EditReadingForm, NoteForm, ReadingForm, 
-    RequiredFormSet)
+from readings.forms import EditReadingForm, NoteForm, ReadingForm
 from readings.models import Note, Reading
 from readings.utils import crop_image, delete_reading_image
 from replies.forms import ReplyForm
 from replies.models import Reply
 from skimreads.utils import add_csrf, page
 from tags.models import Tie
+from usermessages.forms import NewMessageForm
 from users.forms import SignUpForm
 from users.models import Profile
 from users.utils import add_rep, del_rep
@@ -194,6 +194,7 @@ def detail(request, slug):
         user_tag = reading.tie_set.filter(user=request.user)
     d = {
             'comment_form': comment_form,
+            'form': NewMessageForm(),
             'next': next,
             'note_form': note_form,
             'reading': reading,
@@ -251,6 +252,7 @@ def detail_show(request, slug, show, pk):
         user_tag = reading.tie_set.filter(user=request.user)
     b = {
             'comment_form': comment_form,
+            'form': NewMessageForm(),
             'note_form': note_form,
             'reading': reading,
             'reply_form': reply_form,

@@ -4,7 +4,7 @@
 <script>
 $(document).ready(function() {
     $('html, body').animate({ scrollTop: $(document).height() }, 0);
-    $('footer').css('position', 'fixed').css('bottom', '0');
+    $('footer').css('position', 'fixed').css('bottom', '0').css('z-index', '500');
     $('header').css('position', 'fixed').css('top', '0').css('z-index', '500');
 })
 </script>
@@ -12,16 +12,16 @@ $(document).ready(function() {
 {% block content %}
 <div class="sentUser">
     <div class="userMessageInfo">
-        <img src="{{ user.profile.med }}">
         <a href="{% url readings.views.list_user user.profile.slug %}">
+            <img src="{{ user.profile.med }}">
             {{ user.username }}
         </a>
     </div>
 </div>
 <div class="receivedUser">
     <div class="userMessageInfo">
-        <img src="{{ profile_user.profile.med }}">
         <a href="{% url readings.views.list_user profile_user.profile.slug %}">
+            <img src="{{ profile_user.profile.med }}">
             {{ profile_user.username }}
         </a>
     </div>
