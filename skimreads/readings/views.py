@@ -24,7 +24,7 @@ from replies.forms import ReplyForm
 from replies.models import Reply
 from skimreads.utils import add_csrf, page
 from tags.models import Tag, Tie
-from tags.utils import banned_words, only_letters
+from tags.utils import auto_tag, banned_words, only_letters
 from usermessages.forms import NewMessageForm
 from users.forms import SignUpForm
 from users.models import Profile
@@ -122,30 +122,37 @@ def new(request):
             if formset.is_valid():
                 # add tag
                 name = request.POST.get('tag_name')
-                name = name.lower()
-                pattern = only_letters()
-                # If name contains only letters
-                if re.search(pattern, name):
-                    # If name does not contain any banned words
-                    blacklist = banned_words()
-                    if not re.search(blacklist, name):
-                        try:
-                            # If tag exists, get tag
-                            tag = Tag.objects.get(name=name)
-                        except ObjectDoesNotExist:
-                            # If tag does not exist, create tag
-                            tag = Tag(name=name, user=request.user)
-                            tag.slug = slugify(tag.name)
-                            tag.save()
-                        try:
-                            # Check to see if tie exists
-                            tie = reading.tie_set.get(tag=tag)
-                        except ObjectDoesNotExist:
-                            # If tie does not exist, create it
-                            tie = request.user.tie_set.create(
-                                reading=reading, tag=tag)
-                            # add rep
-                            add_rep(request, t=tie)
+                # if user added a tag
+                if name:
+                    name = name.lower()
+                    pattern = only_letters()
+                    # If name contains only letters
+                    if re.search(pattern, name):
+                        # If name does not contain any banned words
+                        blacklist = banned_words()
+                        if not re.search(blacklist, name):
+                            try:
+                                # If tag exists, get tag
+                                tag = Tag.objects.get(name=name)
+                            except ObjectDoesNotExist:
+                                # If tag does not exist, create tag
+                                tag = Tag(name=name, user=request.user)
+                                tag.slug = slugify(tag.name)
+                                tag.save()
+                            try:
+                                # Check to see if tie exists
+                                tie = reading.tie_set.get(tag=tag)
+                            except ObjectDoesNotExist:
+                                # If tie does not exist, create it
+                                tie = request.user.tie_set.create(
+                                    reading=reading, tag=tag)
+                                # add rep
+                                add_rep(request, t=tie)
+                                # create notification
+                                notify(tie=tie)
+                    # if user did not add a tag, auto tag
+                    else:
+                        auto_tag(request, reading)
                 # create notes and add it to the existing reading
                 for note_form in formset:
                     note = note_form.save(commit=False)
@@ -169,25 +176,30 @@ def new(request):
                 reading.vote_set.create(user=reading.user, value=1)
                 # add tag
                 name = request.POST.get('tag_name')
-                name = name.lower()
-                pattern = only_letters()
-                # If name contains only letters
-                if re.search(pattern, name):
-                    # If name does not contain any banned words
-                    blacklist = banned_words()
-                    if not re.search(blacklist, name):
-                        try:
-                            # If tag exists, get tag
-                            tag = Tag.objects.get(name=name)
-                        except ObjectDoesNotExist:
-                            # If tag does not exist, create tag
-                            tag = Tag(name=name, user=request.user)
-                            tag.slug = slugify(tag.name)
-                            tag.save()
-                        tie = request.user.tie_set.create(reading=reading, 
-                            tag=tag)
-                        # add rep
-                        add_rep(request, t=tie)
+                # if user added tag
+                if name:
+                    name = name.lower()
+                    pattern = only_letters()
+                    # If name contains only letters
+                    if re.search(pattern, name):
+                        # If name does not contain any banned words
+                        blacklist = banned_words()
+                        if not re.search(blacklist, name):
+                            try:
+                                # If tag exists, get tag
+                                tag = Tag.objects.get(name=name)
+                            except ObjectDoesNotExist:
+                                # If tag does not exist, create tag
+                                tag = Tag(name=name, user=request.user)
+                                tag.slug = slugify(tag.name)
+                                tag.save()
+                            tie = request.user.tie_set.create(reading=reading, 
+                                tag=tag)
+                            # add rep
+                            add_rep(request, t=tie)
+                # if user did not add a tag, auto tag
+                else:
+                    auto_tag(request, reading)
                 # facebook open graph add reading
                 facebook_graph_add_reading(request.user, reading)
                 # add rep
