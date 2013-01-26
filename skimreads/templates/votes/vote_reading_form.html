@@ -1,0 +1,26 @@
+{% load common_tags %}
+<div class="upVote">
+    {% if user.is_anonymous %}
+        <div class="signUpPop" title="Up vote"></div>
+    {% else %}
+        <form action="{% url votes.views.new_reading reading.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="upvote">
+            <input title="Up vote" type="submit" value="" class="{% voted reading user %}{% if reading_pk == reading.pk and value == 1 %} focus{% endif %}">
+        </form>
+    {% endif %}
+</div>
+<div class="noteVotes" title="{{ reading.vote_count }} vote{{ reading.vote_count|pluralize }}">
+    {{ reading.vote_value }}
+</div>
+<div class="downVote">
+    {% if user.is_anonymous %}
+        <div class="signUpPop" title="Down vote"></div>
+    {% else %}
+        <form action="{% url votes.views.new_reading reading.pk %}" method="POST">
+            {% csrf_token %}
+            <input type="hidden" name="action" value="downvote">
+            <input title="Down vote" type="submit" value="" class="{% voted reading user %}{% if reading_pk == reading.pk and value == -1 %} focus{% endif %}">
+        </form>
+    {% endif %}
+</div>

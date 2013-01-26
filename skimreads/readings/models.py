@@ -104,9 +104,17 @@ class Reading(models.Model):
         ties = [tie.tag.pk for tie in self.tie_set.all()]
         return Tag.objects.filter(pk__in=ties).order_by('name')
 
-    def vote_count(self):
+    def vote_note_count(self):
         """Count the number of votes for each note for reading."""
         return sum([note.vote_count() for note in self.note_set.all()])
+
+    def vote_count(self):
+        """Count the number of votes made on reading."""
+        return self.vote_set.all().count()
+
+    def vote_value(self):
+        """Return the total value of all votes for reading."""
+        return sum([vote.value for vote in self.vote_set.all()])
 
     def weight(self):
         return int(self.views * self.activity_count())

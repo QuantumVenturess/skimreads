@@ -45,8 +45,16 @@ $(document).ready(function() {
             return false;
         }
         else if (content.text().length == 0) {
-            content.focus();
-            return false;
+            if (content.val() == '') {
+                content.focus();
+                return false; 
+            }
+        }
+        else if (content.val() == '') {
+            if (content.text().length == 0) {
+                content.focus();
+                return false;
+            }
         }
     })
     // when typing recipient's name, show a list of existing users
@@ -107,7 +115,7 @@ $(document).ready(function() {
     })
     // Keyboard navigation for search results
     $(document).live('keydown', function(e) {
-        if ($('.messageUserList').is(':visible') && !$('.searchResults').is(':visible') && $('.tagListInsert').is(':visible')) {
+        if ($('.messageUserList').is(':visible') && !$('.searchResults').is(':visible') && !$('.tagListInsert').is(':visible')) {
             // If arrow down is pressed
             if (e.keyCode == 40) {
                 if (chosen === '') {

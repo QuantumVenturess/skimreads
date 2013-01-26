@@ -3,7 +3,7 @@ from django.forms import ModelForm
 from tags.models import Tie
 
 class TieForm(ModelForm):
-    tag_name = forms.CharField(max_length=15, 
+    tag_name = forms.CharField(max_length=20, 
         widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
         'placeholder': 'new tag', 'tabindex': 1 }))
 

@@ -244,15 +244,15 @@ def detail_show(request, slug, show, pk):
         }
     elif show == 'votes':
         vote = get_object_or_404(Vote, pk=pk)
-        note = vote.note
         if vote.value == 1:
             value = 1
         else:
             value = -1
-        a = {
-                'note_pk': note.pk,
-                'value': value,
-        }
+        if vote.note:
+            a = { 'note_pk': vote.note.pk }
+        elif vote.reading:
+            a = { 'reading_pk': vote.reading.pk }
+        a['value'] = value
     reading = get_object_or_404(Reading, slug=slug)
     comment_form = CommentForm()
     note_form = NoteForm()

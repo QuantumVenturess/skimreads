@@ -5,7 +5,7 @@ from readings.models import Reading
 
 class Tag(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    name = models.CharField(max_length=15, unique=True)
+    name = models.CharField(max_length=20, unique=True)
     slug = models.SlugField()
     user = models.ForeignKey(User)
 

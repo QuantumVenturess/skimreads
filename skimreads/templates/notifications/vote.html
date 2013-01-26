@@ -6,16 +6,22 @@
 {% else %}
     down voted
 {% endif %}
-{% if notification.vote.note.user == user %}
-    your
-    <a href="{% url notifications.views.forward notification.pk %}">
-        note
+{% if notification.vote.note %}
+    {% if notification.vote.note.user == user %}
+        your
+        <a href="{% url notifications.views.forward notification.pk %}">
+            note
+        </a>
+    {% else %}
+        a note on
+        <a href="{% url notifications.views.forward notification.pk %}">
+            {{ notification.vote.note.reading.title }}
+        </a>
+    {% endif %}
     </a>
-{% else %}
-    a note on
+    : "{{ notification.vote.note.content }}"
+{% elif notification.vote.reading %}
     <a href="{% url notifications.views.forward notification.pk %}">
-        {{ notification.vote.note.reading.title }}
+        {{ notification.vote.reading.title }}
     </a>
 {% endif %}
-</a>
-: "{{ notification.vote.note.content }}"

@@ -1,4 +1,5 @@
-.noteVote form {
+/* note */
+.noteVote form, .readingVote form {
     height: 10px;
 }
 
@@ -44,4 +45,10 @@
 
 .upVote div:hover, .upVote input:hover, .downVote div:hover, .downVote input:hover {
     cursor: pointer;
+}
+
+/* reading */
+.readingVote {
+    float: right;
+    margin: 0 0 0 10px;
 }

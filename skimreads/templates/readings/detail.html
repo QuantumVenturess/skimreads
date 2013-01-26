@@ -16,7 +16,7 @@ $(document).ready(function() {
 {% endif %}
 {% endblock %}
 {% block content %}
-<div class="reading">
+<div class="reading" id="reading_{{ reading.pk }}">
     <div class="readingHeader">
         <div class="favoriteForm" id="favoriteForm_{{ reading.pk }}">
             {% include 'favorites/favorite_form.html' %}
@@ -52,14 +52,20 @@ $(document).ready(function() {
         </div>
         <div class="clear"></div>
     </div>
-    <ul class="bulletNotes">
-        {% include 'notes/bullet_notes.html' %}
-    </ul>
-    <div class="readingImage">
-        <img src="{{ reading.pic }}">
+    <div class="readingBody">
+        <ul class="bulletNotes">
+            {% include 'notes/bullet_notes.html' %}
+        </ul>
+        <div class="readingVote">
+            {% include 'votes/vote_reading_form.html' %}
+        </div>
+        <div class="readingImage">
+            <img src="{{ reading.pic }}">
+        </div>
+        <div class="clear"></div>
     </div>
-    <div class="clear"></div>
     <div class="readingBottom">
+        {% include 'readings/share.html' %}
         <div class="tags">
             {% include 'tags/tags.html' %}
         </div>
@@ -68,7 +74,6 @@ $(document).ready(function() {
                 {% include 'tags/tag_form.html' %}
             {% endif %}
         </div>
-        {% include 'readings/share.html' %}
         <div class="clear"></div>
     </div>
 </div>

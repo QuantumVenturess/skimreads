@@ -1,16 +1,17 @@
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
-from readings.models import Note
+from readings.models import Note, Reading
 
 class Vote(models.Model):
     created = models.DateTimeField(auto_now_add=True)
-    note = models.ForeignKey(Note)
+    note = models.ForeignKey(Note, null=True)
+    reading = models.ForeignKey(Reading, null=True)
     user = models.ForeignKey(User)
     value = models.IntegerField()
 
     class Meta:
-        unique_together = ('note', 'user')
+        unique_together = (('note', 'user'), ('reading', 'user'))
 
     def __unicode__(self):
         return '%s: %s' % (self.note, str(self.value))

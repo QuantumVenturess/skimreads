@@ -47,11 +47,18 @@ def notify(comment=None, follow=None, note=None,
             tie.reading.user.notification_set.create(tie=tie)
     # If a user voted on a note
     elif vote:
-        # If the vote's user is not the note's user
-        if vote.user != vote.note.user:
-            vote.note.user.notification_set.create(vote=vote)
-        # If the vote's user is not the reading's user
-        if vote.user != vote.note.reading.user:
-            # If note's user is not the reading's user
-            if vote.note.user != vote.note.reading.user:
-                vote.note.reading.user.notification_set.create(vote=vote)
+        # if the vote was for a note
+        if vote.note:
+            # If the vote's user is not the note's user
+            if vote.user != vote.note.user:
+                vote.note.user.notification_set.create(vote=vote)
+            # If the vote's user is not the reading's user
+            if vote.user != vote.note.reading.user:
+                # If note's user is not the reading's user
+                if vote.note.user != vote.note.reading.user:
+                    vote.note.reading.user.notification_set.create(vote=vote)
+        # if the vote was for a reading
+        elif vote.reading:
+            # if the vote's user is not the reading's user
+            if vote.user != vote.reading.user:
+                vote.reading.user.notification_set.create(vote=vote)

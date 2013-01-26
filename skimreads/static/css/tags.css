@@ -1,5 +1,5 @@
 .tags {
-    float: left;
+    width: 100%
 }
 
 .tags .tie:last-child {
@@ -90,8 +90,9 @@
 
 /* tag list */
 .tagListInsert {
+    display: none;
+    min-width: 110px;
     position: absolute;
-    width: 110px;
     -webkit-box-sizing: border-radius;
     -moz-box-sizing: border-radius;
     box-sizing: border-radius;

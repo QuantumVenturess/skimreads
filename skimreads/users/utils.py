@@ -105,22 +105,34 @@ def add_rep(request, rd=None, n=None, c=None, rp=None, t=None, v=None,
         # add 1 point to vote.user
         pv.reputation += 1
         pv.save()
-        # add 1 point to vote.note.user
-        # if vote.user != vote.note.user
-        if v.user.pk != v.note.user.pk:
-            pn = v.note.user.profile
-            # if upvoted
-            if v.value == 1:
-                pn.reputation += 1
-                pn.save()
-        # add 1 point to vote.note.reading.user
-        # if vote.user != vote.note.reading.user
-        if v.user.pk != v.note.reading.user.pk:
-            prd = v.note.reading.user.profile
-            # if upvoted
-            if v.value == 1:
-                prd.reputation += 1
-                prd.save()
+        # if vote was for a note
+        if v.note:
+            # add 1 point to vote.note.user
+            # if vote.user != vote.note.user
+            if v.user.pk != v.note.user.pk:
+                pn = v.note.user.profile
+                # if upvoted
+                if v.value == 1:
+                    pn.reputation += 5
+                    pn.save()
+            # add 1 point to vote.note.reading.user
+            # if vote.user != vote.note.reading.user
+            if v.user.pk != v.note.reading.user.pk:
+                prd = v.note.reading.user.profile
+                # if upvoted
+                if v.value == 1:
+                    prd.reputation += 1
+                    prd.save()
+        # if vote was for a reading
+        elif v.reading:
+            # add 1 point to vote.reading.user
+            # if vote.user != vote.reading.user
+            if v.user.pk != v.reading.user.pk:
+                prd = v.reading.user.profile
+                # if upvoted
+                if v.value == 1:
+                    prd.reputation += 5
+                    prd.save()
     # if favorite
     elif fv:
         pfv = fv.reading.user.profile

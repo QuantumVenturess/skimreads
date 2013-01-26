@@ -36,8 +36,12 @@ def forward(request, pk):
                      'pk': notification.tie.pk }))
     # If notification is for a vote
     elif notification.vote:
+        if notification.vote.note:
+            slug = notification.vote.note.reading.slug
+        elif notification.vote.reading:
+            slug = notification.vote.reading.slug
         return HttpResponseRedirect(reverse('readings.views.detail_show',
-            kwargs={ 'slug': notification.vote.note.reading.slug,
+            kwargs={ 'slug': slug,
                      'show': 'votes',
                      'pk': notification.vote.pk }))
 

@@ -1,5 +1,8 @@
 from django.conf.urls import patterns, url
 
 urlpatterns = patterns('votes.views', 
-    url(r'(?P<pk>\d+)/vote/$', 'new'),
+    # vote for note
+    url(r'(?P<pk>\d+)/note/vote/$', 'new'),
+    # vote for reading
+    url(r'(?P<pk>\d+)/reading/vote/$', 'new_reading'),
 )

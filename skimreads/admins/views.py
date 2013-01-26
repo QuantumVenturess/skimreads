@@ -62,7 +62,9 @@ def new_reading(request):
                     add_rep(request, n=note)
             notes = reading.note_set.all()
             users = first_ten_users()
+            # create votes for first ten users
             for user in users:
+                # vote each note
                 for note in notes:
                     vote = note.vote_set.filter(user=user)
                     if not vote:
@@ -74,6 +76,17 @@ def new_reading(request):
                         vote = note.vote_set.create(user=user, value=value)
                         # add rep
                         add_rep(request, v=vote)
+                # vote reading
+                vote = reading.vote_set.filter(user=user)
+                if not vote:
+                    if randint(0, 4):
+                        value = 1
+                    else:
+                        value = -1
+                    # create vote
+                    vote = reading.vote_set.create(user=user, value=value)
+                    # add rep
+                    add_rep(request, v=vote)
             messages.success(request, 'Reading created')
             return HttpResponseRedirect(reverse('admins.views.reading', 
                 args=[reading.slug]))
@@ -93,7 +106,9 @@ def vote_all(request, slug):
     reading = get_object_or_404(Reading, slug=slug)
     notes = reading.note_set.all()
     users = first_ten_users()
+    # create votes for first ten users
     for user in users:
+        # vote each note
         for note in notes:
             vote = note.vote_set.filter(user=user)
             if not vote:
@@ -105,6 +120,17 @@ def vote_all(request, slug):
                 vote = note.vote_set.create(user=user, value=value)
                 # add rep
                 add_rep(request, v=vote)
+        # vote reading
+        vote = reading.vote_set.filter(user=user)
+        if not vote:
+            if randint(0, 4):
+                value = 1
+            else:
+                value = -1
+            # create vote
+            vote = reading.vote_set.create(user=user, value=value)
+            # add rep
+            add_rep(request, v=vote)
     messages.success(request, 'Votes created')
     return HttpResponseRedirect(reverse('admins.views.reading', 
         args=[reading.slug]))

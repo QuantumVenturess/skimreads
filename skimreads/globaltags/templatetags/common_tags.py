@@ -45,3 +45,14 @@ def voted(note, user):
             return 'downVoted'
     except ObjectDoesNotExist:
         return 'notVoted'
+
+@register.simple_tag
+def voted_reading(reading, user):
+    try:
+        vote = reading.vote_set.get(user=user)
+        if vote.value == 1:
+            return 'upVoted'
+        else:
+            return 'downVoted'
+    except ObjectDoesNotExist:
+        return 'notVoted'

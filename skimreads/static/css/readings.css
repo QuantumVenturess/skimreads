@@ -64,10 +64,13 @@
     float: right;
 }
 
+.readingBody {
+    padding: 0 20px;
+}
+
 .readingImage {
     float: right;
     height: 100px;
-    margin: 0 20px 0 0;
     overflow: hidden;
     text-align: center;
     width: 100px;
@@ -79,6 +82,7 @@
 
 .readingBottom {
     margin: 10px 0 0 0;
+    overflow: hidden;
     padding: 0 20px;
 }
 

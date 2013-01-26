@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // Ajax voting
+    // Ajax voting note
     $('.noteVote form').live('submit', function() {
         var note = $(this).closest('.note');
         var id = note.attr('id').split('_')[1];
@@ -12,6 +12,18 @@ $(document).ready(function() {
                 var votes = parseInt($('#note_' + results.pk + ' .noteVotes').text());
                 moveNote(id, results.pk, votes);
                 $('.bulletNotes').html(results.bullet_notes);
+            }
+        })
+        return false;
+    })
+    // Ajax voting reading
+    $(document).on('submit', '.readingVote form', function() {
+        $.ajax({
+            data: $(this).serialize(),
+            type: $(this).attr('method'),
+            url:  $(this).attr('action'),
+            success: function(results) {
+                $('#reading_' + results.pk + ' .readingVote').html(results.vote_reading_form);
             }
         })
         return false;

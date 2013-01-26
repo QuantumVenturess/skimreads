@@ -23,13 +23,18 @@
         </div>
         <div class="clear"></div>
     </div>
-    <ul class="bulletNotes">
-        {% include 'notes/bullet_notes.html' %}
-    </ul>
-    <div class="readingImage">
-        <img class="lazy" data-original="{{ reading.pic }}" src="{{ static }}img/readings/lazy_reading.jpg">
+    <div class="readingBody">
+        <ul class="bulletNotes">
+            {% include 'notes/bullet_notes.html' %}
+        </ul>
+        <div class="readingVote">
+            {% include 'votes/vote_reading_form.html' %}
+        </div>
+        <div class="readingImage">
+            <img class="lazy" data-original="{{ reading.pic }}" src="{{ static }}img/readings/lazy_reading.jpg">
+        </div>
+        <div class="clear"></div>
     </div>
-    <div class="clear"></div>
     <div class="readingBottom">
         <div class="tags">
             {% include 'tags/tags.html' %}

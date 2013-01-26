@@ -7,7 +7,7 @@ from django.template import loader, RequestContext
 from django.utils import timezone
 from notifications.models import Notification
 from notifications.utils import notify
-from readings.models import Note
+from readings.models import Note, Reading
 from skimreads.utils import add_csrf
 from users.utils import add_rep, del_rep
 
@@ -83,3 +83,68 @@ def new(request, pk):
         return HttpResponse(json.dumps(data), mimetype='application/json')
     return HttpResponseRedirect(reverse('readings.views.detail', 
         args=[note.reading.slug]))
+
+def new_reading(request, pk):
+    """Create a downvote or upvote for reading."""
+    reading = get_object_or_404(Reading, pk=pk)
+    if request.method == 'POST' and request.POST.get('action'):
+        # If user is downvoting
+        if request.POST.get('action') == 'downvote':
+            value = -1
+        # If user is upvoting
+        elif request.POST.get('action') == 'upvote':
+            value = 1
+        try:
+            # Check to see if user already voted
+            vote = reading.vote_set.get(user=request.user)
+            # If user already upvoted
+            if vote.value == 1:
+                # If user is upvoting again, remove the vote
+                if value == 1:
+                    # del rep
+                    del_rep(request, v=vote)
+                    vote.delete()
+                # If user is downvoting, downvote the note
+                else:
+                    vote.value = value
+                    vote.save()
+                    # If user changes their vote, update the notifications
+                    notifications = Notification.objects.filter(vote=vote)
+                    for notification in notifications:
+                        notification.created = timezone.now()
+                        notification.viewed = False
+                        notification.save()
+            # If user already downvoted
+            elif vote.value == -1:
+                # If user is downvoting again, remove the vote
+                if value == -1:
+                    # del rep
+                    del_rep(request, v=vote)
+                    vote.delete()
+                # If user is upvoting, upvote the note
+                else:
+                    vote.value = value
+                    vote.save()
+                    # If user changes their vote, update the notifications
+                    notifications = Notification.objects.filter(vote=vote)
+                    for notification in notifications:
+                        notification.created = timezone.now()
+                        notification.viewed = False
+                        notification.save()
+        except ObjectDoesNotExist:
+            # If the user has not yet voted, create a new vote
+            vote = request.user.vote_set.create(reading=reading, value=value)
+            # add rep
+            add_rep(request, v=vote)
+            # create notification
+            notify(vote=vote)
+        vote_reading_form = loader.get_template('votes/vote_reading_form.html')
+        context = RequestContext(request, add_csrf(request, 
+            { 'reading': reading }))
+        data = {
+                    'pk': reading.pk,
+                    'vote_reading_form': vote_reading_form.render(context),
+        }
+        return HttpResponse(json.dumps(data), mimetype='application/json')
+    return HttpResponseRedirect(reverse('readings.views.detail', 
+        args=[reading.slug]))
