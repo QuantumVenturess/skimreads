@@ -68,7 +68,7 @@ def crop_image(file_path, name):
         os.remove(file_path)
     except WindowsError:
         pass
-    img.save(file_path)
+    img.save(file_path, 'JPEG')
 
 def resize_image(file_path, max_height, max_width):
     # Resize
@@ -87,7 +87,7 @@ def resize_image(file_path, max_height, max_width):
         os.remove(file_path)
     except WindowsError:
         pass
-    img.save(file_path)
+    img.save(file_path, 'JPEG')
 
 def upload_images(file_path, name, reading):
     # Upload
