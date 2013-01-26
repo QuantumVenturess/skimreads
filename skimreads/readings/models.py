@@ -117,7 +117,7 @@ class Reading(models.Model):
         return sum([vote.value for vote in self.vote_set.all()])
 
     def weight(self):
-        return int(self.views * self.activity_count())
+        return int(self.views)
 
 def post_save_reading_image(sender, instance, **kwargs):
     """

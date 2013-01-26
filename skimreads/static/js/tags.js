@@ -8,7 +8,7 @@ $(document).ready(function() {
             $.ajax({
                 data: { term: content },
                 type: 'GET',
-                url: $(this).attr('data-autocomplete-source'),
+                url: $(this).data('autocomplete-source'),
                 success: function(results) {
                     $('.tagListInsert').html(results.tag_list);
                     $('.tagListInsert ul li:first-child').addClass('selected');

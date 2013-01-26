@@ -34,7 +34,7 @@ $(document).ready(function() {
         </div>
         <div class="discuss">
             {% if user.is_staff %}
-                <span title="Reads">{{ reading.views }}</span> |
+                <span title="Views">{{ reading.views }}</span> |
             {% endif %}
             {% if reading.user == user or user.is_staff %}
                 <a href="{% url readings.views.edit reading.slug %}">

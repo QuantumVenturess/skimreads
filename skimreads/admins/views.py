@@ -3,12 +3,14 @@ from comments.forms import AdminCommentForm
 from comments.models import Comment
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.urlresolvers import reverse
 from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from django.template.defaultfilters import slugify
 from notifications.utils import notify
 from oauth.facebook import facebook_graph_add_note, facebook_graph_add_reading
 from random import randint
@@ -18,7 +20,11 @@ from readings.models import Note, Reading
 from replies.forms import AdminReplyForm
 from sessions.decorators import staff_user
 from skimreads.utils import add_csrf
+from tags.models import Tag
+from tags.utils import banned_words, only_letters
 from users.utils import add_rep
+
+import re
 
 @staff_user()
 def test(request):
@@ -36,6 +42,27 @@ def new_reading(request):
         if form.is_valid() and formset.is_valid():
             # save reading
             reading = form.save()
+            # add tag
+            name = request.POST.get('tag_name')
+            name = name.lower()
+            pattern = only_letters()
+            # If name contains only letters
+            if re.search(pattern, name):
+                # If name does not contain any banned words
+                blacklist = banned_words()
+                if not re.search(blacklist, name):
+                    try:
+                        # If tag exists, get tag
+                        tag = Tag.objects.get(name=name)
+                    except ObjectDoesNotExist:
+                        # If tag does not exist, create tag
+                        tag = Tag(name=name, user=request.user)
+                        tag.slug = slugify(tag.name)
+                        tag.save()
+                    tie = request.user.tie_set.create(reading=reading, 
+                        tag=tag)
+                    # add rep
+                    add_rep(request, t=tie)
             # facebook open graph add reading
             if reading.user.pk == request.user.pk:
                 facebook_graph_add_reading(request.user, reading)

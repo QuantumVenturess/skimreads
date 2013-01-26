@@ -16,6 +16,10 @@
             {% include 'shared/form_field.html' %}
         {% endfor %}
         {% if not reading %}
+            <div class="field">
+                <p>Add Tag</p>
+                <input autocomplete="off" data-autocomplete-source="{% url tags.views.tag_list_new_reading %}" id="newReadingTag" maxlength="20" name="tag_name" type="text" placeholder="Only letters, 20 characters max">
+            </div>
             <div class="field noteForms">
                 <p>Notes</p>
                 {% for form in formset %}

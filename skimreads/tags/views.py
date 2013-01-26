@@ -18,11 +18,9 @@ import re
 
 @login_required
 def tag_list(request):
-    """Return tags in a json list."""
+    """Return a list of tags in a html template."""
     name = request.GET.get('term', '')
     if name:
-#        tags = Tag.objects.filter(name__icontains=name).values('name')[0:5]
-#        tags = sorted([t['name'] for t in tags])
         tags = Tag.objects.filter(name__icontains=name).order_by('name')[0:5]
     else:
         tags = []
@@ -30,7 +28,17 @@ def tag_list(request):
     context = RequestContext(request, { 'tags': tags })
     data = { 'tag_list': t.render(context) }
     return HttpResponse(json.dumps(data), mimetype='application/json')
-#    return HttpResponse(json.dumps(tags), mimetype='application/json')
+
+@login_required
+def tag_list_new_reading(request):
+    """Return tags in a json list."""
+    name = request.GET.get('term', '')
+    if name:
+        tags = Tag.objects.filter(name__icontains=name).values('name')[0:5]
+        tags = sorted([t['name'] for t in tags])
+    else:
+        tags = []
+    return HttpResponse(json.dumps(tags), mimetype='application/json')
 
 def detail(request, slug):
     """Show all readings for a single tag."""
