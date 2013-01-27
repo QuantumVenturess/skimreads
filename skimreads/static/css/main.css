@@ -62,9 +62,3 @@ input:focus, textarea:focus {
 .red {
     color: rgb(255, 26, 0);
 }
-
-@font-face {
-    font-family: Quicksand;
-    src: url('/static/css/quicksand_book.ttf'),
-         url('/static/css/quicksand_book.eot');
-}

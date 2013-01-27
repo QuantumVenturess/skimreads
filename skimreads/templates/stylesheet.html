@@ -25,16 +25,21 @@
 <link rel="stylesheet" type="text/css" href="{{ static }}css/users.css">
 <link rel="stylesheet" type="text/css" href="{{ static }}css/votes.css">
 <style>
-
 /* favorites */
 .favoriteForm button div {
     background-image: url('{{ static }}img/fave_sprite.png');
+}
+
+/* main */
+@font-face {
+    font-family: Quicksand;
+    src: url('{{ static }}css/quicksand_book.ttf'),
+         url('{{ static }}css/quicksand_book.eot');
 }
 
 /* search */
 .searchForm .field input {
     background-image: url('{{ static }}img/search.png');
 }
-
 </style>
 {% endcompress %}
