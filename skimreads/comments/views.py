@@ -1,5 +1,6 @@
 from comments.forms import CommentForm
 from comments.models import Comment
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core import serializers
 from django.core.urlresolvers import reverse
@@ -34,15 +35,17 @@ def new(request, pk):
                     'comment_form': CommentForm(),
                     'note': note,
                     'reply_form': ReplyForm(),
+                    'static': settings.STATIC_URL,
             }
-            comment = loader.get_template('comments/comment.html')
             comment_form = loader.get_template('comments/comment_form.html')
+            comment_temp = loader.get_template('comments/comment.html')
             context = RequestContext(request, add_csrf(request, d))
             data = {
-                        'comment': comment.render(context),
+                        'comment': comment_temp.render(context),
                         'comment_count': note.comment_count(),
                         'comment_form': comment_form.render(context),
-                        'pk': note.pk,
+                        'comment_pk': comment.pk,
+                        'note_pk': note.pk,
             }
             return HttpResponse(json.dumps(data), mimetype='application/json')
     return HttpResponseRedirect(reverse('readings.views.detail', 

@@ -16,10 +16,16 @@ $(document).ready(function() {
                 type: $(this).attr('method'),
                 url: $(this).attr('action'),
                 success: function(results) {
-                    $('#replies_' + results.pk + ' .replies').append(results.reply);
-                    $('#replyCount_' + results.pk).text(results.reply_count);
-                    $('#replyFormContainer_' + results.pk).html(results.reply_form);
+                    $('#replies_' + results.comment_pk + ' .replies').append(results.reply);
+                    $('#replyCount_' + results.comment_pk).text(results.reply_count);
+                    $('#replyFormContainer_' + results.comment_pk).html(results.reply_form);
                     $('textarea').autoResize();
+                    // load new reply image
+                    var replyImage = $('#reply_' + results.reply_pk + ' .replyUserImage img');
+                    replyImage.attr('src', replyImage.attr('data-original'));
+                    // load new reply form image
+                    var replyFormImage = $('#replyForm_' + results.comment_pk + ' img');
+                    replyFormImage.attr('src', replyFormImage.attr('data-original'));
                 }
             })
         }
@@ -50,7 +56,7 @@ $(document).ready(function() {
                         type: form.attr('method'),
                         url: form.attr('action'),
                         success: function(results) {
-                            $('#reply_' + results.pk).remove()
+                            $('#reply_' + results.comment_pk).remove()
                             $('#replyCount_' + results.comment_pk).text(results.reply_count);
                         }
                     })

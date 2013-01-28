@@ -6,13 +6,13 @@
         <a href="{% url oauth.views.facebook %}">
             <img src="{{ static }}img/fb.png">
             <p>Connect with Facebook</p>
-            <div class="clear"></div>
         </a>
+        <div class="clear"></div>
     </div>
 {% endif %}
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-        <div class="editProfileImage">
+    <div class="editProfileImage">
         <img src="{{ request.user.profile.orig }}">
         {% for field in profile_form %}
             <div class="field">

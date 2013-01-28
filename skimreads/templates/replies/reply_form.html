@@ -4,7 +4,7 @@
         {% if user.is_anonymous %}
             <img src="{{ static }}img/users/default_small.jpg">
         {% else %}
-            <img src="{{ user.profile.small }}">
+            <img class="lazyLoad" data-original="{{ user.profile.small }}" src="{{ static }}img/users/lazy_user.jpg">
         {% endif %}
     </div>
     {% for field in reply_form %}

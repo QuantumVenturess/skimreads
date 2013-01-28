@@ -70,9 +70,11 @@
                         </a>
                     </li>
                     <li>
-                        <a href="{% url users.views.edit user.profile.slug %}">
-                            Settings
-                        </a>
+                        {% if user.is_staff %}
+                            <a href="{% url users.views.edit user.profile.slug %}">
+                                Settings
+                            </a>
+                        {% endif %}
                     </li>
                     <li><a href="{% url sessions.views.destroy %}">Logout</a></li>
                 </ul>

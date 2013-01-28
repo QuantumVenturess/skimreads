@@ -4,7 +4,7 @@
         {% include 'votes/vote_form.html' %}
     </div>
     <div class="noteUserImage">
-        <img src="{{ note.user.profile.small }}">
+        <img class="lazyLoad" data-original="{{ note.user.profile.small }}" src="{{ static }}img/users/lazy_user.jpg">
     </div>
     <div class="noteBody">
         <div class="noteUser">

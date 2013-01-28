@@ -1,5 +1,6 @@
 from collections import defaultdict
 from comments.forms import CommentForm
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
@@ -37,15 +38,17 @@ def new(request, slug):
                     'note': note,
                     'note_form': NoteForm(),
                     'reading': reading,
+                    'static': settings.STATIC_URL,
             }
             bullet_notes = loader.get_template('notes/bullet_notes.html')
-            note = loader.get_template('notes/note.html')
             note_form = loader.get_template('notes/note_form.html')
+            note_temp = loader.get_template('notes/note.html')
             context = RequestContext(request, add_csrf(request, d))
             data = {
                         'bullet_notes': bullet_notes.render(context),
-                        'note': note.render(context),
+                        'note': note_temp.render(context),
                         'note_form': note_form.render(context),
+                        'note_pk': note.pk,
             }
             return HttpResponse(json.dumps(data), mimetype='application/json')
     return HttpResponseRedirect(reverse('readings.views.detail', 

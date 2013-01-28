@@ -11,7 +11,7 @@ import re
 
 class Reading(models.Model):
     title = models.CharField(max_length=80, unique=True)
-    link = models.CharField(max_length=255, unique=True)
+    link = models.TextField(unique=True)
     created = models.DateTimeField(auto_now_add=True)
     image = models.CharField(max_length=255, blank=True, null=True)
     user = models.ForeignKey(User)

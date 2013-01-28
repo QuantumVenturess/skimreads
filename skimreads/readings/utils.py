@@ -49,45 +49,51 @@ def set_reading_image(reading, url):
 
 def crop_image(file_path, name):
     # Crop
-    img = Image.open(file_path)
-    # JPEG format does not support palette mode
-    if img.mode != 'RGB':
-        img = img.convert('RGB')
-    width, height = img.size
-    if width > height:
-        left = int((width - height)/2.0)
-        top = 0
-        box = (left, top, left + height, top + height)
-        img = img.crop(box)
-    elif height > width:
-        left = 0
-        top = int((height - width)/2.0)
-        box = (left, top, left + width, top + width)
-        img = img.crop(box)
     try:
-        os.remove(file_path)
-    except WindowsError:
-        pass
-    img.save(file_path, 'JPEG')
+        img = Image.open(file_path)
+        # JPEG format does not support palette mode
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        width, height = img.size
+        if width > height:
+            left = int((width - height)/2.0)
+            top = 0
+            box = (left, top, left + height, top + height)
+            img = img.crop(box)
+        elif height > width:
+            left = 0
+            top = int((height - width)/2.0)
+            box = (left, top, left + width, top + width)
+            img = img.crop(box)
+        try:
+            os.remove(file_path)
+        except WindowsError:
+            pass
+        img.save(file_path, 'JPEG')
+    except IOError:
+        print 'Cannot open image (crop_image())'
 
 def resize_image(file_path, max_height, max_width):
     # Resize
-    img = Image.open(file_path)
-    # JPEG format does not support palette mode
-    if img.mode != 'RGB':
-        img = img.convert('RGB')
-    width, height = img.size
-    if width > max_width:
-        img = img.resize((int(max_width), int(max_width)), 
-            PIL.Image.ANTIALIAS)
-    elif height > max_height:
-        img = img.resize((int(max_height), int(max_height)), 
-            PIL.Image.ANTIALIAS)
     try:
-        os.remove(file_path)
-    except WindowsError:
-        pass
-    img.save(file_path, 'JPEG')
+        img = Image.open(file_path)
+        # JPEG format does not support palette mode
+        if img.mode != 'RGB':
+            img = img.convert('RGB')
+        width, height = img.size
+        if width > max_width:
+            img = img.resize((int(max_width), int(max_width)), 
+                PIL.Image.ANTIALIAS)
+        elif height > max_height:
+            img = img.resize((int(max_height), int(max_height)), 
+                PIL.Image.ANTIALIAS)
+        try:
+            os.remove(file_path)
+        except WindowsError:
+            pass
+        img.save(file_path, 'JPEG')
+    except IOError:
+        print 'Cannot open image (resize_image())'
 
 def upload_images(file_path, name, reading):
     # Upload

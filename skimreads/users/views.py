@@ -109,10 +109,13 @@ def new(request):
     return render_to_response('users/new.html', add_csrf(request, d), 
         context_instance=RequestContext(request))
 
-@login_required
 def edit(request, slug):
     """Edit user page."""
     user = user_exists(slug)
+    # Admin user
+    if not request.user.is_staff:
+        return HttpResponseRedirect(reverse('readings.views.list_user', 
+            args=[request.user.profile.slug]))
     # Correct user
     if request.user.pk is not user.pk:
         return HttpResponseRedirect(reverse('readings.views.list_user', 

@@ -60,7 +60,7 @@ $(document).ready(function() {
             {% include 'votes/vote_reading_form.html' %}
         </div>
         <div class="readingImage">
-            <img src="{{ reading.pic }}">
+            <img class="lazyLoad" data-original="{{ reading.pic }}" src="{{ static }}img/readings/lazy_reading.jpg">
         </div>
         <div class="clear"></div>
     </div>

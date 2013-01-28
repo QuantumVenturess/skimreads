@@ -1,7 +1,7 @@
 <div class="reply{% if reply_focus == reply.pk %} focus{% endif %}" id="reply_{{ reply.pk }}">
     {% load common_tags %}
     <div class="replyUserImage">
-        <img src="{{ reply.user.profile.small }}">
+        <img class="lazyLoad" data-original="{{ reply.user.profile.small }}" src="{{ static }}img/users/lazy_user.jpg">
     </div>
     <div class="replyBody">
         <div class="replyUser">

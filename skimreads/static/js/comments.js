@@ -16,10 +16,19 @@ $(document).ready(function() {
                 type: $(this).attr('method'),
                 url: $(this).attr('action'),
                 success: function(results) {
-                    $('#comments_' + results.pk + ' .comments').append(results.comment);
-                    $('#commentCount_' + results.pk).text(results.comment_count);
-                    $('#commentFormContainer_' + results.pk).html(results.comment_form);
+                    $('#comments_' + results.note_pk + ' .comments').append(results.comment);
+                    $('#commentCount_' + results.note_pk).text(results.comment_count);
+                    $('#commentFormContainer_' + results.note_pk).html(results.comment_form);
                     $('textarea').autoResize();
+                    // load new comment image
+                    var commentImage = $('#comment_' + results.comment_pk + ' .commentUserImage img');
+                    commentImage.attr('src', commentImage.attr('data-original'));
+                    // load new comment form image
+                    var commentFormImage = $('#commentForm_' + results.note_pk + ' img');
+                    commentFormImage.attr('src', commentFormImage.attr('data-original'));
+                    // load new reply form image
+                    var replyFormImage = $('#replyForm_' + results.comment_pk + ' img');
+                    replyFormImage.attr('src', replyFormImage.attr('data-original'));
                 }
             })
         }
@@ -50,7 +59,7 @@ $(document).ready(function() {
                         type: form.attr('method'),
                         url: form.attr('action'),
                         success: function(results) {
-                            $('#comment_' + results.pk).remove();
+                            $('#comment_' + results.note_pk).remove();
                             $('#commentCount_' + results.note_pk).text(results.comment_count);
                         }
                     })

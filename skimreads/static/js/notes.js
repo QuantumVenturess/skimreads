@@ -12,6 +12,15 @@ $(document).ready(function() {
                     $('.notes').append(results.note);
                     $('#noteForm').html(results.note_form);
                     $('textarea').autoResize();
+                    // load new note image
+                    var noteImage = $('#note_' + results.note_pk + ' .noteUserImage img');
+                    noteImage.attr('src', noteImage.attr('data-original'));
+                    // load new note form image
+                    var noteFormImage = $('#noteForm img');
+                    noteFormImage.attr('src', noteFormImage.attr('data-original'));
+                    // load new comment form image
+                    var commentFormImage = $('#commentForm_' + results.note_pk + ' img');
+                    commentFormImage.attr('src', commentFormImage.attr('data-original'));
                 }
             })
         }

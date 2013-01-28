@@ -1,4 +1,5 @@
 from comments.models import Comment
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.core.urlresolvers import reverse
 from django.http import HttpResponse, HttpResponseRedirect
@@ -31,15 +32,17 @@ def new(request, pk):
                     'comment': comment,
                     'reply': reply,
                     'reply_form': ReplyForm(),
+                    'static': settings.STATIC_URL,
             }
-            reply = loader.get_template('replies/reply.html')
             reply_form = loader.get_template('replies/reply_form.html')
+            reply_temp = loader.get_template('replies/reply.html')
             context = RequestContext(request, add_csrf(request, d))
             data = {
-                        'reply': reply.render(context),
+                        'comment_pk': comment.pk,
+                        'reply': reply_temp.render(context),
                         'reply_count': comment.reply_count(),
                         'reply_form': reply_form.render(context),
-                        'pk': comment.pk,
+                        'reply_pk': reply.pk,
             }
             return HttpResponse(json.dumps(data), mimetype='application/json')
     return HttpResponseRedirect(reverse('readings.views.detail', 
