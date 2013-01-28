@@ -20,6 +20,14 @@
     margin: 0;
 }
 
+.bulletNotes li p {
+    margin: 0 0 5px 0;
+}
+
+.bulletNotes li p:last-child {
+    margin: 0;
+}
+
 /* Note form */
 #noteForm {
     background: rgb(240, 240, 240);
@@ -124,6 +132,14 @@
 
 .noteUser, .noteContent {
     margin: 0 0 5px 0;
+}
+
+.noteContent p, .commentContent p, .replyContent p {
+    margin: 0 0 5px 0;
+}
+
+.noteContent p:last-child, .commentContent p:last-child, .replyContent p:last-child {
+    margin: 0;
 }
 
 .noteUser a, .commentUser a, .replyContent a {
