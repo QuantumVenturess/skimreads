@@ -1,0 +1,6 @@
+<select name="user" id="id_user">
+    <option value="{{ user.pk }}" selected="selected">{{ user.username }}</option>
+    {% for user in users %}
+        <option value="{{ user.pk }}">{{ user.username }}</option>
+    {% endfor %}
+</select>

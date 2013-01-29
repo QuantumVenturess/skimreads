@@ -1,3 +1,4 @@
+from admins.utils import admin_david_list, admin_user_list
 from django import forms
 from django.contrib.auth.models import User
 from django.forms import ModelForm, TextInput
@@ -8,7 +9,25 @@ class AdminNoteForm(ModelForm):
     content = forms.CharField(label='Content', 
         widget=forms.Textarea(attrs={ 'placeholder': 'Add your note here' }))
     user = forms.ModelChoiceField(
-        queryset=User.objects.all().order_by('date_joined'))
+        queryset=admin_user_list())
+
+    class Meta:
+        model = Note
+        fields = ('content', 'user',)
+
+    def clean_content(self):
+        """Check to see if note content is blank."""
+        error_message = 'Note cannot be blank'
+        content = self.cleaned_data['content']
+        if not content.strip():
+            raise forms.ValidationError(error_message)
+        return content
+
+class DavidNoteForm(ModelForm):
+    content = forms.CharField(label='Content', 
+        widget=forms.Textarea(attrs={ 'placeholder': 'Add your note here' }))
+    user = forms.ModelChoiceField(
+        queryset=admin_david_list())
 
     class Meta:
         model = Note
@@ -50,7 +69,25 @@ class AdminReadingForm(ModelForm):
         widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
             'placeholder': 'Click on an image to attach it with this reading' }))
     user = forms.ModelChoiceField(
-        queryset=User.objects.all().order_by('date_joined'))
+        queryset=admin_user_list())
+
+    class Meta:
+        model = Reading
+        fields = ('link', 'title', 'image', 'user',)
+
+class DavidReadingForm(ModelForm):
+    link = forms.CharField(label='Page URL', 
+        widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
+            'placeholder': "Copy URL from the page you're reading and paste here" }))
+    title = forms.CharField(label='Title', 
+        widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
+            'placeholder': 'Enter a title for your reading',
+            'maxlength': 80 }))
+    image = forms.CharField(label='Image URL', required=False, 
+        widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
+            'placeholder': 'Click on an image to attach it with this reading' }))
+    user = forms.ModelChoiceField(
+        queryset=admin_david_list())
 
     class Meta:
         model = Reading

@@ -1,9 +1,16 @@
 from django import template
+from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
 
 import re
 
 register = template.Library()
+
+@register.inclusion_tag('admins/user_list.html')
+def admin_user_list(user):
+    # render admins/user_list.html and output into templates
+    # users = User.objects.all()
+    pass
 
 @register.simple_tag
 def faved(reading, user):

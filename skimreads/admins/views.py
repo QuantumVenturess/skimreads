@@ -1,5 +1,5 @@
 from admins.utils import first_ten_users, random_user
-from comments.forms import AdminCommentForm
+from comments.forms import AdminCommentForm, DavidCommentForm
 from comments.models import Comment
 from django.contrib import messages
 from django.contrib.auth.models import User
@@ -14,10 +14,10 @@ from django.template.defaultfilters import slugify
 from notifications.utils import notify
 from oauth.facebook import facebook_graph_add_note, facebook_graph_add_reading
 from random import randint
-from readings.forms import (AdminNoteForm, AdminReadingForm, NoteForm, 
-    RequiredFormSet)
+from readings.forms import (AdminNoteForm, DavidNoteForm, AdminReadingForm, 
+    DavidReadingForm, NoteForm, RequiredFormSet)
 from readings.models import Note, Reading
-from replies.forms import AdminReplyForm
+from replies.forms import AdminReplyForm, DavidReplyForm
 from sessions.decorators import staff_user
 from skimreads.utils import add_csrf
 from tags.models import Tag
@@ -37,7 +37,10 @@ def new_reading(request):
     """Create a new reading."""
     NoteFormset = formset_factory(NoteForm, extra=3, formset=RequiredFormSet)
     if request.method == 'POST':
-        form = AdminReadingForm(request.POST)
+        if request.user.pk == 2:
+            form = DavidReadingForm(request.POST)
+        else:
+            form = AdminReadingForm(request.POST)
         formset = NoteFormset(request.POST)
         if form.is_valid() and formset.is_valid():
             # save reading
@@ -123,7 +126,10 @@ def new_reading(request):
             return HttpResponseRedirect(reverse('admins.views.reading', 
                 args=[reading.slug]))
     else:
-        form = AdminReadingForm()
+        if request.user.pk == 2:
+            form = DavidReadingForm()
+        else:
+            form = AdminReadingForm()
         formset = NoteFormset()
     d = {
         'form': form,
@@ -172,7 +178,10 @@ def reading(request, slug):
     """Detail reading."""
     reading = get_object_or_404(Reading, slug=slug)
     if request.method == 'POST':
-        form = AdminNoteForm(request.POST)
+        if request.user.pk == 2:
+            form = DavidNoteForm(request.POST)
+        else:
+            form = AdminNoteForm(request.POST)
         if form.is_valid():
             # save note
             note = form.save(commit=False)
@@ -190,7 +199,10 @@ def reading(request, slug):
             return HttpResponseRedirect(reverse('admins.views.reading', 
                 args=[reading.slug]))
     else:
-        form = AdminNoteForm()
+        if request.user.pk == 2:
+            form = DavidNoteForm()
+        else:
+            form = AdminNoteForm()
     d = {
         'form': form,
         'reading': reading,
@@ -204,7 +216,10 @@ def note(request, pk):
     """Detail note."""
     note = get_object_or_404(Note, pk=pk)
     if request.method == 'POST':
-        form = AdminCommentForm(request.POST)
+        if request.user.pk == 2:
+            form = DavidCommentForm(request.POST)
+        else:
+            form = AdminCommentForm(request.POST)
         if form.is_valid():
             # save comment
             comment = form.save(commit=False)
@@ -218,7 +233,10 @@ def note(request, pk):
             return HttpResponseRedirect(reverse(
                 'admins.views.note', args=[note.pk]))
     else:
-        form = AdminCommentForm()
+        if request.user.pk == 2:
+            form = DavidCommentForm(request.POST)
+        else:
+            form = AdminCommentForm()
     d = {
         'form': form,
         'note': note,
@@ -233,7 +251,10 @@ def comment(request, pk):
     """Detail comment."""
     comment = get_object_or_404(Comment, pk=pk)
     if request.method == 'POST':
-        form = AdminReplyForm(request.POST)
+        if request.user.pk == 2:
+            form = DavidReplyForm(request.POST)
+        else:
+            form = AdminReplyForm(request.POST)
         if form.is_valid():
             # save reply
             reply = form.save(commit=False)
@@ -247,7 +268,10 @@ def comment(request, pk):
             return HttpResponseRedirect(reverse(
                 'admins.views.comment', args=[comment.pk]))
     else:
-        form = AdminReplyForm()
+        if request.user.pk == 2:
+            form = DavidReplyForm()
+        else:
+            form = AdminReplyForm()
     d = {
         'comment': comment,
         'comment_pk': comment.pk,
