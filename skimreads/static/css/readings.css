@@ -162,6 +162,7 @@
 }
 
 .readingShare a {
+    background: rgb(60, 60, 60);
     display: block;
     float: left;
     margin: 0 0 0 5px;
@@ -173,16 +174,16 @@
     width: 21px;
 }
 
-.facebookShare {
+.facebookShare:hover {
     background: rgb(61, 110, 163);
 }
 
-.twitterShare {
+.twitterShare:hover {
     background: rgb(64, 153, 255);
 }
 
-.skimShare {
-    background: rgb(60, 60, 60);
+.skimShare:hover {
+    background: rgb(63, 171, 218);
 }
 
 /* Edit note */

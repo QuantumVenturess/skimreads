@@ -1,11 +1,10 @@
 $(document).ready(function() {
 	$('.lazy').lazyload({
-		effect: 'fadeIn',
-		failure_limit: 50
+		failure_limit: 50,
+        skip_invisible : false
 	})
 	$('.lazyLoad').lazyload({
 		event: 'load',
-		effect: 'fadeIn',
 		failure_limit: 50
 	})
 })
