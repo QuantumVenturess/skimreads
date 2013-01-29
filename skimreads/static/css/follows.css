@@ -1,17 +1,20 @@
-.followForm input {
+.followForm input, .tieFollowForm input {
     border: none;
     color: rgb(255, 255, 255);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    font-size: 14px;
     margin: 0;
-    padding: 10px 20px;
-    width: 99px;
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
 
-.followForm input:hover {
+.followForm input {
+    font-size: 14px;
+    padding: 10px 20px;
+    width: 99px;
+}
+
+.followForm input:hover, .tieFollowForm input:hover {
     cursor: pointer;
 }
 
@@ -36,4 +39,21 @@
 .userFollows {
     float: left;
     width: 620px;
+}
+
+/* tie tag follow */
+.tieFollowForm {
+    display: none;
+    margin-top: -25px;
+    position: absolute;
+}
+
+.tieFollowForm input {
+    font-size: 12px;
+    padding: 5px 10px;
+    width: 68px;
+}
+
+.tieFollowForm .unfollow {
+    display: block;
 }

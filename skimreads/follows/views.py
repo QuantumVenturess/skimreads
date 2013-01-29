@@ -8,7 +8,7 @@ from django.template import loader, RequestContext
 from django.utils import timezone
 from notifications.utils import notify
 from skimreads.utils import add_csrf, page
-from tags.models import Tag
+from tags.models import Tag, Tie
 from users.utils import add_rep, del_rep, user_exists
 
 import json
@@ -96,6 +96,12 @@ def follow_tag(request, slug):
             'tagfollow_form': t.render(context),
             'topic_count': request.user.profile.topic_count(),
         }
+        tie = tag.tie_set.all()[0]
+        if tie:
+            d = { 'tie': tie }
+            t = loader.get_template('follows/tiefollow_form.html')
+            context = RequestContext(request, add_csrf(request, d))
+            data['tiefollow_form'] = t.render(context)
         return HttpResponse(json.dumps(data), mimetype='application/json')
     return HttpResponseRedirect(reverse('tags.views.detail', 
         args=[tag.slug]))

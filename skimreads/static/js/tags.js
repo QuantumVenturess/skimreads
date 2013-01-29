@@ -153,7 +153,7 @@ $(document).ready(function() {
     })
     */
     // Deleting a tag
-    $('.tie form').live('submit', function() {
+    $('.removeTie form').live('submit', function() {
         $.ajax({
             data: $(this).serialize(),
             type: $(this).attr('method'),

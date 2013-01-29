@@ -32,11 +32,11 @@
     color: rgb(255, 26, 0);
 }
 
-.tie form {
+.removeTie {
     float: right;
 }
 
-.tie input {
+.removeTie input {
     background: none;
     border: none;
     color: rgb(255, 26, 0);
@@ -47,7 +47,7 @@
     vertical-align: top;
 }
 
-.tie input:hover {
+.removeTie input:hover {
     color: rgb(160, 0, 0);
     cursor: pointer;
 }
