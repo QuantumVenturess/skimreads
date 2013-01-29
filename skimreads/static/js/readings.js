@@ -76,37 +76,56 @@ $(document).ready(function() {
 })
 
 function readingLinkDoneTyping() {
+    var imgRegex = imageRegex();
     var regex = urlRegex()
     var images = $('.readingNewImages');
     var val = $('.readingNew #id_link').val();
-    images.html('<p>Loading images...</p>');
     if (val && val.match(regex)) {
-        $.ajax({
-            data: { 'url': val },
-            type: 'GET',
-            url: '/readings/new/scrape',
-            success: function(results) {
-                // Insert scarped images into page
-                images.html(results.imgs);
-                // Add title to text input if title is blank
-                var title = $('#id_title');
-                if (title.val() == '') {
-                    title.val(results.html_title);
-                }
-                // Masonry for images
-                $('.grid img').imagesLoaded(function() {
-                    $('.grid').masonry({
-                        itemSelector: '.readingNewImage',
-                        isFitWidth: true,
-                        gutterWidth: 10
+        if (val.match(imgRegex)) {
+            var ext = val.match(imgRegex)[0];
+            var title = val.split('/')[val.split('/').length - 1]
+            $('#id_title').val(title.split(ext)[0]);
+            $('#id_image').val(val);
+            images.html(" \
+                <div class='grid'> \
+                    <div class='readingNewImage'> \
+                        <img class='selected' src='" + val + "'> \
+                    </div> \
+                </div>")
+        }
+        else {
+            images.html('<p>Loading images...</p>');
+            $.ajax({
+                data: { 'url': val },
+                type: 'GET',
+                url: '/readings/new/scrape',
+                success: function(results) {
+                    // Insert scarped images into page
+                    images.html(results.imgs);
+                    // Add title to text input if title is blank
+                    var title = $('#id_title');
+                    if (title.val() == '') {
+                        title.val(results.html_title);
+                    }
+                    // Masonry for images
+                    $('.grid img').imagesLoaded(function() {
+                        $('.grid').masonry({
+                            itemSelector: '.readingNewImage',
+                            isFitWidth: true,
+                            gutterWidth: 10
+                        });
                     });
-                });
-            }
-        })
+                }
+            })
+        }
     }
     else {
         images.html('')
     }
+}
+
+function imageRegex() {
+    return /(.jpg|.png|.gif)$/
 }
 
 function urlRegex() {
