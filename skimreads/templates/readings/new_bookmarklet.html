@@ -1,0 +1,29 @@
+{% extends 'bookmarklet.html' %}
+{% block title %}{{ title }}{% endblock %}
+{% block content %}
+<div class="readingNew">
+    <form action="{% url readings.views.new_bookmarklet %}" method="POST">
+        {% csrf_token %}
+        <div class="field">
+            <input id="id_link" name="link" placeholder="Copy URL from the page you're reading and paste here" type="text" value="{{ link }}">
+        </div>
+        <div class="field">
+            <input id="id_title" name="title" placeholder="Enter a title for your reading" type="text" value="{{ titl }}">
+        </div>
+        <div class="field">
+            <input id="id_image" name="image" placeholder="Click on an image to attach it with this reading" type="text">
+        </div>
+        <div class="field">
+            <input autocomplete="off" data-autocomplete-source="{% url tags.views.tag_list_new_reading %}" id="newReadingTag" maxlength="20" name="tag_name" type="text" placeholder="Only letters, 20 characters max">
+        </div>
+        <div class="field">
+            <textarea name="content" placeholder="Add your note here">{{ content }}</textarea>
+        </div>
+        <div class="action">
+            <input type="submit" value="Save">
+        </div>
+    </form>
+</div>
+<div class="readingNewImages"></div>
+<div class="clear"></div>
+{% endblock %}

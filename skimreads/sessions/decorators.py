@@ -20,6 +20,19 @@ def already_logged_in():
         return wraps(func)(inner_decorator)
     return decorator
 
+def bookmarklet_login_required():
+    def decorator(func):
+        def inner_decorator(request, *args, **kwargs):
+            user_id = request.session.get('_auth_user_id')
+            if not user_id:
+                path = request.build_absolute_uri()
+                request.session['next'] = path
+                return HttpResponseRedirect(reverse('sessions.views.new'))
+            else:
+                return func(request, *args, **kwargs)
+        return wraps(func)(inner_decorator)
+    return decorator
+
 def staff_user():
     def decorator(func):
         def inner_decorator(request, *args, **kwargs):

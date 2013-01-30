@@ -87,6 +87,35 @@
 }
 
 /* Reading new */
+.bookmarkletLink {
+    margin: 0 0 20px 0;
+    width: 422px;
+}
+
+.bookmarkletLink h1, .bookmarkletLink p {
+    float: left;
+    margin: 0 0 5px 0;
+}
+
+.bookmarkletLink h1 {
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.bookmarkletLink p {
+    font-size: 13px;
+    line-height: 19px;
+}
+
+.bookmarkletLink a {
+    background: rgb(63, 171, 218);
+    color: rgb(255, 255, 255);
+    display: block;
+    float: right;
+    font-size: 14px;
+    padding: 10px 20px;
+}
+
 .readingNew {
     float: left;
 }

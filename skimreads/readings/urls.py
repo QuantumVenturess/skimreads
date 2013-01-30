@@ -3,6 +3,7 @@ from django.conf.urls import patterns, url
 urlpatterns = patterns('readings.views',
     # New reading
     url(r'^new/$', 'new'),
+    url(r'^new/bookmarklet/$', 'new_bookmarklet'),
     # Scrape reading link
     url(r'^new/scrape/$', 'scrape'),
     # Detail

@@ -73,6 +73,38 @@ $(document).ready(function() {
         resizable: 1,
         width: 675
     })
+    // saving a reading from a bookmarklet
+    $(document).on('submit', '.bookmarklet .readingNew form', function() {
+        var link = $('.bookmarklet .readingNew #id_link');
+        var title = $('.bookmarklet .readingNew #id_title');
+        if (link.val() == '') {
+            link.focus();
+        }
+        else if (title.val() == '') {
+            title.focus();
+        }
+        else {
+            $.ajax({
+                data: $(this).serialize(),
+                type: $(this).attr('method'),
+                url:  $(this).attr('action'),
+                success: function(results) {
+                    if (results.success == 1) {
+                        window.close();
+                    }
+                    else {
+                        alert('Reading was not saved, please check your data');
+                    }
+                }
+            })
+        }
+        return false;
+    })
+    // clicking on the skim it button from reading new page
+    $(document).on('click', '.bookmarkletLink a', function() {
+        alert('Drag me into your Bookmarks please');
+        return false;
+    })
 })
 
 function readingLinkDoneTyping() {

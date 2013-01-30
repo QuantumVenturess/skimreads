@@ -22,6 +22,7 @@ from readings.models import Note, Reading
 from readings.utils import crop_image, delete_reading_image
 from replies.forms import ReplyForm
 from replies.models import Reply
+from sessions.decorators import bookmarklet_login_required
 from skimreads.utils import add_csrf, page
 from tags.models import Tag, Tie
 from tags.utils import auto_tag, banned_words, only_letters
@@ -219,13 +220,98 @@ def new(request):
     else:
         form = ReadingForm()
         formset = NoteFormset()
+    di = { 'static': settings.STATIC_URL }
+    t = loader.get_template('javascript/bookmarklet.js')
+    context = RequestContext(request, di)
     d = {
-            'title': 'New Reading',
-            'form': form,
-            'formset': formset,
+        'bookmarklet': re.sub(r'\s', '%20', str(t.render(context))),
+        'form': form,
+        'formset': formset,
+        'title': 'New Reading',
     }
     return render_to_response('readings/new.html', add_csrf(request, d), 
         context_instance=RequestContext(request))
+
+@bookmarklet_login_required()
+def new_bookmarklet(request):
+    """Create new reading from bookmarklet."""
+    if request.method == 'POST':
+        content = request.POST.get('content', '')
+        image = request.POST.get('image', '')
+        link = request.POST.get('link', '')
+        titl = request.POST.get('title', '')
+        # if there is a link and title, create reading
+        if link and titl:
+            try:
+                reading = Reading.objects.get(link=link)
+            except ObjectDoesNotExist:
+                titles = Reading.objects.filter(title=titl)
+                if titles:
+                    titl = '%s-%s' % (titl, str(titles.count()))
+                reading = Reading(image=image, link=link, title=titl, 
+                    user=request.user)
+                reading.save()
+                # create vote for reading
+                reading.vote_set.create(user=reading.user, value=1)
+            # add tag
+            name = request.POST.get('tag_name')
+            # if user added tag
+            if name:
+                name = name.lower()
+                pattern = only_letters()
+                # If name contains only letters
+                if re.search(pattern, name):
+                    # If name does not contain any banned words
+                    blacklist = banned_words()
+                    if not re.search(blacklist, name):
+                        try:
+                            # If tag exists, get tag
+                            tag = Tag.objects.get(name=name)
+                        except ObjectDoesNotExist:
+                            # If tag does not exist, create tag
+                            tag = Tag(name=name, user=request.user)
+                            tag.slug = slugify(tag.name)
+                            tag.save()
+                        tie = request.user.tie_set.create(reading=reading, 
+                            tag=tag)
+                        # add rep
+                        add_rep(request, t=tie)
+            # if user did not add a tag, auto tag
+            else:
+                auto_tag(request, reading)
+            # facebook open graph add reading
+            facebook_graph_add_reading(request.user, reading)
+            # add rep
+            add_rep(request, rd=reading)
+            # if there is content, create note
+            if content.strip():
+                note = Note(content=content, reading=reading, 
+                    user=reading.user)
+                note.save()
+                # create first vote for note
+                request.user.vote_set.create(note=note, value=1)
+            data = { 'success': 1 }
+            return HttpResponse(json.dumps(data), 
+                mimetype='application/json')
+    content = request.GET.get('note', '').lstrip(' ')
+    link = request.GET.get('link', '')
+    title = request.GET.get('title', '')[:80]
+    if len(title.split('|')) >= 2:
+        first, second = title.split('|')
+        if len(first) >= len(second):
+            html_title = first
+        else:
+            html_title = second
+    else:
+        html_title = title
+    d = {
+        'content': content,
+        'link': link,
+        'titl': html_title,
+        'title': 'Add Reading',
+    }
+    return render_to_response('readings/new_bookmarklet.html', 
+        add_csrf(request, d), context_instance=RequestContext(request))
 
 @login_required
 def scrape(request):

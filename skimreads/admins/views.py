@@ -1,6 +1,7 @@
 from admins.utils import first_ten_users, random_user
 from comments.forms import AdminCommentForm, DavidCommentForm
 from comments.models import Comment
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.models import User
 from django.core.exceptions import ObjectDoesNotExist
@@ -9,7 +10,7 @@ from django.forms.formsets import formset_factory
 from django.forms.models import modelformset_factory
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404, render_to_response
-from django.template import RequestContext
+from django.template import loader, RequestContext
 from django.template.defaultfilters import slugify
 from notifications.utils import notify
 from oauth.facebook import facebook_graph_add_note, facebook_graph_add_reading
@@ -29,7 +30,13 @@ import re
 @staff_user()
 def test(request):
     """Test page."""
-    return render_to_response('admins/test.html', 
+    di = { 'static': settings.STATIC_URL }
+    t = loader.get_template('javascript/bookmarklet.js')
+    context = RequestContext(request, di)
+    d = {
+        'bookmarklet': re.sub(r'\s', '%20', str(t.render(context))),
+    }
+    return render_to_response('admins/test.html', d, 
         context_instance=RequestContext(request))
 
 @staff_user()
@@ -131,7 +138,11 @@ def new_reading(request):
         else:
             form = AdminReadingForm()
         formset = NoteFormset()
+    di = { 'static': settings.STATIC_URL }
+    t = loader.get_template('javascript/bookmarklet.js')
+    context = RequestContext(request, di)
     d = {
+        'bookmarklet': re.sub(r'\s', '%20', str(t.render(context))),
         'form': form,
         'formset': formset,
         'title': 'New Reading',

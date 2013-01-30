@@ -1,0 +1,1 @@
+javascript:(function() { var d = document; var e = d.createElement('script'); e.setAttribute('type', 'text/javascript'); e.setAttribute('src', '{{ static }}js/bookmarklet_functions.js'); d.getElementsByTagName('head')[0].appendChild(e); })();

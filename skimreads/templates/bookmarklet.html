@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<head>
+    <title>{{ title }}</title>
+    {% load static %}
+    {% get_static_prefix as static %}
+    {% include 'stylesheet.html' %}
+    {% include 'javascript.html' %}
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content bookmarklet">
+            {% block content %}{% endblock %}
+        </div>
+    </div>
+</body>
+</html>
