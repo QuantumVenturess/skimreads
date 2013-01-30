@@ -8,26 +8,59 @@
         script.onload = script.onreadystatechange = function() {
             if (!done && (!this.readyState || this.readyState == 'loaded' || this.readyState == 'complete')) {
                 done = true;
-                initBookmarklet();
+                gatherData();
             }
         };
         document.getElementsByTagName('head')[0].appendChild(script);
     }
     else {
-        initBookmarklet();
+        gatherData();
     };
 
-    function initBookmarklet() {
-        (window.myBookmarklet = function() {
-            var link = window.location;
-            var note = getSelText();
-            var title = document.title;
-            var url = 'http://skimreads.com/readings/new/bookmarklet?link=' + encodeURI(link) + '&title=' + encodeURI(title) + '&note=' + encodeURI(note);
-            if (note != undefined) {
-                popUp(url, 'myWindow', '1000', '400', '100', '200', 'yes');
-            }
-        })();
+    function createFrame(l, n, t) {
+        var f = document.createElement('iframe');
+        var fname = (+(('' + Math.random()).substring(2))).toString(36);
+        f.setAttribute('name', fname);
+        f.setAttribute('id', fname);
+
+        // change accordingly for development/production
+        // f.setAttribute('src', 'http://localhost:8000/iframe/');
+
+        f.setAttribute('style', 'border:none;height:0;margin:0;padding:0;position:absolute;width:0;');
+        document.body.appendChild(f);
+        var note = getSelText();
+        var frame = window.frames[fname];
+        var doc   = frame.document;
+        var script = doc.createElement('script');
+        script.setAttribute('type', 'text/javascript');
+
+        // change accordingly for development/production
+        script.setAttribute('src', 'http://s3.amazonaws.com/skimreads/js/bookmarklet_frame_functions.js');
+        // script.setAttribute('src', '/static/js/bookmarklet_frame_functions.js');
+
+        var link  = doc.createElement('div');
+        var note  = doc.createElement('div');
+        var title = doc.createElement('div');
+        link.setAttribute('id', 'link');
+        link.appendChild(doc.createTextNode(l));
+        note.setAttribute('id', 'note');
+        note.appendChild(doc.createTextNode(n));
+        title.setAttribute('id', 'title');
+        title.appendChild(doc.createTextNode(t));
+        doc.getElementsByTagName('head')[0].appendChild(script);
+        doc.body.appendChild(link);
+        doc.body.appendChild(note);
+        doc.body.appendChild(title);
     };
+
+    function gatherData() {
+        var link = window.location;
+        var note = getSelText();
+        var title = document.title;
+        if (note != undefined) {
+            createFrame(link, note, title);
+        }
+    }
 
     function getSelText() {
         var selText = '';
@@ -46,10 +79,5 @@
         else {
             return selText;
         }
-    };
-
-    function popUp(url, winName, w, h, t, l, scroll) {
-        settings = 'height=' + h + ', width=' + w + ', top=' + t + ', left=' + l + ', scrollbars=' + scroll + ', resizable';
-        window.open(url, winName, settings);
     };
 })();

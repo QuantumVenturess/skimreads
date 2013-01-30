@@ -28,6 +28,7 @@ urlpatterns = patterns('',
     url(r'^oauth/', include('oauth.urls')),
     # Pages
     url(r'^about/$', 'pages.views.about'),
+    url(r'^iframe/$', 'pages.views.iframe'),
     # Readings
     url(r'^$', 'readings.views.feed', name='root_path'),
     url(r'^discover/$', 'readings.views.discover'),

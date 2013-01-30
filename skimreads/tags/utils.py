@@ -16,10 +16,13 @@ def auto_tag(request, reading):
         match = title[result.start():result.end()]
         try:
             tag = Tag.objects.get(name=match)
-            # tie a tag to reading
-            tie = reading.user.tie_set.create(reading=reading, tag=tag)
-            # add rep
-            add_rep(request, t=tie)
+            try:
+                tie = reading.tie_set.get(tag=tag)
+            except ObjectDoesNotExist:
+                # tie a tag to reading
+                tie = reading.user.tie_set.create(reading=reading, tag=tag)
+                # add rep
+                add_rep(request, t=tie)
         except ObjectDoesNotExist:
             pass
 
