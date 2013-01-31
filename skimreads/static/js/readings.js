@@ -84,22 +84,29 @@ $(document).ready(function() {
             title.focus();
         }
         else {
-            $.ajax({
-                data: $(this).serialize(),
-                type: $(this).attr('method'),
-                url:  $(this).attr('action'),
-                success: function(results) {
-                    if (results.success == 1) {
-                        window.top.postMessage('close-iframe', '*');
-                        // window.parent.location.hash = '#reading_saved';
-                        // window.close();
-                        // window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame').parentNode.removeChild(window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame'));
+            if (!$(this).hasClass('disabled')) {
+                $(this).addClass('disabled');
+                $('.readingSaveSpinner').show();
+                $.ajax({
+                    data: $(this).serialize(),
+                    type: $(this).attr('method'),
+                    url:  $(this).attr('action'),
+                    success: function(results) {
+                        if (results.success == 1) {
+                            $('.readingSaveSpinner').hide();
+                            window.top.postMessage('close-iframe', '*');
+                            // window.parent.location.hash = '#reading_saved';
+                            // window.close();
+                            // window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame').parentNode.removeChild(window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame'));
+                        }
+                        else {
+                            $(this).removeClass('disabled');
+                            $('.readingSaveSpinner').hide();
+                            alert('Reading was not saved, please check your data');
+                        }
                     }
-                    else {
-                        alert('Reading was not saved, please check your data');
-                    }
-                }
-            })
+                })
+            }
         }
         return false;
     })
