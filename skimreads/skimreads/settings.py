@@ -4,7 +4,7 @@ import os, socket
 # Check environment
 if os.environ.get('MYSITE_PRODUCTION', False):
     # production
-    DEBUG = TEMPLATE_DEBUG = True
+    DEBUG = TEMPLATE_DEBUG = False
     DEV = False
     COMPRESS_ENABLED = True
 else:
@@ -172,11 +172,10 @@ else:
     STATIC_URL = 'http://s3.amazonaws.com/skimreads/'
 
 # Additional locations of static files
-if DEV:
-    STATICFILES_DIRS = (
-        os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 
-            'static')).replace('\\', '/').replace('\%s' % project_name, '/%s' % project_name),
-    )
+STATICFILES_DIRS = (
+    os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 
+        'static')).replace('\\', '/').replace('\%s' % project_name, '/%s' % project_name),
+)
 
 # List of finder classes that know how to find static files in
 STATICFILES_FINDERS = (
