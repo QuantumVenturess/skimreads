@@ -316,10 +316,12 @@ def new_bookmarklet(request):
 @login_required
 def scrape(request):
     """Scrape url for all images."""
-    url = urllib2.urlopen(request.GET.get('url'))
-    html = url.read()
+    url = request.GET.get('url')
+    req = urllib2.Request(url, headers={ 'User-Agent': 'Magic Browser' })
+    con = urllib2.urlopen(req)
+    html = con.read()
     soup = BeautifulSoup(html)
-    imgs = soup.find_all('img', src=re.compile('^http'))
+    imgs = soup.find_all('img')
     imgs = [i['src'] for i in imgs]
     title = soup.find('title').string[:80]
     if len(title.split('|')) >= 2:
