@@ -1,4 +1,7 @@
 (function() {
+    // check to close iframe
+    setTimeout(checkForClose, 1000);
+
     // minimum version of jQuery
     var v = '1.3.2';
     if (window.jQuery === undefined || window.jQuery.fn.jquery < v) {
@@ -17,7 +20,21 @@
         gatherData();
     };
 
-    function createFrame1(link, note, title) {
+    function checkForClose() {
+        if (window.location.hash == '#reading_saved' || window.location.hash == '#reading_canceled') {
+            var iframe = document.getElementById('skimreadsBookmarkletNewReadingFrame');
+            iframe.parentNode.removeChild(iframe);
+        }
+        else {
+            setTimeout(checkForClose, 1000);
+        }
+    }
+
+    // create iframe with a popup form inside it for saving reading
+    function createFrame(link, note, title) {
+        // remove hash in URL
+        var pathName = window.location.pathname;
+        window.history.replaceState(null, null, pathName);
         // change accordingly for development/production
         var host = 'skimreads.com';
         // var host = 'localhost:8000';
@@ -31,7 +48,8 @@
         document.body.appendChild(f);
     }
 
-    function createFrame(l, n, t) {
+    // create an iframe and place it in the center of the screen
+    function createFrame1(l, n, t) {
         var f = document.createElement('iframe');
         var fname = (+(('' + Math.random()).substring(2))).toString(36);
         f.setAttribute('name', fname);
