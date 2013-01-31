@@ -5,3 +5,17 @@
 .bookmarklet .content {
     padding: 20px 0;
 }
+
+.readingSaveSpinner {
+    display: none;
+    left: 0;
+    margin: 0 auto;
+    position: absolute;
+    right: 0;
+    top: 150px;
+}
+
+.readingSaveSpinner, .readingSaveSpinner img {
+    height: 50px;
+    width: 50px;
+}
