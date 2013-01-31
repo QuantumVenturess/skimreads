@@ -90,8 +90,8 @@ $(document).ready(function() {
                 url:  $(this).attr('action'),
                 success: function(results) {
                     if (results.success == 1) {
-                        // window.close();
-                        window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame').parentNode.removeChild(window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame'));
+                        window.close();
+                        // window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame').parentNode.removeChild(window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame'));
                     }
                     else {
                         alert('Reading was not saved, please check your data');

@@ -17,7 +17,7 @@
         gatherData();
     };
 
-    function createFrame(link, note, title) {
+    function createFrame1(link, note, title) {
         // change accordingly for development/production
         var host = 'skimreads.com';
         // var host = 'localhost:8000';
@@ -27,11 +27,11 @@
         f.setAttribute('name', fname);
         f.setAttribute('id', fname);
         f.setAttribute('src', url);
-        f.setAttribute('style', 'border:none;bottom:0;height:395px;left:0;margin:0 auto;padding:0;position:absolute;right:0;top:100px;width:1000px;z-index:9999;');
+        f.setAttribute('style', 'border:none;bottom:0;height:395px;left:0;margin:0 auto;padding:0;position:fixed;right:0;top:100px;width:1000px;z-index:9999;');
         document.body.appendChild(f);
     }
 
-    function createFrame1(l, n, t) {
+    function createFrame(l, n, t) {
         var f = document.createElement('iframe');
         var fname = (+(('' + Math.random()).substring(2))).toString(36);
         f.setAttribute('name', fname);

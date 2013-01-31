@@ -19,16 +19,14 @@
 
     function initBookmarklet() {
         (window.myBookmarklet = function() {
-
             // change accordingly for development/production
-            // var host = 'skimreads.com';
-            var host = 'localhost:8000';
-
+            var host = 'skimreads.com';
+            // var host = 'localhost:8000';
             var link  = document.getElementById('link').textContent;
             var note  = document.getElementById('note').textContent;
             var title = document.getElementById('title').textContent;
             var url = 'http://' + host + '/readings/new/bookmarklet?link=' + encodeURI(link) + '&title=' + encodeURI(title) + '&note=' + encodeURI(note);
-            popUp(url, 'myWindow', '1000', '400', '100', '200', 'yes');
+            popUp(url, 'myWindow', '1000', '395', '100', '200', 'yes');
         })();
     };
 
