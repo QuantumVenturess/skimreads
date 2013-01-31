@@ -90,7 +90,8 @@ $(document).ready(function() {
                 url:  $(this).attr('action'),
                 success: function(results) {
                     if (results.success == 1) {
-                        window.parent.location.hash = '#reading_saved';
+                        window.top.postMessage('close-iframe', '*');
+                        // window.parent.location.hash = '#reading_saved';
                         // window.close();
                         // window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame').parentNode.removeChild(window.parent.document.getElementById('skimreadsBookmarkletNewReadingFrame'));
                     }
@@ -104,7 +105,8 @@ $(document).ready(function() {
     })
     // clicking cancel on the bookmarklet adds a hash to the url
     $(document).on('click', '.bookmarklet .action a', function() {
-        window.parent.location.hash = '#reading_canceled';
+        window.top.postMessage('close-iframe', '*');
+        // window.parent.location.hash = '#reading_canceled';
         return false;
     })
     // clicking on the skim it button from reading new page

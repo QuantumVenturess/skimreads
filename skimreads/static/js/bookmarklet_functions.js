@@ -1,7 +1,9 @@
 (function() {
     // check to close iframe
+    /*
     setTimeout(checkForClose, 1000);
-
+    */
+    
     // minimum version of jQuery
     var v = '1.3.2';
     if (window.jQuery === undefined || window.jQuery.fn.jquery < v) {
@@ -19,6 +21,15 @@
     else {
         gatherData();
     };
+
+    var receiveMessage = function(event) {
+        if ('close-iframe' == event.data) {
+            var iframe = document.getElementById('skimreadsBookmarkletNewReadingFrame');
+            iframe.parentNode.removeChild(iframe);
+        }
+        console.log(event);
+    }
+    window.addEventListener('message', receiveMessage, false);
 
     function checkForClose() {
         if (window.location.hash == '#reading_saved' || window.location.hash == '#reading_canceled') {
