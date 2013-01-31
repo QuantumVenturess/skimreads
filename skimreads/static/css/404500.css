@@ -1,0 +1,49 @@
+.dialog {
+    margin: 40px auto;
+    text-align: center;
+    width: 500px;
+}
+
+.dialog h1 {
+    font-size: 28px;
+    font-weight: 300;
+    line-height: 42px;
+    margin: 0 0 10px 0;
+}
+
+.dialog p {
+    font-size: 14px;
+    line-height: 21px;
+    margin: 0 0 40px 0;
+}
+
+.redPill, .bluePill {
+    color: rgb(255, 255, 255);
+    font-weight: 700;
+    padding: 10px 30px;
+    -webkit-border-radius: 50px;
+    -khtml-border-radius: 50px;
+    -moz-border-radius: 50px;
+    -ms-border-radius: 50px;
+    -o-border-radius: 50px;
+    border-radius: 50px;
+}
+
+.redPill:hover, .bluePill:hover {
+    color: rgb(255, 255, 255);
+}
+
+.redPill {
+    background: rgb(255, 26, 0);
+}
+
+.redPill:hover {
+    background: rgb(235, 6, 0);
+}
+
+.bluePill {
+    background: rgb(48, 157, 207);
+}
+.bluePill:hover {
+    background: rgb(68, 177, 227);
+}

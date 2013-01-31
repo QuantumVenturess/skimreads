@@ -11,6 +11,7 @@ else:
     # development
     DEBUG = TEMPLATE_DEBUG = True
     DEV = True
+    COMPRESS_ENABLED = False
 
 # Project name
 project_name = 'skimreads'
