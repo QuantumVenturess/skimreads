@@ -17,15 +17,25 @@
         gatherData();
     };
 
-    function createFrame(l, n, t) {
+    function createFrame(link, note, title) {
+        // change accordingly for development/production
+        var host = 'skimreads.com';
+        // var host = 'localhost:8000';
+        var url = 'http://' + host + '/readings/new/bookmarklet?link=' + encodeURI(link) + '&title=' + encodeURI(title) + '&note=' + encodeURI(note);
+        var f = document.createElement('iframe');
+        var fname = 'skimreadsBookmarkletNewReadingFrame';
+        f.setAttribute('name', fname);
+        f.setAttribute('id', fname);
+        f.setAttribute('src', url);
+        f.setAttribute('style', 'border:none;bottom:0;height:395px;left:0;margin:0 auto;padding:0;position:absolute;right:0;top:100px;width:1000px;z-index:9999;');
+        document.body.appendChild(f);
+    }
+
+    function createFrame1(l, n, t) {
         var f = document.createElement('iframe');
         var fname = (+(('' + Math.random()).substring(2))).toString(36);
         f.setAttribute('name', fname);
         f.setAttribute('id', fname);
-
-        // change accordingly for development/production
-        // f.setAttribute('src', 'http://localhost:8000/iframe/');
-
         f.setAttribute('style', 'border:none;height:0;margin:0;padding:0;position:absolute;width:0;');
         document.body.appendChild(f);
         var note = getSelText();
@@ -33,11 +43,9 @@
         var doc   = frame.document;
         var script = doc.createElement('script');
         script.setAttribute('type', 'text/javascript');
-
         // change accordingly for development/production
         script.setAttribute('src', 'http://s3.amazonaws.com/skimreads/js/bookmarklet_frame_functions.js');
         // script.setAttribute('src', '/static/js/bookmarklet_frame_functions.js');
-
         var link  = doc.createElement('div');
         var note  = doc.createElement('div');
         var title = doc.createElement('div');

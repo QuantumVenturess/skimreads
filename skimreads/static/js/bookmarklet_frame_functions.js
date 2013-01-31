@@ -21,8 +21,8 @@
         (window.myBookmarklet = function() {
 
             // change accordingly for development/production
-            var host = 'skimreads.com'
-            // var host = 'localhost:8000'
+            // var host = 'skimreads.com';
+            var host = 'localhost:8000';
 
             var link  = document.getElementById('link').textContent;
             var note  = document.getElementById('note').textContent;
