@@ -322,7 +322,7 @@ def scrape(request):
     html = con.read()
     soup = BeautifulSoup(html)
     imgs = soup.find_all('img')
-    imgs = [i['src'] for i in imgs]
+    imgs = [i.get('src') for i in imgs if i.get('src')]
     title = soup.find('title').string[:80]
     if len(title.split('|')) >= 2:
         first, second = title.split('|')
