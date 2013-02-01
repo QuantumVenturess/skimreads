@@ -312,7 +312,7 @@ def new_bookmarklet(request):
     }
     return render_to_response('readings/new_bookmarklet.html', 
         add_csrf(request, d), context_instance=RequestContext(request))
-
+    
 @login_required
 def scrape(request):
     """Scrape url for all images."""
