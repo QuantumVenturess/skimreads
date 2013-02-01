@@ -121,6 +121,26 @@ $(document).ready(function() {
         alert('Drag me into your Bookmarks please');
         return false;
     })
+    // related readings waypoint
+    $('.way1').waypoint(function(event, direction) {
+        var con = $('.relatedReadingsContainer');
+        if (direction == 'down') {
+            var top = $(window).scrollTop();
+            if (top > 200) {
+                con.addClass('fixed').css('top', '40px');
+            }
+            else {
+                con.addClass('absolute').animate({
+                    top: (top - 40)
+                }, function() {
+                    $(this).removeClass('absolute').addClass('fixed').css('top', '40px');
+                })
+            }
+        }
+        if (direction == 'up') {
+            con.removeClass('fixed').css('top', '0');
+        }
+    })
 })
 
 function readingLinkDoneTyping() {

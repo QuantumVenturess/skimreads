@@ -216,15 +216,30 @@
 }
 
 /* related readings */
+.way1, .way2, .way3 {
+    height: 0;
+    position: absolute;
+    width: 100%;
+}
+
+.way1 {
+    top: 40px;
+}
+
 .relatedReadings, .relatedReadingsContainer {
     width: 200px;
 }
 
 .relatedReadings {
     float: right;
+    position: relative;
 }
 
-.relatedReadingsContainer {
+.relatedReadingsContainer.absolute {
+    position: absolute;
+}
+
+.relatedReadingsContainer.fixed {
     position: fixed;
 }
 

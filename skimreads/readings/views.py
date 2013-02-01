@@ -351,16 +351,26 @@ def detail(request, slug):
     next_read = None
     prev_count = reading.pk - 1
     prev_read = None
-    while not next_read and next_count <= last_pk:
-        try:
-            next_read = Reading.objects.get(pk=next_count)
-        except ObjectDoesNotExist:
-            next_count += 1
-    while not prev_read and prev_count >= first_pk:
-        try:
-            prev_read = Reading.objects.get(pk=prev_count)
-        except ObjectDoesNotExist:
-            prev_count -= 1
+    # if reading is the most recent reading
+    if reading.pk == last_pk:
+        next_read = Reading.objects.get(pk=first_pk)
+    # if reading is not the most recent reading
+    else:
+        while not next_read and next_count <= last_pk:
+            try:
+                next_read = Reading.objects.get(pk=next_count)
+            except ObjectDoesNotExist:
+                next_count += 1
+    # if reading is the oldest reading
+    if reading.pk == first_pk:
+        prev_read = Reading.objects.get(pk=last_pk)
+    # if reading is not the oldest reading
+    else:
+        while not prev_read and prev_count >= first_pk:
+            try:
+                prev_read = Reading.objects.get(pk=prev_count)
+            except ObjectDoesNotExist:
+                prev_count -= 1
     comment_form = CommentForm()
     note_form = NoteForm()
     reply_form = ReplyForm()
@@ -433,16 +443,26 @@ def detail_show(request, slug, show, pk):
     next_read = None
     prev_count = reading.pk - 1
     prev_read = None
-    while not next_read and next_count <= last_pk:
-        try:
-            next_read = Reading.objects.get(pk=next_count)
-        except ObjectDoesNotExist:
-            next_count += 1
-    while not prev_read and prev_count >= first_pk:
-        try:
-            prev_read = Reading.objects.get(pk=prev_count)
-        except ObjectDoesNotExist:
-            prev_count -= 1
+    # if reading is the most recent reading
+    if reading.pk == last_pk:
+        next_read = Reading.objects.get(pk=first_pk)
+    # if reading is not the most recent reading
+    else:
+        while not next_read and next_count <= last_pk:
+            try:
+                next_read = Reading.objects.get(pk=next_count)
+            except ObjectDoesNotExist:
+                next_count += 1
+    # if reading is the oldest reading
+    if reading.pk == first_pk:
+        prev_read = Reading.objects.get(pk=last_pk)
+    # if reading is not the oldest reading
+    else:
+        while not prev_read and prev_count >= first_pk:
+            try:
+                prev_read = Reading.objects.get(pk=prev_count)
+            except ObjectDoesNotExist:
+                prev_count -= 1
     comment_form = CommentForm()
     note_form = NoteForm()
     reply_form = ReplyForm()
