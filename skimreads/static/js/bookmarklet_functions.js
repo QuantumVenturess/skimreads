@@ -110,9 +110,6 @@
         else if (document.selection) {
             selText = document.selection.createRange().text;
         }
-        if (selText == '') {
-            alert('Select a text');
-        }
         else {
             return selText;
         }

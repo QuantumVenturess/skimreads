@@ -127,7 +127,8 @@ class Profile(models.Model):
         """Return readings for followed topics and users."""
         # Use chain to concatenate querysets
         li = self.topic_follow_feed() + list(self.user_follow_feed())
-        return sorted(set(li), key=reading_sort(), reverse=True)
+        # return sorted(set(li), key=reading_sort(), reverse=True)
+        return sorted(set(li), key=lambda r: r.created, reverse=True)
 
     def recent_messages(self):
         """Return a list of the most recent messages."""
