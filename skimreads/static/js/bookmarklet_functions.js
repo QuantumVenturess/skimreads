@@ -94,9 +94,7 @@
         var link = window.location;
         var note = getSelText();
         var title = document.title;
-        if (note != undefined) {
-            createFrame(link, note, title);
-        }
+        createFrame(link, note, title);
     }
 
     function getSelText() {
@@ -111,7 +109,8 @@
             selText = document.selection.createRange().text;
         }
         else {
-            return selText;
+            selText = '';   
         }
+        return selText;
     };
 })();
