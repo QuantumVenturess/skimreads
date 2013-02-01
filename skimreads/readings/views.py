@@ -33,7 +33,6 @@ from users.utils import add_rep, del_rep
 from votes.models import Vote
 
 import datetime
-import httplib2
 import json
 import os
 import re
