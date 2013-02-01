@@ -343,6 +343,24 @@ def scrape(request):
 def detail(request, slug):
     """Reading detail."""
     reading = get_object_or_404(Reading, slug=slug)
+    # get next and previous reading
+    readings = Reading.objects.all().values('pk').order_by('pk')
+    first_pk = readings[0]['pk']
+    last_pk = readings.reverse()[0]['pk']
+    next_count = reading.pk + 1
+    next_read = None
+    prev_count = reading.pk - 1
+    prev_read = None
+    while not next_read and next_count <= last_pk:
+        try:
+            next_read = Reading.objects.get(pk=next_count)
+        except ObjectDoesNotExist:
+            next_count += 1
+    while not prev_read and prev_count >= first_pk:
+        try:
+            prev_read = Reading.objects.get(pk=prev_count)
+        except ObjectDoesNotExist:
+            prev_count -= 1
     comment_form = CommentForm()
     note_form = NoteForm()
     reply_form = ReplyForm()
@@ -358,7 +376,9 @@ def detail(request, slug):
             'comment_form': comment_form,
             'form': NewMessageForm(),
             'next': next,
+            'next_read': next_read,
             'note_form': note_form,
+            'prev_read': prev_read,
             'reading': reading,
             'reply_form': reply_form,
             'title': reading.title,
@@ -405,6 +425,24 @@ def detail_show(request, slug, show, pk):
             a = { 'reading_pk': vote.reading.pk }
         a['value'] = value
     reading = get_object_or_404(Reading, slug=slug)
+    # get next and previous reading
+    readings = Reading.objects.all().values('pk').order_by('pk')
+    first_pk = readings[0]['pk']
+    last_pk = readings.reverse()[0]['pk']
+    next_count = reading.pk + 1
+    next_read = None
+    prev_count = reading.pk - 1
+    prev_read = None
+    while not next_read and next_count <= last_pk:
+        try:
+            next_read = Reading.objects.get(pk=next_count)
+        except ObjectDoesNotExist:
+            next_count += 1
+    while not prev_read and prev_count >= first_pk:
+        try:
+            prev_read = Reading.objects.get(pk=prev_count)
+        except ObjectDoesNotExist:
+            prev_count -= 1
     comment_form = CommentForm()
     note_form = NoteForm()
     reply_form = ReplyForm()
@@ -415,7 +453,9 @@ def detail_show(request, slug, show, pk):
     b = {
             'comment_form': comment_form,
             'form': NewMessageForm(),
+            'next_read': next_read,
             'note_form': note_form,
+            'prev_read': prev_read,
             'reading': reading,
             'reply_form': reply_form,
             'title': reading.title,

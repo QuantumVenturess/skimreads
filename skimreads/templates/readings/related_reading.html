@@ -1,0 +1,8 @@
+<div class="relatedReading">
+    <a href="{% url readings.views.detail reading.slug %}">
+        {{ reading.title }}
+        <div class="relatedReadingImage">
+            <img class="lazyLoad" data-original="{{ reading.pic }}" src="{{ static }}img/readings/lazy_reading.jpg">
+        </div>
+    </a>
+</div>

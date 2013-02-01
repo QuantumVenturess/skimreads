@@ -215,6 +215,53 @@
     background: rgb(63, 171, 218);
 }
 
+/* related readings */
+.relatedReadings, .relatedReadingsContainer {
+    width: 200px;
+}
+
+.relatedReadings {
+    float: right;
+}
+
+.relatedReadingsContainer {
+    position: fixed;
+}
+
+.relatedReadings h1, .relatedReading a {
+    font-size: 13px;
+    line-height: 19px;
+}
+
+.relatedReadings h1 {
+    margin: 0 0 5px 0;
+    text-align: right;
+}
+
+.relatedReading {
+    margin: 0 0 40px 0;
+    text-align: right;
+}
+
+.relatedReading a {
+    color: rgb(40, 40, 40);
+    display: block;
+}
+
+.relatedReading a:hover {
+    text-decoration: underline;
+}
+
+.relatedReadingImage {
+    height: 50px;
+    margin: 5px 0 0 0;
+}
+
+.relatedReadingImage img {
+    max-height: 50px;
+    max-width: 50px;
+}
+
 /* Edit note */
 .editNotes {
     width: 450px;

@@ -16,70 +16,85 @@ $(document).ready(function() {
 {% endif %}
 {% endblock %}
 {% block content %}
-<div class="reading" id="reading_{{ reading.pk }}">
-    <div class="readingHeader">
-        <div class="favoriteForm" id="favoriteForm_{{ reading.pk }}">
-            {% include 'favorites/favorite_form.html' %}
-        </div>
-        <div class="readingTitle">
-            <a href="{% url readings.views.link reading.slug %}" target="_blank">
-                {{ reading.title }}
-            </a>
-        </div>
-    </div>
-    <div class="readingInfo">
-        <div class="readingUser">
-            <a href="{% url readings.views.list_user reading.user.profile.slug %}">{{ reading.user }}</a> |
-            {{ reading.date }}
-        </div>
-        <div class="discuss">
-            {% if user.is_staff %}
-                <span title="Views">{{ reading.views }}</span> |
-            {% endif %}
-            {% if reading.user == user or user.is_staff %}
-                <a href="{% url readings.views.edit reading.slug %}">
-                    Edit
-                </a>
-            {% endif %}
-            {% if user.is_staff %}
-                |
-            {% endif %}
-            {% if user.is_staff %}
-                <a href="{% url admins.views.reading reading.slug %}">
-                    Admin
-                </a>
-            {% endif %}
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="readingBody">
-        <ul class="bulletNotes">
-            {% include 'notes/bullet_notes.html' %}
-        </ul>
-        <div class="readingVote">
-            {% include 'votes/vote_reading_form.html' %}
-        </div>
-        <div class="readingImage">
-            <img class="lazyLoad" data-original="{{ reading.pic }}" src="{{ static }}img/readings/lazy_reading.jpg">
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="readingBottom">
-        {% include 'readings/share.html' %}
-        <div class="tags">
-            {% include 'tags/tags.html' %}
-        </div>
-        <div class="tagForm">
-            {% if not user_tag %}
-                {% include 'tags/tag_form.html' %}
-            {% endif %}
-        </div>
-        <div class="clear"></div>
+<div class="relatedReadings">
+    <div class="relatedReadingsContainer">
+        {% if next_read %}
+            <h1>Next</h1>
+            {% include 'readings/related_reading.html' with reading=next_read %}
+        {% endif %}
+        {% if prev_read %}
+            <h1>Prev</h1>
+            {% include 'readings/related_reading.html' with reading=prev_read %}
+        {% endif %}
     </div>
 </div>
-<div class="readingActivity">
-    {% include 'readings/reading_activity.html' %}
+<div class="readings">
+    <div class="reading" id="reading_{{ reading.pk }}">
+        <div class="readingHeader">
+            <div class="favoriteForm" id="favoriteForm_{{ reading.pk }}">
+                {% include 'favorites/favorite_form.html' %}
+            </div>
+            <div class="readingTitle">
+                <a href="{% url readings.views.link reading.slug %}" target="_blank">
+                    {{ reading.title }}
+                </a>
+            </div>
+        </div>
+        <div class="readingInfo">
+            <div class="readingUser">
+                <a href="{% url readings.views.list_user reading.user.profile.slug %}">{{ reading.user }}</a> |
+                {{ reading.date }}
+            </div>
+            <div class="discuss">
+                {% if user.is_staff %}
+                    <span title="Views">{{ reading.views }}</span> |
+                {% endif %}
+                {% if reading.user == user or user.is_staff %}
+                    <a href="{% url readings.views.edit reading.slug %}">
+                        Edit
+                    </a>
+                {% endif %}
+                {% if user.is_staff %}
+                    |
+                {% endif %}
+                {% if user.is_staff %}
+                    <a href="{% url admins.views.reading reading.slug %}">
+                        Admin
+                    </a>
+                {% endif %}
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="readingBody">
+            <ul class="bulletNotes">
+                {% include 'notes/bullet_notes.html' %}
+            </ul>
+            <div class="readingVote">
+                {% include 'votes/vote_reading_form.html' %}
+            </div>
+            <div class="readingImage">
+                <img class="lazyLoad" data-original="{{ reading.pic }}" src="{{ static }}img/readings/lazy_reading.jpg">
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="readingBottom">
+            {% include 'readings/share.html' %}
+            <div class="tags">
+                {% include 'tags/tags.html' %}
+            </div>
+            <div class="tagForm">
+                {% if not user_tag %}
+                    {% include 'tags/tag_form.html' %}
+                {% endif %}
+            </div>
+            <div class="clear"></div>
+        </div>
+    </div>
+    <div class="readingActivity">
+        {% include 'readings/reading_activity.html' %}
+    </div>
 </div>
+<div class="clear"></div>
 {% if not user.is_anonymous %}
     {% include 'usermessages/new_message_form.html' %}
 {% endif %}
