@@ -33,6 +33,7 @@ from users.utils import add_rep, del_rep
 from votes.models import Vote
 
 import datetime
+import httplib2
 import json
 import os
 import re
@@ -312,17 +313,39 @@ def new_bookmarklet(request):
     }
     return render_to_response('readings/new_bookmarklet.html', 
         add_csrf(request, d), context_instance=RequestContext(request))
+
+@login_required
+def scrape1(request):
+    url = request.GET.get('url')
+    conn = httplib2.Http()
+    resp, content = conn.request(uri=url)
+    return HttpResponse(content)
     
 @login_required
 def scrape(request):
     """Scrape url for all images."""
     url = request.GET.get('url')
+    pattern = re.compile(r'^http[\W\w]+.(biz|com|co|edu|gov|info|net|org)+')
+    result = re.search(pattern, url)
+    if result:
+        host = url[result.start():result.end()]
+    else:
+        host = ''
     req = urllib2.Request(url, headers={ 'User-Agent': 'Magic Browser' })
     con = urllib2.urlopen(req)
     html = con.read()
     soup = BeautifulSoup(html)
-    imgs = soup.find_all('img')
-    imgs = [i.get('src') for i in imgs if i.get('src')]
+    all_imgs = soup.find_all('img')
+    imgs = []
+    for img in all_imgs:
+        src = img.get('src')
+        if src:
+            # does the src url have a relative path
+            match = re.search(pattern, src)
+            if not match:
+                # if so, add the host in front of the src path
+                src = host + src
+            imgs.append(src)
     title = soup.find('title').string[:80]
     if len(title.split('|')) >= 2:
         first, second = title.split('|')
