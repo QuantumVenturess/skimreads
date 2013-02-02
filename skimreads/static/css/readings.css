@@ -243,38 +243,38 @@
     position: fixed;
 }
 
-.relatedReadings h1, .relatedReading a {
-    font-size: 13px;
-    line-height: 19px;
-}
-
 .relatedReadings h1 {
-    margin: 0 0 5px 0;
+    font-size: 16px;
+    line-height: 16px;
+    margin: 0 0 10px 0;
     text-align: right;
 }
 
 .relatedReading {
-    margin: 0 0 40px 0;
+    border-top: 1px solid rgb(200, 200, 200);
+    padding: 10px 0;
     text-align: right;
 }
 
 .relatedReading a {
-    color: rgb(40, 40, 40);
+    color: rgb(120, 120, 120);
     display: block;
+    font-size: 13px;
+    line-height: 19px;
 }
 
-.relatedReading a:hover {
+.relatedReading p:hover {
     text-decoration: underline;
 }
 
 .relatedReadingImage {
-    height: 50px;
-    margin: 5px 0 0 0;
+    height: 80px;
+    margin: 0 0 10px 0;
 }
 
 .relatedReadingImage img {
-    max-height: 50px;
-    max-width: 50px;
+    max-height: 80px;
+    max-width: 80px;
 }
 
 /* Edit note */

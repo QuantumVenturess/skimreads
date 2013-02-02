@@ -19,12 +19,11 @@ $(document).ready(function() {
 <div class="way1"></div>
 <div class="relatedReadings">
     <div class="relatedReadingsContainer">
+        <h1>Related</h1>
         {% if next_read %}
-            <h1>Next</h1>
             {% include 'readings/related_reading.html' with reading=next_read %}
         {% endif %}
         {% if prev_read %}
-            <h1>Prev</h1>
             {% include 'readings/related_reading.html' with reading=prev_read %}
         {% endif %}
     </div>

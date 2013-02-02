@@ -1,17 +1,5 @@
-.bookmarkletBackground, .bookmarklet .wrapper {
-    position: absolute;
-    width: 100%;
-}
-
-.bookmarkletBackground {
-    background-color: rgb(40, 40, 40);
-    min-height: 100%;
-    opacity: .95;
-    z-index: 9000;
-}
-
-.bookmarklet .wrapper {
-    z-index: 9999;
+.bookmarklet {
+    background: rgb(40, 40, 40);
 }
 
 .bookmarklet .content {
