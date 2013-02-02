@@ -1,13 +1,59 @@
-/* Reading partials */
+/* reading partial */
 .readings {
     float: left;
-}
-
-.reading {
-    margin: 0 0 20px 0;
     width: 720px;
 }
 
+.readingPartial {
+    margin: 0 0 20px 0;
+}
+
+.readingPartLeft {
+    float: left;
+    width: 590px;
+}
+
+.readingPartTitle {
+    margin: 0 0 5px 0;
+}
+
+.readingPartTitle a {
+    color: rgb(28, 137, 187);
+    display: block;
+    font-size: 15px;
+    line-height: 22px;
+}
+
+.readingPartTitle a:hover {
+    color: rgb(48, 157, 207);
+    text-decoration: underline;
+}
+
+.readingPartNote {
+    font-size: 12px;
+    line-height: 18px;
+    max-height: 36px;
+    overflow: hidden;
+}
+
+.readingPartImage {
+    float: right;
+    height: 80px;
+    overflow: hidden;
+    text-align: center;
+    width: 80px;
+}
+
+.readingPartImage img {
+    max-height: 80px;
+    max-width: 80px;
+}
+
+.readingPartBottom {
+    margin: 3px 0 0 0;
+}
+
+/* reading detail */
 .readingHeader {
     background: rgb(60, 60, 60);
     margin: 0 0 10px 0;

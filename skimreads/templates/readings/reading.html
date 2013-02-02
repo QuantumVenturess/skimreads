@@ -1,40 +1,29 @@
-<div class="reading" id="reading_{{ reading.pk }}">
-    <div class="readingHeader">
-        <div class="favoriteForm" id="favoriteForm_{{ reading.pk }}">
-            {% include 'favorites/favorite_form.html' %}
-        </div>
-        <div class="readingTitle">
+<div class="readingPartial" id="reading_{{ reading.pk }}">
+    <div class="readingPartLeft">
+        <div class="readingPartTitle">
             <a href="{% url readings.views.detail reading.slug %}">
                 {{ reading.title }}
             </a>
         </div>
-    </div>
-    <div class="readingInfo">
-        <div class="readingUser">
-            <a href="{% url readings.views.list_user reading.user.profile.slug %}">{{ reading.user }}</a> | {{ reading.date }}
+        <div class="readingPartNote">
+            {% load common_tags %}
+            {% if reading.top_note %}
+                {{ reading.top_note|urlize|target_blank|linebreaks }}
+            {% endif %}
         </div>
-        <div class="discuss">
-            <a href="{% url readings.views.link reading.slug %}" target="_blank">
-                Full Read
-            </a>
+        <div class="readingPartBottom">
+            <div class="tags">
+                {% include 'tags/tags.html' %}
+            </div>
+            <div class="clear"></div>
         </div>
-        <div class="clear"></div>
     </div>
-    <div class="readingBody">
-        <ul class="bulletNotes">
-            {% include 'notes/bullet_notes.html' %}
-        </ul>
+    <div class="readingPartRight">
         <div class="readingVote">
             {% include 'votes/vote_reading_form.html' %}
         </div>
-        <div class="readingImage">
+        <div class="readingPartImage">
             <img class="lazy" data-original="{{ reading.pic }}" src="{{ static }}img/readings/lazy_reading.jpg">
-        </div>
-        <div class="clear"></div>
-    </div>
-    <div class="readingBottom">
-        <div class="tags">
-            {% include 'tags/tags.html' %}
         </div>
         <div class="clear"></div>
     </div>

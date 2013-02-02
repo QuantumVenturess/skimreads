@@ -104,6 +104,12 @@ class Reading(models.Model):
         ties = [tie.tag.pk for tie in self.tie_set.all()]
         return Tag.objects.filter(pk__in=ties).order_by('name')
 
+    def top_note(self):
+        """Return most voted note."""
+        notes = self.notes()
+        if notes:
+            return notes[0]
+
     def vote_note_count(self):
         """Count the number of votes for each note for reading."""
         return sum([note.vote_count() for note in self.note_set.all()])
