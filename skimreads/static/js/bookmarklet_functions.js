@@ -55,7 +55,7 @@
         f.setAttribute('name', fname);
         f.setAttribute('id', fname);
         f.setAttribute('src', url);
-        f.setAttribute('style', 'border:none;bottom:0;height:395px;left:0;margin:0 auto;padding:0;position:fixed;right:0;top:100px;width:1000px;z-index:9999;');
+        f.setAttribute('style', 'border:none;bottom:0;height:395px;left:0;margin:0 auto;padding:0;position:fixed;right:0;top:100px;width:1000px;z-index:999999;');
         document.body.appendChild(f);
     }
 

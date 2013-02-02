@@ -14,7 +14,7 @@
             <input autocomplete="off" id="id_image" name="image" placeholder="Click on an image to attach it with this reading" type="text">
         </div>
         <div class="field">
-            <input autocomplete="off" data-autocomplete-source="{% url tags.views.tag_list_new_reading %}" id="newReadingTag" maxlength="20" name="tag_name" type="text" placeholder="Only letters, 20 characters max">
+            <input autocomplete="off" data-autocomplete-source="{% url tags.views.tag_list_new_reading %}" id="newReadingTag" maxlength="20" name="tag_name" type="text" placeholder="Tag this reading (e.g. sports)">
         </div>
         <div class="field">
             <textarea name="content" placeholder="Add your note here">{{ content }}</textarea>
