@@ -314,13 +314,6 @@ def new_bookmarklet(request):
         add_csrf(request, d), context_instance=RequestContext(request))
 
 @login_required
-def scrape1(request):
-    url = request.GET.get('url')
-    conn = httplib2.Http()
-    resp, content = conn.request(uri=url)
-    return HttpResponse(content)
-    
-@login_required
 def scrape(request):
     """Scrape url for all images."""
     url = request.GET.get('url')
@@ -347,7 +340,8 @@ def scrape(request):
             imgs.append(src)
     title = soup.find('title').string[:80]
     if len(title.split('|')) >= 2:
-        first, second = title.split('|')
+        first = title.split('|')[0]
+        second = title.split('|')[1]
         if len(first) >= len(second):
             html_title = first
         else:
