@@ -86,7 +86,7 @@ class Reading(models.Model):
             return '%s%s/%s_orig.jpg' % (
                 settings.MEDIA_AWS_READ, self.pk, self.pk)
         else:
-            return '%simg/readings/sr.png' % settings.STATIC_URL
+            return '%simg/readings/default_reading_pic.png' % settings.STATIC_URL
 
     def reply_count(self):
         """Return number of replies for reading."""
