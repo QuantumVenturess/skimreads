@@ -1,19 +1,21 @@
 {% extends 'base.html' %}
 {% block title %}{{ title }}{% endblock %}
+{% block meta %}
+    <meta property="og:title" content="{{ reading.title }}">
+    <meta property="og:image" content="{{ reading.pic }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:site_name" content="Skimreads">
+    <meta property="og:description" content="{{ reading.bullets }}">
+{% endblock %}
 {% block head %}
-<meta property="og:title" content="{{ reading.title }}">
-<meta property="og:image" content="{{ reading.pic }}">
-<meta property="og:url" content="{{ request.build_absolute_uri }}">
-<meta property="og:site_name" content="Skimreads">
-<meta property="og:description" content="{{ reading.bullets }}">
-{% if not user.is_anonymous %}
-<script>
-$(document).ready(function() {
-    var url = '{{ request.build_absolute_uri }}'
-    $('#newMessageForm #id_content').text('Skim this: ' + url);
-})
-</script>
-{% endif %}
+    {% if not user.is_anonymous %}
+    <script>
+        $(document).ready(function() {
+            var url = '{{ request.build_absolute_uri }}'
+            $('#newMessageForm #id_content').text('Skim this: ' + url);
+        })
+        </script>
+    {% endif %}
 {% endblock %}
 {% block content %}
 <div class="way1"></div>

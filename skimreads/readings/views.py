@@ -286,7 +286,7 @@ def new_bookmarklet(request):
             # if there is content, create note
             if content.strip():
                 note = Note(content=content, reading=reading, 
-                    user=reading.user)
+                    user=request.user)
                 note.save()
                 # create first vote for note
                 request.user.vote_set.create(note=note, value=1)

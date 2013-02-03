@@ -15,6 +15,13 @@
     <link rel="icon" type="image/ico" href="{{ static }}img/favicon.ico">
     {% include 'stylesheet.html' %}
     {% include 'javascript.html' %}
+    {% block meta %}
+        <meta property="og:title" content="Reading the web easier and faster">
+        <meta property="og:image" content="http://s3.amazonaws.com/skimreads/img/readings/sr.png">
+        <meta property="og:url" content="{{ request.build_absolute_uri }}">
+        <meta property="og:site_name" content="Skimreads">
+        <meta property="og:description" content="Skim online content by reading other people's notes.">
+    {% endblock %}
     {% block head %}{% endblock %}
     <script type="text/javascript">
       // Google Analytics
