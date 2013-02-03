@@ -257,25 +257,31 @@ def new_bookmarklet(request):
             name = request.POST.get('tag_name')
             # if user added tag
             if name:
-                name = name.lower()
-                pattern = only_letters()
-                # If name contains only letters
-                if re.search(pattern, name):
-                    # If name does not contain any banned words
-                    blacklist = banned_words()
-                    if not re.search(blacklist, name):
-                        try:
-                            # If tag exists, get tag
-                            tag = Tag.objects.get(name=name)
-                        except ObjectDoesNotExist:
-                            # If tag does not exist, create tag
-                            tag = Tag(name=name, user=request.user)
-                            tag.slug = slugify(tag.name)
-                            tag.save()
-                        tie = request.user.tie_set.create(reading=reading, 
-                            tag=tag)
-                        # add rep
-                        add_rep(request, t=tie)
+                try:
+                    # check to see if user already tied a tag to this reading
+                    existing_tie = reading.tie_set.get(user=request.user)
+                # if user has not added a tag to this reading
+                except ObjectDoesNotExist:
+                    name = name.lower()
+                    pattern = only_letters()
+                    # If name contains only letters
+                    if re.search(pattern, name):
+                        # If name does not contain any banned words
+                        blacklist = banned_words()
+                        if not re.search(blacklist, name):
+                            try:
+                                # If tag exists, get tag
+                                tag = Tag.objects.get(name=name)
+                            except ObjectDoesNotExist:
+                                # If tag does not exist, create tag
+                                tag = Tag(name=name, user=request.user)
+                                tag.slug = slugify(tag.name)
+                                tag.save()
+
+                            tie = request.user.tie_set.create(reading=reading, 
+                                tag=tag)
+                            # add rep
+                            add_rep(request, t=tie)
             # if user did not add a tag, auto tag
             else:
                 auto_tag(request, reading)
