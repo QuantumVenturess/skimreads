@@ -16,7 +16,6 @@ $(document).ready(function() {
             <div class="clear"></div>
         </a>
     </div>
-    {% if user and user.is_staff %}
     <form action="" method="POST" enctype="multipart/form-data">
         <h1 class="or">or</h1>
         {% csrf_token %}
@@ -30,6 +29,5 @@ $(document).ready(function() {
             <input type="submit" value="Sign up">
         </div>
     </form>
-    {% endif %}
 </div>
 {% endblock %}
