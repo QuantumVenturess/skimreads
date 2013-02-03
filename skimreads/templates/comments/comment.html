@@ -1,7 +1,7 @@
 <div class="comment{% if comment_focus == comment.pk %} focus{% endif %}" id="comment_{{ comment.pk }}">
     {% load common_tags %}
     <div class="commentUserImage">
-        <img class="lazyLoad" data-original="{{ comment.user.profile.small }}" src="{{ static }}img/users/lazy_user.jpg">
+        <img src="{{ comment.user.profile.small }}">
     </div>
     <div class="commentBody">
         <div class="commentUser">
