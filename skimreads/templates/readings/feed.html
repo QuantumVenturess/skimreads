@@ -37,6 +37,9 @@
 {% if user.is_anonymous %}
     {% include 'shared/intro.html' %}
 {% endif %}
+{% if not user.is_anonymous and not user.profile.has_reading %}
+    {% include 'shared/bookmarklet_info.html' %}
+{% endif %}
 <div class="readings">
     {% for reading in objects %}
         {% include 'readings/reading.html' %}

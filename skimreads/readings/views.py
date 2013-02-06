@@ -1,3 +1,4 @@
+from admins.utils import admin_david_list, admin_user_list
 from bs4 import BeautifulSoup
 from collections import defaultdict
 from comments.forms import CommentForm
@@ -48,9 +49,11 @@ def feed(request):
     # if user is logged out
     if request.user.is_anonymous():
         # show all readings in random order
-        day = datetime.date.today() - timedelta(days=28)
-        readings = Reading.objects.all().filter(
-            created__gte=day).order_by('?')
+#        day = datetime.date.today() - timedelta(days=28)
+#        readings = Reading.objects.all().filter(
+#            created__gte=day).order_by('?')
+        # show first 10 readings
+        readings = Reading.objects.all().order_by('-created')[:10]
     # if user is logged in
     else:
         # show readings from the users feed
@@ -240,6 +243,17 @@ def new_bookmarklet(request):
         image = request.POST.get('image', '')
         link = request.POST.get('link', '')
         titl = request.POST.get('title', '')
+        if request.user.is_staff:
+            user_pk = request.POST.get('user')
+            if user_pk:
+                try:
+                    user = User.objects.get(pk=int(user_pk))
+                except ObjectDoesNotExist:
+                    user = request.user
+            else:
+                user = request.user
+        else:
+            user = request.user
         # if there is a link and title, create reading
         if link and titl:
             try:
@@ -249,17 +263,17 @@ def new_bookmarklet(request):
                 if titles:
                     titl = '%s-%s' % (titl, str(titles.count()))
                 reading = Reading(image=image, link=link, title=titl, 
-                    user=request.user)
+                    user=user)
                 reading.save()
                 # create vote for reading
-                reading.vote_set.create(user=reading.user, value=1)
+                reading.vote_set.create(user=user, value=1)
             # add tag
             name = request.POST.get('tag_name')
             # if user added tag
             if name:
                 try:
                     # check to see if user already tied a tag to this reading
-                    existing_tie = reading.tie_set.get(user=request.user)
+                    existing_tie = reading.tie_set.get(user=user)
                 # if user has not added a tag to this reading
                 except ObjectDoesNotExist:
                     name = name.lower()
@@ -274,11 +288,10 @@ def new_bookmarklet(request):
                                 tag = Tag.objects.get(name=name)
                             except ObjectDoesNotExist:
                                 # If tag does not exist, create tag
-                                tag = Tag(name=name, user=request.user)
+                                tag = Tag(name=name, user=user)
                                 tag.slug = slugify(tag.name)
                                 tag.save()
-
-                            tie = request.user.tie_set.create(reading=reading, 
+                            tie = user.tie_set.create(reading=reading, 
                                 tag=tag)
                             # add rep
                             add_rep(request, t=tie)
@@ -286,16 +299,15 @@ def new_bookmarklet(request):
             else:
                 auto_tag(request, reading)
             # facebook open graph add reading
-            facebook_graph_add_reading(request.user, reading)
+            facebook_graph_add_reading(user, reading)
             # add rep
             add_rep(request, rd=reading)
             # if there is content, create note
             if content.strip():
-                note = Note(content=content, reading=reading, 
-                    user=request.user)
+                note = Note(content=content, reading=reading, user=user)
                 note.save()
                 # create first vote for note
-                request.user.vote_set.create(note=note, value=1)
+                user.vote_set.create(note=note, value=1)
             data = { 'success': 1 }
             return HttpResponse(json.dumps(data), 
                 mimetype='application/json')
@@ -310,11 +322,19 @@ def new_bookmarklet(request):
             html_title = second
     else:
         html_title = title
+    if request.user.is_staff:
+        if request.user.pk == 2:
+            users = admin_david_list()
+        else:
+            users = admin_user_list()
+    else:
+        users = []
     d = {
         'content': content,
         'link': link,
         'titl': html_title,
         'title': 'Add Reading',
+        'users': users,
     }
     return render_to_response('readings/new_bookmarklet.html', 
         add_csrf(request, d), context_instance=RequestContext(request))

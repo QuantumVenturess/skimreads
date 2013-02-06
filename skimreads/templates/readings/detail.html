@@ -18,6 +18,9 @@
     {% endif %}
 {% endblock %}
 {% block content %}
+{% if not user.is_anonymous and not user.profile.has_reading %}
+    {% include 'shared/bookmarklet_info.html' %}
+{% endif %}
 <div class="way1"></div>
 <div class="relatedReadings">
     <div class="relatedReadingsContainer">

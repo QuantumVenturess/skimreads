@@ -78,6 +78,13 @@ class Profile(models.Model):
     def following_count(self):
         return self.user.follower_set.all().count()
 
+    def has_reading(self):
+        """Check to see if user has at least 1 reading."""
+        if self.user.reading_set.all().values('pk').count():
+            return True
+        else:
+            return False
+
     def note_count(self):
         return self.user.note_set.all().count()
 
