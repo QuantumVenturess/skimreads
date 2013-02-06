@@ -17,7 +17,7 @@ from django.shortcuts import get_object_or_404, render_to_response
 from django.template import Context, loader, RequestContext, Template
 from django.template.defaultfilters import slugify
 from follows.utils import follow_user, followed_ids
-from oauth.facebook import facebook_graph_add_reading
+from oauth.facebook import facebook_graph_add_note, facebook_graph_add_reading
 from readings.forms import EditReadingForm, NoteForm, ReadingForm
 from readings.models import Note, Reading
 from readings.utils import crop_image, delete_reading_image
@@ -158,14 +158,18 @@ def new(request):
                     else:
                         auto_tag(request, reading)
                 # create notes and add it to the existing reading
-                for note_form in formset:
+                for index, note_form in enumerate(formset):
                     note = note_form.save(commit=False)
                     note.reading = reading
                     note.user = request.user
                     if note.content.strip():
                         note.save()
                         # create first vote for note
-                        request.user.vote_set.create(note=note, value=1)
+                        note.user.vote_set.create(note=note, value=1)
+                        # if this is the first note
+                        if index == 0:
+                            # facebook open graph add note
+                            facebook_graph_add_note(note.user, note.reading)
                 messages.success(request, 
                     'This reading exists, your content has been added to it')
                 return HttpResponseRedirect(reverse('readings.views.detail', 
@@ -257,9 +261,13 @@ def new_bookmarklet(request):
         # if there is a link and title, create reading
         if link and titl:
             try:
+                # if reading with link exists, add notes to that reading
                 reading = Reading.objects.get(link=link)
+                reading_exists = True
             except ObjectDoesNotExist:
+                reading_exists = False
                 titles = Reading.objects.filter(title=titl)
+                # if there is a reading with the title
                 if titles:
                     titl = '%s-%s' % (titl, str(titles.count()))
                 reading = Reading(image=image, link=link, title=titl, 
@@ -298,8 +306,6 @@ def new_bookmarklet(request):
             # if user did not add a tag, auto tag
             else:
                 auto_tag(request, reading)
-            # facebook open graph add reading
-            facebook_graph_add_reading(user, reading)
             # add rep
             add_rep(request, rd=reading)
             # if there is content, create note
@@ -308,6 +314,10 @@ def new_bookmarklet(request):
                 note.save()
                 # create first vote for note
                 user.vote_set.create(note=note, value=1)
+                if reading_exists:
+                    facebook_graph_add_note(note.user, note.reading)
+            if not reading_exists:
+                facebook_graph_add_reading(reading.user, reading)
             data = { 'success': 1 }
             return HttpResponse(json.dumps(data), 
                 mimetype='application/json')
