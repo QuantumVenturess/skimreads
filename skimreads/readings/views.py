@@ -325,7 +325,8 @@ def new_bookmarklet(request):
     link = request.GET.get('link', '')
     title = request.GET.get('title', '')[:80]
     if len(title.split('|')) >= 2:
-        first, second = title.split('|')
+        first = title.split('|')[0]
+        second = title.split('|')[1]
         if len(first) >= len(second):
             html_title = first
         else:
