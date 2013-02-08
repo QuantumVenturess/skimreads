@@ -140,3 +140,26 @@ def reading_sorted(readings):
     """
     return sorted(readings, 
         key=lambda r: (r.month_day_year(), r.weight()), reverse=True)
+
+def split_title(t):
+    """Split page title from | and -."""
+    titles = t.split('|')
+    if len(titles) >= 2:
+        first  = titles[0]
+        second = titles[1]
+        if len(first) >= len(second):
+            title = first
+        else:
+            title = second
+    else:
+        titles = t.split(' - ')
+        if len(titles) >= 2:
+            first  = titles[0]
+            second = titles[1]
+            if len(first) >= len(second):
+                title = first
+            else:
+                title = second
+        else:
+            title = t
+    return title[:80]

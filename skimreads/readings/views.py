@@ -20,7 +20,7 @@ from follows.utils import follow_user, followed_ids
 from oauth.facebook import facebook_graph_add_note, facebook_graph_add_reading
 from readings.forms import EditReadingForm, NoteForm, ReadingForm
 from readings.models import Note, Reading
-from readings.utils import crop_image, delete_reading_image
+from readings.utils import crop_image, delete_reading_image, split_title
 from replies.forms import ReplyForm
 from replies.models import Reply
 from sessions.decorators import bookmarklet_login_required
@@ -323,16 +323,8 @@ def new_bookmarklet(request):
                 mimetype='application/json')
     content = request.GET.get('note', '').lstrip(' ')
     link = request.GET.get('link', '')
-    title = request.GET.get('title', '')[:80]
-    if len(title.split('|')) >= 2:
-        first = title.split('|')[0]
-        second = title.split('|')[1]
-        if len(first) >= len(second):
-            html_title = first
-        else:
-            html_title = second
-    else:
-        html_title = title
+    # split title
+    html_title = split_title(request.GET.get('title', ''))
     if request.user.is_staff:
         if request.user.pk == 2:
             users = admin_david_list()
@@ -375,16 +367,8 @@ def scrape(request):
                 # if so, add the host in front of the src path
                 src = host + src
             imgs.append(src)
-    title = soup.find('title').string[:80]
-    if len(title.split('|')) >= 2:
-        first = title.split('|')[0]
-        second = title.split('|')[1]
-        if len(first) >= len(second):
-            html_title = first
-        else:
-            html_title = second
-    else:
-        html_title = title
+    # split title
+    html_title = split_title(soup.find('title').string)
     t = loader.get_template('readings/images.html')
     c = Context({ 'imgs': imgs })
     data = {
