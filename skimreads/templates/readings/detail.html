@@ -53,20 +53,20 @@
             <div class="discuss">
                 {% if user.is_staff %}
                     <span title="Views">{{ reading.views }}</span> |
+                    <a href="{% url admins.views.reading reading.slug %}">
+                        Admin
+                    </a>
+                    |
                 {% endif %}
                 {% if reading.user == user or user.is_staff %}
                     <a href="{% url readings.views.edit reading.slug %}">
                         Edit
                     </a>
-                {% endif %}
-                {% if user.is_staff %}
                     |
                 {% endif %}
-                {% if user.is_staff %}
-                    <a href="{% url admins.views.reading reading.slug %}">
-                        Admin
-                    </a>
-                {% endif %}
+                <a href="{% url readings.views.link reading.slug %}" target="_blank">
+                    Full Read
+                </a>
             </div>
             <div class="clear"></div>
         </div>
