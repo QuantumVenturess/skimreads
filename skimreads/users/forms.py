@@ -8,21 +8,21 @@ from users.models import Profile
 import re
 
 class EditUserForm(ModelForm):
-#    email = forms.EmailField(label='Email', 
-#        widget=forms.TextInput(attrs={ 'autocomplete': 'off',
-#        'placeholder': 'Email' }))
-#    password1 = forms.CharField(label='Password', required=False, 
-#        widget=forms.PasswordInput(attrs={ 'placeholder': 'Password' }))
-#    password2 = forms.CharField(label='Password confirmation', required=False, 
-#        widget=forms.PasswordInput(attrs={ 
-#            'placeholder': 'Password confirmation' }))
+    email = forms.EmailField(label='Email', 
+        widget=forms.TextInput(attrs={ 'autocomplete': 'off',
+        'placeholder': 'Email' }))
+    password1 = forms.CharField(label='Password', required=False, 
+        widget=forms.PasswordInput(attrs={ 'placeholder': 'Password' }))
+    password2 = forms.CharField(label='Password confirmation', required=False, 
+        widget=forms.PasswordInput(attrs={ 
+            'placeholder': 'Password confirmation' }))
     username = forms.CharField(label='Full name', max_length=30, 
         widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
         'placeholder': 'Full name' }))
 
     class Meta:
         model = User
-#        fields = ('username', 'email', 'password1', 'password2')
+        fields = ('username', 'email', 'password1', 'password2')
         fields = ('username',)
 
     def clean_email(self):

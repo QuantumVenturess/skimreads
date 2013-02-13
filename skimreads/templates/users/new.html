@@ -16,18 +16,20 @@ $(document).ready(function() {
             <div class="clear"></div>
         </a>
     </div>
-    <form action="" method="POST" enctype="multipart/form-data">
-        <h1 class="or">or</h1>
-        {% csrf_token %}
-        {% for field in form %}
-            <div class="field">
-                {{ field.errors }}
-                {{ field }}
+    {% if user.is_staff %}
+        <form action="" method="POST" enctype="multipart/form-data">
+            <h1 class="or">or</h1>
+            {% csrf_token %}
+            {% for field in form %}
+                <div class="field">
+                    {{ field.errors }}
+                    {{ field }}
+                </div>
+            {% endfor %}
+            <div class="action">
+                <input type="submit" value="Sign up">
             </div>
-        {% endfor %}
-        <div class="action">
-            <input type="submit" value="Sign up">
-        </div>
-    </form>
+        </form>
+    {% endif %}
 </div>
 {% endblock %}
