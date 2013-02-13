@@ -6,10 +6,10 @@
 .favoriteForm button {
     background: transparent;
     border: none;
-    height: 45px;
+    height: 44px;
     margin: 0;
     padding: 10px;
-    width: 45px;
+    width: 44px;
 }
 
 .favoriteForm button:hover {
@@ -18,10 +18,10 @@
 }
 
 .favoriteForm button div {
-    background-size: 52px 25px;
+    background-size: 50px 24px;
     background-repeat: no-repeat;
-    height: 25px;
-    width: 25px;
+    height: 24px;
+    width: 24px;
 }
 
 .favoriteForm button .fave {
@@ -29,5 +29,5 @@
 }
 
 .favoriteForm button .faved {
-    background-position: -26px 0;
+    background-position: -25px 0;
 }
