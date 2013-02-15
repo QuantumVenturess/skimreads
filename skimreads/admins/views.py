@@ -155,6 +155,8 @@ def reading(request, slug):
             # create notification
             notify(note=note)
             note.user.vote_set.create(note=note, value=1)
+            # auto create votes for reading and reading.notes
+            auto_vote(request, reading)
             messages.success(request, 'Note created')
             return HttpResponseRedirect(reverse('admins.views.reading', 
                 args=[reading.slug]))

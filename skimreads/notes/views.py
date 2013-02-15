@@ -1,3 +1,4 @@
+from admins.utils import auto_vote
 from collections import defaultdict
 from comments.forms import CommentForm
 from django.conf import settings
@@ -33,6 +34,9 @@ def new(request, slug):
             add_rep(request, n=note)
             request.user.vote_set.create(note=note, value=1)
             notify(note=note)
+            if request.user.is_staff:
+                # auto create votes for reading and reading.notes
+                auto_vote(request, reading)
             d = {
                     'comment_form': CommentForm(),
                     'note': note,

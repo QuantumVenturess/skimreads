@@ -170,6 +170,9 @@ def new(request):
                         if index == 0:
                             # facebook open graph add note
                             facebook_graph_add_note(note.user, note.reading)
+                if request.user.is_staff:
+                    # auto create votes for reading and reading.notes
+                    auto_vote(request, reading)
                 messages.success(request, 
                     'This reading exists, your content has been added to it')
                 return HttpResponseRedirect(reverse('readings.views.detail', 
@@ -321,9 +324,9 @@ def new_bookmarklet(request):
                     facebook_graph_add_note(note.user, note.reading)
             if not reading_exists:
                 facebook_graph_add_reading(reading.user, reading)
-                if request.user.is_staff:
-                    # auto create votes for reading and reading.notes
-                    auto_vote(request, reading)
+            if request.user.is_staff:
+                # auto create votes for reading and reading.notes
+                auto_vote(request, reading)
             data = { 'success': 1 }
             return HttpResponse(json.dumps(data), 
                 mimetype='application/json')
