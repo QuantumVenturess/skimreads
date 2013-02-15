@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from random import randint
+from users.utils import add_rep
 
 def admin_david_list():
     """Return users for david."""
@@ -13,6 +14,35 @@ def admin_user_list():
     pks = range(1, 11) # list from 1 to 10
     users = User.objects.filter(pk__in=pks).order_by('date_joined')
     return users
+
+def auto_vote(request, reading):
+    notes = reading.note_set.all()
+    users = first_ten_users()
+    # create votes for first ten users
+    for user in users:
+        # vote each note
+        for note in notes:
+            vote = note.vote_set.filter(user=user)
+            if not vote:
+                if randint(0, 4):
+                    value = 1
+                else:
+                    value = -1
+                # create vote
+                vote = note.vote_set.create(user=user, value=value)
+                # add rep
+                add_rep(request, v=vote)
+        # vote reading
+        vote = reading.vote_set.filter(user=user)
+        if not vote:
+            if randint(0, 4):
+                value = 1
+            else:
+                value = -1
+            # create vote
+            vote = reading.vote_set.create(user=user, value=value)
+            # add rep
+            add_rep(request, v=vote)
 
 def first_ten_users():
     """Return the first ten users."""

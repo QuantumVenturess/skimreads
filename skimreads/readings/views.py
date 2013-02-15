@@ -1,4 +1,4 @@
-from admins.utils import admin_david_list, admin_user_list
+from admins.utils import admin_david_list, admin_user_list, auto_vote
 from bs4 import BeautifulSoup
 from collections import defaultdict
 from comments.forms import CommentForm
@@ -221,6 +221,9 @@ def new(request):
                         note.save()
                         # create first vote for note
                         request.user.vote_set.create(note=note, value=1)
+                if request.user.is_staff:
+                    # auto create votes for reading and reading.notes
+                    auto_vote(request, reading)
                 messages.success(request, 'Reading created')
                 return HttpResponseRedirect(reverse('readings.views.detail', 
                     args=[reading.slug]))
@@ -318,6 +321,9 @@ def new_bookmarklet(request):
                     facebook_graph_add_note(note.user, note.reading)
             if not reading_exists:
                 facebook_graph_add_reading(reading.user, reading)
+                if request.user.is_staff:
+                    # auto create votes for reading and reading.notes
+                    auto_vote(request, reading)
             data = { 'success': 1 }
             return HttpResponse(json.dumps(data), 
                 mimetype='application/json')

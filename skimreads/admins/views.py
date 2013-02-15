@@ -1,4 +1,4 @@
-from admins.utils import first_ten_users, random_user
+from admins.utils import auto_vote, first_ten_users, random_user
 from comments.forms import AdminCommentForm, DavidCommentForm
 from comments.models import Comment
 from django.conf import settings
@@ -102,33 +102,8 @@ def new_reading(request):
                     note.user.vote_set.create(note=note, value=1)
                     # add rep
                     add_rep(request, n=note)
-            notes = reading.note_set.all()
-            users = first_ten_users()
-            # create votes for first ten users
-            for user in users:
-                # vote each note
-                for note in notes:
-                    vote = note.vote_set.filter(user=user)
-                    if not vote:
-                        if randint(0, 4):
-                            value = 1
-                        else:
-                            value = -1
-                        # create vote
-                        vote = note.vote_set.create(user=user, value=value)
-                        # add rep
-                        add_rep(request, v=vote)
-                # vote reading
-                vote = reading.vote_set.filter(user=user)
-                if not vote:
-                    if randint(0, 4):
-                        value = 1
-                    else:
-                        value = -1
-                    # create vote
-                    vote = reading.vote_set.create(user=user, value=value)
-                    # add rep
-                    add_rep(request, v=vote)
+            # auto create votes for reading and reading.notes
+            auto_vote(request, reading)
             messages.success(request, 'Reading created')
             return HttpResponseRedirect(reverse('admins.views.reading', 
                 args=[reading.slug]))
@@ -153,33 +128,7 @@ def new_reading(request):
 @staff_user()
 def vote_all(request, slug):
     reading = get_object_or_404(Reading, slug=slug)
-    notes = reading.note_set.all()
-    users = first_ten_users()
-    # create votes for first ten users
-    for user in users:
-        # vote each note
-        for note in notes:
-            vote = note.vote_set.filter(user=user)
-            if not vote:
-                if randint(0, 4):
-                    value = 1
-                else:
-                    value = -1
-                # create vote
-                vote = note.vote_set.create(user=user, value=value)
-                # add rep
-                add_rep(request, v=vote)
-        # vote reading
-        vote = reading.vote_set.filter(user=user)
-        if not vote:
-            if randint(0, 4):
-                value = 1
-            else:
-                value = -1
-            # create vote
-            vote = reading.vote_set.create(user=user, value=value)
-            # add rep
-            add_rep(request, v=vote)
+    auto_vote(request, reading)
     messages.success(request, 'Votes created')
     return HttpResponseRedirect(reverse('admins.views.reading', 
         args=[reading.slug]))
