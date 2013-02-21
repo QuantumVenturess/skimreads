@@ -252,7 +252,7 @@ def new_bookmarklet(request):
         content = request.POST.get('content', '')
         image = request.POST.get('image', '')
         link = request.POST.get('link', '')
-        titl = request.POST.get('title', '')
+        titl = request.POST.get('title', '')[:80]
         if request.user.is_staff:
             user_pk = request.POST.get('user')
             if user_pk:

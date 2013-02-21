@@ -75,6 +75,10 @@ class AdminReadingForm(ModelForm):
         model = Reading
         fields = ('link', 'title', 'image', 'user',)
 
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        return title[:80]
+
 class DavidReadingForm(ModelForm):
     link = forms.CharField(label='Page URL', 
         widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
@@ -93,6 +97,10 @@ class DavidReadingForm(ModelForm):
         model = Reading
         fields = ('link', 'title', 'image', 'user',)
 
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        return title[:80]
+
 class ReadingForm(ModelForm):
     link = forms.CharField(label='Page URL', 
         widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
@@ -109,6 +117,10 @@ class ReadingForm(ModelForm):
         model = Reading
         fields = ('link', 'title', 'image')
 
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        return title[:80]
+
 class EditReadingForm(ModelForm):
     link = forms.CharField(label='Page URL', 
         widget=forms.TextInput(attrs={ 'autocomplete': 'off', 
@@ -123,6 +135,10 @@ class EditReadingForm(ModelForm):
     class Meta:
         model = Reading
         fields = ('link', 'title', 'image')
+
+    def clean_title(self):
+        title = self.cleaned_data.get('title')
+        return title[:80]
 
 class RequiredFormSet(BaseFormSet):
     """Require non empty forms in a formset."""
