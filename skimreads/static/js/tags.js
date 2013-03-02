@@ -11,8 +11,11 @@ $(document).ready(function() {
                 url: $(this).data('autocomplete-source'),
                 success: function(results) {
                     $('.tagListInsert').html(results.tag_list);
+                    chosen = '';
+                    /*
                     $('.tagListInsert ul li:first-child').addClass('selected');
                     chosen = 0;
+                    */
                 }
             })
         }
@@ -50,7 +53,10 @@ $(document).ready(function() {
             var form = $('.tagForm form');
             var selected = $('.tagListInsert .selected');
             var value = $('#id_tag_name').val();
-            if (value.match(/^[A-Za-z]+$/) && !value.match(/ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina/)) {
+            /*
+            if (value.match(/^[0-9A-Za-z _-]+$/) && !value.match(/ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina/)) {
+            */
+            if (value.match(/^[0-9A-Za-z _-]+$/)) {
                 if (selected.length == 1) {
                     var text = $.trim(selected.text());
                     $('.tagForm #id_tag_name').val(text);
@@ -65,14 +71,16 @@ $(document).ready(function() {
                     }
                 })
             }
-            else if (!value.match(/^[A-Za-z]+$/)) {
+            else if (!value.match(/^[0-9A-Za-z _-]+$/)) {
                 $('#id_tag_name').focus();
-                alert('Use only letters with no spaces')
+                alert('Use 0-9, A-Z, spaces, -, or _');
             }
+            /*
             else if (value.match(/ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina/)) {
                 $('#id_tag_name').val('');
                 alert('Please use appropriate words');
             }
+            */
             return false;
         }
     })
@@ -104,6 +112,7 @@ $(document).ready(function() {
     // clicking on the document will hide autocomplete results
     $(document).on('click', document, function() {
         $('.tagListInsert').hide();
+        $('.tagListInsert li').removeClass('selected');
     })
     // Keyboard navigation for search results
     $(document).live('keydown', function(e) {

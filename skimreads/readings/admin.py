@@ -24,7 +24,7 @@ class ReadingInline(admin.TabularInline):
 class ReadingAdmin(admin.ModelAdmin):
     inlines = [ReadingInline]
     list_display = ['created', 'title', 'admin_link', 'admin_image', 
-        'admin_user', 'views']
+        'admin_user', 'views', 'vote_value', 'weight']
     list_filter = ['user']
     search_fields = ['title']
 

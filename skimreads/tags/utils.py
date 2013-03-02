@@ -34,10 +34,12 @@ def auto_tag(request, reading):
                 pass
 
 def banned_words():
-    regex = r"""
-    ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina
-    """
-    return re.compile(regex, re.VERBOSE)
+#    regex = r"""
+#    ass|bitch|cock|cunt|dick|fag|fuck|gay|queer|shit|pussy|tit|vagina
+#    """
+#    return re.compile(regex, re.VERBOSE)
+    return re.compile(r'xxxyyyzzz')
 
 def only_letters():
-    return re.compile(r'^[A-Za-z]+$')
+#    return re.compile(r'^[A-Za-z]+$')
+    return re.compile(r'^[0-9A-Za-z _-]+$')

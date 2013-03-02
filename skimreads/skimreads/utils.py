@@ -12,7 +12,7 @@ def page(request, objects, per_page):
     # body is the size of the block that contains the currently active page
     # margin defines the minimum number of pages required between two blocks
     # tail is the number of pages in the leading and trailing blocks
-    paginator = DiggPaginator(objects, per_page, body=3, margin=1, tail=2)
+    paginator = DiggPaginator(objects, per_page, body=5, margin=1, tail=0)
     try:
         page = int(request.GET.get('page', '1'))
     except ValueError:

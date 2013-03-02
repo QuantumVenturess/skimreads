@@ -37,7 +37,7 @@ def set_reading_image(reading, url):
         f.write(u.read()) # write to file
         f.close()
         crop_image(file_path, name) # crop image
-        resize_image(file_path, 100.0, 100.0) # resize image to 100x100
+        resize_image(file_path, 200.0, 200.0) # resize image to 200x200
         upload_images(file_path, name, reading) # upload to amazon s3
         save_reading_image(name, reading) # save reading.image
         try:
@@ -142,8 +142,12 @@ def reading_sorted(readings):
         key=lambda r: (r.month_day_year(), r.weight()), reverse=True)
 
 def split_title(t):
-    """Split page title from | and -."""
+    """Split page title from |, --, and -."""
     titles = t.split('|')
+    if len(titles) == 1:
+        titles = t.split('--')
+    if len(titles) == 1:
+        titles = t.split(' - ')
     if len(titles) >= 2:
         first  = titles[0]
         second = titles[1]
@@ -152,14 +156,5 @@ def split_title(t):
         else:
             title = second
     else:
-        titles = t.split(' - ')
-        if len(titles) >= 2:
-            first  = titles[0]
-            second = titles[1]
-            if len(first) >= len(second):
-                title = first
-            else:
-                title = second
-        else:
-            title = t
+        title = t
     return title[:80]

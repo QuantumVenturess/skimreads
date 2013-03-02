@@ -4,9 +4,11 @@ from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models.signals import post_save
+from django.utils import timezone
 from django.template.defaultfilters import slugify
 from readings.utils import set_reading_image, remove_images
 
+import math
 import re
 
 class Reading(models.Model):
@@ -123,7 +125,17 @@ class Reading(models.Model):
         return sum([vote.value for vote in self.vote_set.all()])
 
     def weight(self):
-        return int(self.views)
+        """
+        rank = (p - 1)/(t + 2)^1.8
+        p    = points
+        t    = age in hours
+        """
+        d = timezone.now() - self.created
+        t = (d.days * 24) + (d.seconds / 3600)
+        p = self.vote_value()
+        rank = (p - 1) / math.pow((t + 2), 1.8)
+        return rank
+#        return int(self.views)
 
 def post_save_reading_image(sender, instance, **kwargs):
     """
