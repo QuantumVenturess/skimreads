@@ -43,8 +43,11 @@
 .groupImage {
     height: 160px;
     margin: 20px 0;
-    text-align: center;
     width: 100%;
+}
+
+.save .groupImage {
+    text-align: center;
 }
 
 .groupImage img {
