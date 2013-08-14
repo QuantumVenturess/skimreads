@@ -31,8 +31,8 @@ AUTHENTICATION_BACKENDS = (
 )
 
 # Amazon S3
-AWS_ACCESS_KEY_ID = 'AKIAIXM2DMH4M2PAT5TA'
-AWS_SECRET_ACCESS_KEY = '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'
+AWS_ACCESS_KEY_ID       = os.environ.get('AMAZON_AWS_ACCESS_KEY_ID')
+AWS_SECRET_ACCESS_KEY   = os.environ.get('AMAZON_AWS_SECRET_ACCESS_KEY')
 AWS_STORAGE_BUCKET_NAME = project_name
 if DEV:
     BUCKET_NAME = project_name + '_development'
@@ -79,8 +79,8 @@ if DEV:
     FACEBOOK_APP_SECRET = 'a90e8d7ee81d99b4741918c3e911e5ad'
     FACEBOOK_REDIRECT_URI = 'http://localhost:8000/oauth/facebook/authenticate'
 else:
-    FACEBOOK_APP_ID = '402854619803377'
-    FACEBOOK_APP_SECRET = '02bc61c10cf460908137021a98cfc749'
+    FACEBOOK_APP_ID       = os.environ.get('FACEBOOK_APP_ID')
+    FACEBOOK_APP_SECRET   = os.environ.get('FACEBOOK_APP_SECRET')
     FACEBOOK_REDIRECT_URI = 'http://skimreads.com/oauth/facebook/authenticate'
 FACEBOOK_SCOPE = ','.join(['email', 'publish_actions'])
 
