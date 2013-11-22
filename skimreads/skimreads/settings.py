@@ -122,21 +122,22 @@ MEDIA_AWS = 'http://s3.amazonaws.com/%s%s' % (
 MEDIA_AWS_READ = 'http://s3.amazonaws.com/%s/%s' % (
     BUCKET_NAME, MEDIA_IMAGE_READ)
 
-# Memcache
-if not DEV:
-    import pylibmc
-    # Connect to memcache with config from environment variables
-    mc = pylibmc.Client(
-        servers=[os.environ.get('MEMCACHE_SERVERS')],
-        username=os.environ.get('MEMCACHE_USERNAME'),
-        password=os.environ.get('MEMCACHE_PASSWORD'),
-        binary=True
-    )
-    CACHES = {
-        'default': {
-            'BACKEND': 'django_pylibmc.memcached.PyLibMCCache'
-        }
+# Memcachier
+os.environ['MEMCACHE_SERVERS'] = os.environ.get('MEMCACHIER_SERVERS', '').replace(',', ';')
+os.environ['MEMCACHE_USERNAME'] = os.environ.get('MEMCACHIER_USERNAME', '')
+os.environ['MEMCACHE_PASSWORD'] = os.environ.get('MEMCACHIER_PASSWORD', '')
+
+CACHES = {
+  'default': {
+    'BACKEND': 'django_pylibmc.memcached.PyLibMCCache',
+    'TIMEOUT': 500,
+    'BINARY': True,
+    'OPTIONS': {
+        'tcp_nodelay': True,
+        'remove_failed': 4
     }
+  }
+}
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
