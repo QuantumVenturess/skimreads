@@ -8,7 +8,7 @@ As the last step, I am suppose to run manage.py rebuild_index. When I type that 
 
 Then when I enter 'y' and click enter again, I get the following:
 
-    Removing all documents from your index because you said so.
+    Removing all documents from your index because you said so
     All documents removed.
     Indexing 71 readings.
     Traceback (most recent call last):
