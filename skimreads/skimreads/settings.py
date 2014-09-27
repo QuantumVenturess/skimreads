@@ -248,7 +248,7 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
-    'haystack',
+    # 'haystack',
 )
 
 # Installed utility apps
@@ -280,7 +280,7 @@ INSTALLED_APPS += (
 
 # Haystack
 # Solr
-if DEV:
+if DEV and not DEV:
     HAYSTACK_CONNECTIONS = {
         'default': {
             'ENGINE': 'haystack.backends.solr_backend.SolrEngine',
